@@ -13,12 +13,21 @@ public class Reader {
         this.is = new FileInputStream(file);
     }
 
-    public int readString() throws IOException {
+    public int read() throws IOException {
         return bufferedReader.read();
     }
 
-    public byte[] readByte() throws IOException {
-        return is.readAllBytes();
+    public String readBytes() throws IOException {
+        byte[] bytesAmais = is.readAllBytes();
+//        System.out.println(Arrays.toString(bytesAmais));
+//        byte[] bytes = new byte[bytesAmais.length-4];
+//        System.arraycopy(bytesAmais, 4, bytes, 0, bytesAmais.length-4);
+        String binary = StringUtils.convertToBinaryString(bytesAmais);
+
+//        System.out.println(Arrays.toString(bytesAmais));
+//        System.out.println(Arrays.toString(Writer.toByteArray(binary)));
+//        System.out.println(binary);
+        return binary;
     }
 
     public void close() throws IOException {
@@ -26,4 +35,11 @@ public class Reader {
         bufferedReader.close();
         is.close();
     }
+
+//    public String readWord(int quantity, Reader reader) throws IOException {
+//        String codeword ="";
+//        for(int i = 0;i<quantity;i++)
+//            codeword+=reader.read()-'0';
+//        return codeword;
+//    }
 }

@@ -53,12 +53,20 @@ public class Fibonacci implements Codification {
 
         Reader reader = new Reader(file);
         Writer writer = new Writer(ENCODED_FOLDER+file.getName()+EXTENSION);
+		String bits = "";
 
         int character = 0;
-        while ((character = reader.readString()) != -1) {
+        while ((character = reader.read()) != -1) {
         	String encodingBinary = this.getFibonacciEncoding(character);
-            writer.write(encodingBinary);
+			bits = bits.concat(encodingBinary);
+			while (bits.length() > 8){
+				writer.write(bits.substring(0,8));
+				bits = bits.substring(8);
+			}
         }
+		if(bits.length() != 0){
+			writer.write(bits);
+		}
         writer.close();
         reader.close();
     }
@@ -67,9 +75,12 @@ public class Fibonacci implements Codification {
         Reader reader = new Reader(file);
         Writer writer = new Writer(DECODED_FOLDER+file.getName());
 
+        String binary = reader.readBytes();
+        System.out.println(binary);
+
         char character;
 
-        while ((character = (char)reader.readString()) != 65535) {
+        while ((character = (char)reader.read()) != 65535) {
         	
         }
         writer.close();

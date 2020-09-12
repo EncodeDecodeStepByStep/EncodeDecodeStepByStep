@@ -19,22 +19,23 @@ public class Delta implements Codification {
     private int biggestDecrease = 0;
     private int quantOfDigits;
 
-    private final int QUANTITY_OF_DIGITS_SIZE = 5;
-    private final int FIRST_BINARY_SIZE = 8;
-    private final String CHANGED = "1";
-    private final String NO_CHANGES = "0";
+    private static final int QUANTITY_OF_DIGITS_SIZE = 5;
+    private static final int FIRST_BINARY_SIZE = 8;
+    private static final String CHANGED = "1";
+    private static final String NO_CHANGES = "0";
 
-    private final char NEGATIVE = '1';
-    private final char POSITIVE = '0';
+    private static final char NEGATIVE = '1';
+    private static final char POSITIVE = '0';
 
     @Override
     public void encode(File file) throws IOException {
         Reader reader = new Reader(file);
         Writer writer = new Writer(ENCODED_FOLDER+file.getName()+EXTENSION);
+        String bits = "";
 
         int currentCharacter = reader.read();
         int nextCharacter = reader.read();
-        List<Integer> characters = new ArrayList<Integer>();
+        List<Integer> characters = new ArrayList<>();
         characters.add(currentCharacter);
 
         while(nextCharacter!=-1){
@@ -44,16 +45,16 @@ public class Delta implements Codification {
             nextCharacter = reader.read();
         }
 
-        int biggest = biggestDecrease>biggestIncrease? biggestDecrease : biggestIncrease;
+        int biggest = Math.max(biggestDecrease, biggestIncrease);
         this.quantOfDigits = (int) Math.ceil(MathUtils.logBase2ToDouble(biggest));
 
         String quantityOfDigits = StringUtils.integerToStringBinary(this.quantOfDigits+1, QUANTITY_OF_DIGITS_SIZE);
-        writeWord(quantityOfDigits, writer);
+        bits = bits.concat(writer.gravaBitsEmPartesDe8ERetornaOResto(quantityOfDigits));
 
         currentCharacter = characters.get(0);
         String firstNumberInBinary = StringUtils.integerToStringBinary(currentCharacter, FIRST_BINARY_SIZE);
 
-        writeWord(firstNumberInBinary, writer);
+        bits = bits.concat(writer.gravaBitsEmPartesDe8ERetornaOResto(firstNumberInBinary));
 
         for (int i = 1; i<characters.size();i++){
             nextCharacter = characters.get(i);
@@ -69,7 +70,14 @@ public class Delta implements Codification {
             }
             currentCharacter = nextCharacter;
 
-            writeWord(codeword, writer);
+            bits = bits.concat(codeword);
+            while (bits.length() > 8){
+                writer.write(bits.substring(0,8));
+                bits = bits.substring(8);
+            }
+        }
+        if(bits.length() != 0){
+            writer.write(bits);
         }
         writer.close();
         reader.close();
@@ -93,23 +101,40 @@ public class Delta implements Codification {
         Reader reader = new Reader(file);
         Writer writer = new Writer(DECODED_FOLDER+file.getName());
 
-        String quantOfDigitsString = readWord(QUANTITY_OF_DIGITS_SIZE, reader);
+        String binary = reader.readBytes().substring(0,66);
+        System.out.println(binary);
+
+        String quantOfDigitsString = getCodeword(QUANTITY_OF_DIGITS_SIZE, binary);
+        binary = binary.substring(QUANTITY_OF_DIGITS_SIZE);
         this.quantOfDigits = Integer.parseInt(quantOfDigitsString,2);
 
-        String firstNumberString = readWord(FIRST_BINARY_SIZE, reader);
+        String firstNumberString = getCodeword(FIRST_BINARY_SIZE, binary);
+        binary = binary.substring(FIRST_BINARY_SIZE);
         char firstNumber = (char) Integer.parseInt(firstNumberString,2);
         char lastCharacter = firstNumber;
 
         writer.write(firstNumber);
 
-        int character =  reader.read();
-        while(character!=-1){
+        int character =  binary.charAt(0);
+        binary.substring(1);
+        while ( binary.length() != 0 ) {
+            System.out.println(character);
             if(character!='0'){
-                String codeword = readWord(quantOfDigits, reader);
+                String codeword = getCodeword(quantOfDigits, binary);
+                binary = binary.substring(quantOfDigits);
+                if(binary.length() == 0){
+                    break;
+                }
                 lastCharacter =  discoverCharacter(codeword, lastCharacter);
             }
             writer.write(lastCharacter);
-            character = reader.read();
+            System.out.println("dois "+character);
+//            System.out.println('b'+binary);
+            character = binary.charAt(0);
+            binary = binary.substring(1);
+            if(binary.length() == 0){
+                break;
+            }
         }
 
         writer.close();
@@ -123,17 +148,11 @@ public class Delta implements Codification {
         return signal==NEGATIVE ? (char)(lastSimbol-difference) : (char)(lastSimbol+difference);
     }
 
-    //TODO Passar isso para o reader
-    public String readWord(int quantity, Reader reader) throws IOException {
+    private String getCodeword(int quantity, String word){
         String codeword ="";
         for(int i = 0;i<quantity;i++)
-            codeword+=reader.read()-'0';
+            codeword+=word.charAt(i)-'0';
         return codeword;
     }
 
-    //TODO Passar isso para o writer
-    public void writeWord(String codeword, Writer writer) throws  IOException{
-        for (int charToSave : codeword.toCharArray())
-            writer.write((char) charToSave);
-    }
 }
