@@ -5,6 +5,11 @@ import utils.StringUtils;
 import utils.Writer;
 import utils.Reader;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.BitSet;
+import java.util.List;
+
 import static codifications.Constants.*;
 
 public class EliasGamma implements Codification {
@@ -17,18 +22,21 @@ public class EliasGamma implements Codification {
 
         Reader reader = new Reader(file);
         Writer writer = new Writer(ENCODED_FOLDER+file.getName()+EXTENSION);
+        String bits = "";
 
         int character = 0;
-        while((character = reader.read())!=-1){
+        while((character = reader.readString())!=-1){
         	int unaryNumber = MathUtils.logBase2(character);
         	String unaryString = StringUtils.createStreamOnZeros(unaryNumber);
-        	
+
         	int rest = (int) (character - (Math.pow(2, unaryNumber)));
     		String restInBinary = StringUtils.integerToStringBinary(rest, unaryNumber);
 
             String codewards = unaryString + STOP_BIT + restInBinary;
-            writer.write(codewards);
+            bits = bits.concat(codewards);
+//            writer.write(codewards);
         }
+        writer.write(bits);
         writer.close();
         reader.close();
     }
@@ -39,9 +47,20 @@ public class EliasGamma implements Codification {
 
         boolean alreadyFoundStopBit = false;
         int prefixLength = 0;
-        char character;
+        byte[] bytesAmais = reader.readByte();
+        System.out.println(Arrays.toString(bytesAmais));
+//        byte[] bytes = new byte[bytesAmais.length-4];
 
-        while ((character = (char)reader.read()) != 65535) {
+//        System.arraycopy(bytesAmais, 4, bytes, 0, bytesAmais.length-4);
+        String binary = StringUtils.convertToBinaryString(bytesAmais);
+
+        System.out.println(Arrays.toString(bytesAmais));
+        System.out.println(Arrays.toString(Writer.toByteArray(binary)));
+        System.out.println(binary);
+
+        for (int count = 0; count < binary.length(); count++) {
+            char character = binary.charAt(count);
+            System.out.println("a"+character);
         	if (!alreadyFoundStopBit && (character-'0') == STOP_BIT) {
         		alreadyFoundStopBit = true;
         	} else {
@@ -53,7 +72,9 @@ public class EliasGamma implements Codification {
         		String restInBinary = "";
                 restInBinary += character;
                 for (int i = 1; i < prefixLength; i++) {
-                    restInBinary += reader.read()-'0';
+                    restInBinary += binary.charAt(++count)-'0';
+                    System.out.println("b"+restInBinary);
+
                 }
                 
                 int rest = Integer.parseInt(restInBinary,2);
