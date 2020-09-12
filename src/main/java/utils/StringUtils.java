@@ -22,4 +22,33 @@ public class StringUtils {
         return new String(new char[quantityOfOnes]).replace("\0", "1");
     }
 
+    public static String padLeftZeros(String inputString, int length) {
+        if (inputString.length() >= length) {
+            return inputString;
+        }
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < length - inputString.length()) {
+            sb.append('0');
+        }
+        sb.append(inputString);
+
+        return sb.toString();
+    }
+
+    public static String convertToBinaryString(byte[] bytes) {
+        StringBuilder binaryBuilder = new StringBuilder();
+        for (Byte b : bytes) {
+            int val = b;
+            for (int i = 0; i < 8; i++)
+            {
+                binaryBuilder.append((val & 128) == 0 ? 0 : 1);
+                val <<= 1;
+            }
+        }
+        return binaryBuilder.toString();
+    }
+
+    public static String trativaPrimeiros8bits(String binaryString) {
+           return "00000000".concat(binaryString.substring(8));
+    }
 }
