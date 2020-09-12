@@ -5,10 +5,6 @@ import utils.StringUtils;
 import utils.Writer;
 import utils.Reader;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.List;
 
 import static codifications.Constants.*;
 
@@ -34,9 +30,14 @@ public class EliasGamma implements Codification {
 
             String codewards = unaryString + STOP_BIT + restInBinary;
             bits = bits.concat(codewards);
-//            writer.write(codewards);
+            while (bits.length() > 8){
+                writer.write(bits.substring(0,8));
+                bits = bits.substring(8);
+            }
         }
-        writer.write(bits);
+        if(bits.length() != 0){
+            writer.write(bits);
+        }
         writer.close();
         reader.close();
     }
@@ -48,19 +49,19 @@ public class EliasGamma implements Codification {
         boolean alreadyFoundStopBit = false;
         int prefixLength = 0;
         byte[] bytesAmais = reader.readByte();
-        System.out.println(Arrays.toString(bytesAmais));
+//        System.out.println(Arrays.toString(bytesAmais));
 //        byte[] bytes = new byte[bytesAmais.length-4];
 
 //        System.arraycopy(bytesAmais, 4, bytes, 0, bytesAmais.length-4);
         String binary = StringUtils.convertToBinaryString(bytesAmais);
 
-        System.out.println(Arrays.toString(bytesAmais));
-        System.out.println(Arrays.toString(Writer.toByteArray(binary)));
-        System.out.println(binary);
+//        System.out.println(Arrays.toString(bytesAmais));
+//        System.out.println(Arrays.toString(Writer.toByteArray(binary)));
+//        System.out.println(binary);
 
         for (int count = 0; count < binary.length(); count++) {
             char character = binary.charAt(count);
-            System.out.println("a"+character);
+//            System.out.println("a"+character);
         	if (!alreadyFoundStopBit && (character-'0') == STOP_BIT) {
         		alreadyFoundStopBit = true;
         	} else {
@@ -73,8 +74,7 @@ public class EliasGamma implements Codification {
                 restInBinary += character;
                 for (int i = 1; i < prefixLength; i++) {
                     restInBinary += binary.charAt(++count)-'0';
-                    System.out.println("b"+restInBinary);
-
+//                    System.out.println("b"+restInBinary);
                 }
                 
                 int rest = Integer.parseInt(restInBinary,2);

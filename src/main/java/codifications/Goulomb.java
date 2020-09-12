@@ -5,9 +5,7 @@ import utils.StringUtils;
 import utils.Writer;
 import utils.Reader;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static codifications.Constants.*;
 
@@ -37,9 +35,14 @@ public class Goulomb implements Codification {
             String zeros = StringUtils.createStreamOnZeros(division);
             String codewards = zeros + STOP_BIT + restBinary;
             bits = bits.concat(codewards);
-
+            while (bits.length() > 8){
+                writer.write(bits.substring(0,8));
+                bits = bits.substring(8);
+            }
         }
-        writer.write(bits);
+        if(bits.length() != 0){
+            writer.write(bits);
+        }
         writer.close();
         reader.close();
     }
