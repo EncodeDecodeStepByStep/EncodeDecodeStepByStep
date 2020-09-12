@@ -23,3 +23,4 @@ public class GoulombReaderTest {
 
 //[98, -59, -117, 22, 44, 89, 0]
 //17seg - primeira versao
+//1seg - segunda versão

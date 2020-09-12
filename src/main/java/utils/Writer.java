@@ -25,8 +25,8 @@ public class Writer {
     }
 
     public void write(String bytes) throws IOException {
-        System.out.println(bytes);
-        System.out.println(bytes.length());
+//        System.out.println(bytes);
+//        System.out.println(bytes.length());
         if((bytes.length()%8) != 0){
         int resto = 8-(bytes.length()%8);
             System.out.println("Resto diferente de zero! Resto = " + resto);
@@ -35,7 +35,7 @@ public class Writer {
                 bytes = bytes.concat("0");
             }
         }
-        System.out.println(Arrays.toString(toByteArray(bytes)));
+//        System.out.println(Arrays.toString(toByteArray(bytes)));
         os.write(toByteArray(bytes));
     }
     public static byte[] toByteArray(String input){
