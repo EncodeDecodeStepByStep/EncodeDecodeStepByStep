@@ -5,6 +5,10 @@ import utils.StringUtils;
 import utils.Writer;
 import utils.Reader;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static codifications.Constants.*;
 
 public class Goulomb implements Codification {
@@ -21,9 +25,10 @@ public class Goulomb implements Codification {
 
         Reader reader = new Reader(file);
         Writer writer = new Writer(ENCODED_FOLDER+file.getName()+EXTENSION);
+        String bits = "";
 
         int character = 0;
-        while((character=reader.read())!=-1){
+        while((character=reader.readString())!=-1){
             int restOfDivision = character % this.divisor;
             int digitsToRepresentTheRest = MathUtils.logBase2(this.divisor);
             String restBinary = StringUtils.integerToStringBinary(restOfDivision, digitsToRepresentTheRest);
@@ -31,8 +36,10 @@ public class Goulomb implements Codification {
             int division = character / this.divisor;
             String zeros = StringUtils.createStreamOnZeros(division);
             String codewards = zeros + STOP_BIT + restBinary;
-            writer.write(codewards);
+            bits = bits.concat(codewards);
+
         }
+        writer.write(bits);
         writer.close();
         reader.close();
     }
@@ -45,9 +52,19 @@ public class Goulomb implements Codification {
 
         int digitsOnRest = MathUtils.logBase2(this.divisor);
         int quocient =  0;
-        char character;
 
-        while((character= (char) reader.read())!=65535){
+        byte[] bytesAmais = reader.readByte();
+        System.out.println(Arrays.toString(bytesAmais));
+//        byte[] bytes = new byte[bytesAmais.length-4];
+//        System.arraycopy(bytesAmais, 4, bytes, 0, bytesAmais.length-4);
+        String binary = StringUtils.convertToBinaryString(bytesAmais);
+
+        System.out.println(Arrays.toString(bytesAmais));
+        System.out.println(Arrays.toString(Writer.toByteArray(binary)));
+        System.out.println(binary);
+
+        for (int count = 0; count < binary.length(); count++) {
+            char character = binary.charAt(count);
             if(!alreadyFoundStopBit){
                 if((character-'0') == STOP_BIT){
                     alreadyFoundStopBit = true;
@@ -58,8 +75,9 @@ public class Goulomb implements Codification {
                 String restInBinary = "";
                 restInBinary+=character;
                 for (int i =1; i<digitsOnRest; i++){
-                    restInBinary+=reader.read()-'0';
+                    restInBinary+=binary.charAt(++count)-'0';
                 }
+
                 int rest = Integer.parseInt(restInBinary,2);
                 char finalNumber = (char) ((quocient * this.divisor) + rest);
                 writer.write(finalNumber);
