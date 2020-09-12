@@ -46,9 +46,9 @@ public class Writer {
             bitMontados[i] = convertBitsToByte(codewardsSplit.get(i));
         }
 
-        if(!String.format("%8s", Integer.toBinaryString(bitMontados[0] & 0xFF)).replace(' ', '0').equals(input.substring(0,8))){
-            System.out.println("ERROOO");
-        }
+//        if(!String.format("%8s", Integer.toBinaryString(bitMontados[0] & 0xFF)).replace(' ', '0').equals(input.substring(0,8))){
+//            System.out.println("ERROOO");
+//        }
         return bitMontados;
     }
 
@@ -60,5 +60,18 @@ public class Writer {
         bufferedWriter.close();
         fileWriter.close();
         os.close();
+    }
+
+//    public void writeWord(String codeword, Writer writer) throws  IOException{
+//        for (int charToSave : codeword.toCharArray())
+//            writer.write((char) charToSave);
+//    }
+
+    public String gravaBitsEmPartesDe8ERetornaOResto(String bits) throws IOException {
+        while (bits.length() > 8){
+            write(bits.substring(0,8));
+            bits = bits.substring(8);
+        }
+        return bits;
     }
 }

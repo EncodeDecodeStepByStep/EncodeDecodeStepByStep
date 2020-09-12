@@ -1,6 +1,5 @@
 package codifications;
 
-import utils.MathUtils;
 import utils.Reader;
 import utils.StringUtils;
 import utils.Writer;
@@ -15,6 +14,8 @@ public class Unario implements Codification{
     public void encode(File file) throws IOException {
         Reader reader = new Reader(file);
         Writer writer = new Writer(ENCODED_FOLDER+file.getName()+EXTENSION);
+        String bits = "";
+
         int character = reader.read();
         int bit = 0;
         while(character!=-1){
@@ -26,8 +27,11 @@ public class Unario implements Codification{
                 codeword = StringUtils.createStreamWithOnes(character);
                 bit=0;
             }
-            writeWord(codeword, writer);
+            bits = bits.concat(writer.gravaBitsEmPartesDe8ERetornaOResto(codeword));
             character = reader.read();
+        }
+        if(bits.length() != 0){
+            writer.write(bits);
         }
         reader.close();
         writer.close();
@@ -37,6 +41,9 @@ public class Unario implements Codification{
     public void decode(File file) throws IOException {
         Reader reader = new Reader(file);
         Writer writer = new Writer(DECODED_FOLDER+file.getName());
+
+        String binary = reader.readBytes().substring(0,66);
+        System.out.println(binary);
 
         int bitRead = reader.read();
         int last = bitRead;
@@ -55,11 +62,5 @@ public class Unario implements Codification{
 
         reader.close();
         writer.close();
-    }
-
-    //TODO Passar isso para o writer
-    public void writeWord(String codeword, Writer writer) throws  IOException{
-        for (int charToSave : codeword.toCharArray())
-            writer.write((char) charToSave);
     }
 }
