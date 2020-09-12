@@ -11,9 +11,15 @@ public class StringUtils {
     }
 
     public static String createStreamOnZeros(int howManyZeros){
-        // Enter 3 -> Return 000
-        // Enter 7 -> Return 0000000
+        // howManyZeros 3 -> Return 000
+        // howManyZeros 7 -> Return 0000000
         return new String(new char[howManyZeros]).replace("\0", "0");
+    }
+
+    public static String createStreamWithOnes(int quantityOfOnes){
+        // howManyZeros 3 -> Return 111
+        // howManyZeros 7 -> Return 1111111
+        return new String(new char[quantityOfOnes]).replace("\0", "1");
     }
 
 }
