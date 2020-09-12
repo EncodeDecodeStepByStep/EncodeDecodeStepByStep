@@ -1,7 +1,5 @@
 package codifications;
 
-import utils.MathUtils;
-import utils.StringUtils;
 import utils.Writer;
 import utils.Reader;
 import java.io.*;
@@ -57,7 +55,7 @@ public class Fibonacci implements Codification {
         Writer writer = new Writer(ENCODED_FOLDER+file.getName()+EXTENSION);
 
         int character = 0;
-        while ((character = reader.read()) != -1) {
+        while ((character = reader.readString()) != -1) {
         	String encodingBinary = this.getFibonacciEncoding(character);
             writer.write(encodingBinary);
         }
@@ -71,7 +69,7 @@ public class Fibonacci implements Codification {
 
         char character;
 
-        while ((character = (char)reader.read()) != 65535) {
+        while ((character = (char)reader.readString()) != 65535) {
         	
         }
         writer.close();
