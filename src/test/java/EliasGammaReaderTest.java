@@ -21,6 +21,5 @@ public class EliasGammaReaderTest {
     }
 }
 
-//[6, 32, -60, 24, -125, 16, 98, 12, 65, -112]
 //25seg - primeira versao
 //1seg - segunda versao

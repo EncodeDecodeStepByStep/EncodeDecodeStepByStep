@@ -27,10 +27,14 @@ public class Unario implements Codification{
                 codeword = StringUtils.createStreamWithOnes(character);
                 bit=0;
             }
-            bits = bits.concat(writer.gravaBitsEmPartesDe8ERetornaOResto(codeword));
+            System.out.print(codeword);
+//            bits = bits.concat(codeword);
+            bits = bits.concat(codeword);
+            bits = writer.gravaBitsEmPartesDe8ERetornaOResto(bits);
             character = reader.read();
         }
         if(bits.length() != 0){
+            System.out.println('\n'+bits);
             writer.write(bits);
         }
         reader.close();
@@ -42,7 +46,7 @@ public class Unario implements Codification{
         Reader reader = new Reader(file);
         Writer writer = new Writer(DECODED_FOLDER+file.getName());
 
-        String binary = reader.readBytes().substring(0,66);
+        String binary = reader.readBytes();
         System.out.println(binary);
 
         int bitRead = reader.read();
