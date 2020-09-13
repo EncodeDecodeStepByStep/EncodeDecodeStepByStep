@@ -7,5 +7,6 @@ public interface Codification {
 
 
     void encode(File file) throws IOException;
+
     void decode(File file) throws IOException;
 }

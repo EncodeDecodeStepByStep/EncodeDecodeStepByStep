@@ -29,7 +29,7 @@ public class Delta implements Codification {
     @Override
     public void encode(File file) throws IOException {
         Reader reader = new Reader(file);
-        Writer writer = new Writer(ENCODED_FOLDER+file.getName()+EXTENSION);
+        Writer writer = new Writer(ENCODED_FOLDER + file.getName() + EXTENSION);
         String bits = "";
 
         int currentCharacter = reader.read();
@@ -38,7 +38,7 @@ public class Delta implements Codification {
         characters.add(currentCharacter);
 
 
-        while(nextCharacter!=-1){
+        while (nextCharacter != -1) {
             characters.add(nextCharacter);
             updateBiggests(currentCharacter, nextCharacter);
             currentCharacter = nextCharacter;
@@ -48,7 +48,7 @@ public class Delta implements Codification {
         int biggest = Math.max(biggestDecrease, biggestIncrease);
         this.quantOfDigits = (int) Math.ceil(MathUtils.logBase2ToDouble(biggest));
 
-        String quantityOfDigits = StringUtils.integerToStringBinary(this.quantOfDigits+1, QUANTITY_OF_DIGITS_SIZE);
+        String quantityOfDigits = StringUtils.integerToStringBinary(this.quantOfDigits + 1, QUANTITY_OF_DIGITS_SIZE);
         bits = bits.concat(writer.gravaBitsEmPartesDe8ERetornaOResto(quantityOfDigits));
 
         currentCharacter = characters.get(0);
@@ -56,41 +56,41 @@ public class Delta implements Codification {
 
         bits = bits.concat(writer.gravaBitsEmPartesDe8ERetornaOResto(firstNumberInBinary));
 
-        for (int i = 1; i<characters.size();i++){
+        for (int i = 1; i < characters.size(); i++) {
             nextCharacter = characters.get(i);
 
             int difference = Math.abs(currentCharacter - nextCharacter);
             String codeword = NO_CHANGES;
-            if(difference!=0){
-                char signal =  POSITIVE;
-                if(currentCharacter>nextCharacter){
+            if (difference != 0) {
+                char signal = POSITIVE;
+                if (currentCharacter > nextCharacter) {
                     signal = NEGATIVE;
                 }
-                codeword = CHANGED + signal + StringUtils.integerToStringBinary(difference-1, this.quantOfDigits);
+                codeword = CHANGED + signal + StringUtils.integerToStringBinary(difference - 1, this.quantOfDigits);
             }
             currentCharacter = nextCharacter;
 
             bits = bits.concat(codeword);
-            while (bits.length() > 8){
-                writer.write(bits.substring(0,8));
+            while (bits.length() > 8) {
+                writer.write(bits.substring(0, 8));
                 bits = bits.substring(8);
             }
         }
-        if(bits.length() != 0){
+        if (bits.length() != 0) {
             writer.write(bits);
         }
         writer.close();
         reader.close();
     }
 
-    private void updateBiggests(int currentCharacter, int nextCharacter){
-        int difference = Math.abs(currentCharacter-nextCharacter);
-        if(currentCharacter>nextCharacter){
-            if(difference>biggestDecrease){
+    private void updateBiggests(int currentCharacter, int nextCharacter) {
+        int difference = Math.abs(currentCharacter - nextCharacter);
+        if (currentCharacter > nextCharacter) {
+            if (difference > biggestDecrease) {
                 biggestDecrease = difference;
             }
-        }else if(currentCharacter<nextCharacter){
-            if(difference>biggestIncrease){
+        } else if (currentCharacter < nextCharacter) {
+            if (difference > biggestIncrease) {
                 biggestIncrease = difference;
             }
         }
@@ -99,22 +99,22 @@ public class Delta implements Codification {
     @Override
     public void decode(File file) throws IOException {
         Reader reader = new Reader(file);
-        Writer writer = new Writer(DECODED_FOLDER+file.getName());
+        Writer writer = new Writer(DECODED_FOLDER + file.getName());
 
         String quantOfDigitsString = getCodeword(QUANTITY_OF_DIGITS_SIZE, reader);
-        this.quantOfDigits = Integer.parseInt(quantOfDigitsString,2);
+        this.quantOfDigits = Integer.parseInt(quantOfDigitsString, 2);
 
         String firstNumberString = getCodeword(FIRST_BINARY_SIZE, reader);
-        char firstNumber = (char) Integer.parseInt(firstNumberString,2);
+        char firstNumber = (char) Integer.parseInt(firstNumberString, 2);
         char lastCharacter = firstNumber;
 
         writer.write(firstNumber);
 
-        int character =  reader.readNextChar();
-        while ( character != -1 ) {
-            if(character!='0'){
+        int character = reader.readNextChar();
+        while (character != -1) {
+            if (character != '0') {
                 String codeword = getCodeword(quantOfDigits, reader);
-                lastCharacter =  discoverCharacter(codeword, lastCharacter);
+                lastCharacter = discoverCharacter(codeword, lastCharacter);
             }
             writer.write(lastCharacter);
             character = reader.readNextChar();
@@ -124,17 +124,17 @@ public class Delta implements Codification {
         reader.close();
     }
 
-    private char discoverCharacter(String codeword, char lastSimbol){
+    private char discoverCharacter(String codeword, char lastSimbol) {
         char signal = codeword.charAt(0);
         String restOfString = codeword.substring(1);
-        int difference = Integer.parseInt(restOfString,2) + 1;
-        return signal==NEGATIVE ? (char)(lastSimbol-difference) : (char)(lastSimbol+difference);
+        int difference = Integer.parseInt(restOfString, 2) + 1;
+        return signal == NEGATIVE ? (char) (lastSimbol - difference) : (char) (lastSimbol + difference);
     }
 
     private String getCodeword(int quantity, Reader reader) throws IOException {
-        String codeword ="";
-        for(int i = 0;i<quantity;i++)
-            codeword+=reader.readNextChar()-'0';
+        String codeword = "";
+        for (int i = 0; i < quantity; i++)
+            codeword += reader.readNextChar() - '0';
         return codeword;
     }
 
