@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Writer {
+    public static final int LENGTH_OF_BITS_IN_A_BYTE = 8;
     private BufferedWriter bufferedWriter;
     private FileWriter fileWriter;
     private OutputStream os;
@@ -18,6 +19,8 @@ public class Writer {
         this.fileWriter = new FileWriter(output);
         this.bufferedWriter = new BufferedWriter(fileWriter);
         this.os = new FileOutputStream(output);
+
+
     }
 
     public void write(char letter) throws IOException {
@@ -27,16 +30,20 @@ public class Writer {
     public void write(String bytes) throws IOException {
 //        System.out.println(bytes);
 //        System.out.println(bytes.length());
-        if((bytes.length()%8) != 0){
-        int resto = 8-(bytes.length()%8);
+        int resto = (bytes.length()%LENGTH_OF_BITS_IN_A_BYTE);
+        int divisorMenosResto = LENGTH_OF_BITS_IN_A_BYTE-resto;
+        if(resto != 0){
             System.out.println("Resto diferente de zero! Resto = " + resto);
 
-            for (int i = 0; i < resto; i++) {
+            for (int i = 0; i < divisorMenosResto; i++) {
                 bytes = bytes.concat("0");
             }
         }
 //        System.out.println(Arrays.toString(toByteArray(bytes)));
         os.write(toByteArray(bytes));
+        if(divisorMenosResto != LENGTH_OF_BITS_IN_A_BYTE){
+            os.write(toByteArray(StringUtils.integerToStringBinary(divisorMenosResto, LENGTH_OF_BITS_IN_A_BYTE)));
+        }
     }
     public static byte[] toByteArray(String input){
 
@@ -61,11 +68,6 @@ public class Writer {
         fileWriter.close();
         os.close();
     }
-
-//    public void writeWord(String codeword, Writer writer) throws  IOException{
-//        for (int charToSave : codeword.toCharArray())
-//            writer.write((char) charToSave);
-//    }
 
     public String gravaBitsEmPartesDe8ERetornaOResto(String bits) throws IOException {
         while (bits.length() > 8){

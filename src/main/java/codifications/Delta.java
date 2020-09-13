@@ -27,6 +27,7 @@ public class Delta implements Codification {
     private static final char NEGATIVE = '1';
     private static final char POSITIVE = '0';
 
+
     @Override
     public void encode(File file) throws IOException {
         Reader reader = new Reader(file);
@@ -101,8 +102,8 @@ public class Delta implements Codification {
         Reader reader = new Reader(file);
         Writer writer = new Writer(DECODED_FOLDER+file.getName());
 
-        String binary = reader.readBytes().substring(0,66);
-        System.out.println(binary);
+        String binary = reader.readBytes();
+//        System.out.println(binary);
 
         String quantOfDigitsString = getCodeword(QUANTITY_OF_DIGITS_SIZE, binary);
         binary = binary.substring(QUANTITY_OF_DIGITS_SIZE);
@@ -116,9 +117,9 @@ public class Delta implements Codification {
         writer.write(firstNumber);
 
         int character =  binary.charAt(0);
-        binary.substring(1);
+        binary = binary.substring(1);
         while ( binary.length() != 0 ) {
-            System.out.println(character);
+//            System.out.println(character);
             if(character!='0'){
                 String codeword = getCodeword(quantOfDigits, binary);
                 binary = binary.substring(quantOfDigits);
@@ -128,7 +129,7 @@ public class Delta implements Codification {
                 lastCharacter =  discoverCharacter(codeword, lastCharacter);
             }
             writer.write(lastCharacter);
-            System.out.println("dois "+character);
+//            System.out.println("dois "+character);
 //            System.out.println('b'+binary);
             character = binary.charAt(0);
             binary = binary.substring(1);
