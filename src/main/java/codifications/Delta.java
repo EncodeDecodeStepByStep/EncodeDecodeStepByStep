@@ -8,9 +8,7 @@ import utils.Writer;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static codifications.Constants.*;
 
@@ -38,6 +36,7 @@ public class Delta implements Codification {
         int nextCharacter = reader.read();
         List<Integer> characters = new ArrayList<>();
         characters.add(currentCharacter);
+
 
         while(nextCharacter!=-1){
             characters.add(nextCharacter);
@@ -102,40 +101,23 @@ public class Delta implements Codification {
         Reader reader = new Reader(file);
         Writer writer = new Writer(DECODED_FOLDER+file.getName());
 
-        String binary = reader.readBytes();
-//        System.out.println(binary);
-
-        String quantOfDigitsString = getCodeword(QUANTITY_OF_DIGITS_SIZE, binary);
-        binary = binary.substring(QUANTITY_OF_DIGITS_SIZE);
+        String quantOfDigitsString = getCodeword(QUANTITY_OF_DIGITS_SIZE, reader);
         this.quantOfDigits = Integer.parseInt(quantOfDigitsString,2);
 
-        String firstNumberString = getCodeword(FIRST_BINARY_SIZE, binary);
-        binary = binary.substring(FIRST_BINARY_SIZE);
+        String firstNumberString = getCodeword(FIRST_BINARY_SIZE, reader);
         char firstNumber = (char) Integer.parseInt(firstNumberString,2);
         char lastCharacter = firstNumber;
 
         writer.write(firstNumber);
 
-        int character =  binary.charAt(0);
-        binary = binary.substring(1);
-        while ( binary.length() != 0 ) {
-//            System.out.println(character);
+        int character =  reader.readNextChar();
+        while ( character != -1 ) {
             if(character!='0'){
-                String codeword = getCodeword(quantOfDigits, binary);
-                binary = binary.substring(quantOfDigits);
-                if(binary.length() == 0){
-                    break;
-                }
+                String codeword = getCodeword(quantOfDigits, reader);
                 lastCharacter =  discoverCharacter(codeword, lastCharacter);
             }
             writer.write(lastCharacter);
-//            System.out.println("dois "+character);
-//            System.out.println('b'+binary);
-            character = binary.charAt(0);
-            binary = binary.substring(1);
-            if(binary.length() == 0){
-                break;
-            }
+            character = reader.readNextChar();
         }
 
         writer.close();
@@ -149,10 +131,10 @@ public class Delta implements Codification {
         return signal==NEGATIVE ? (char)(lastSimbol-difference) : (char)(lastSimbol+difference);
     }
 
-    private String getCodeword(int quantity, String word){
+    private String getCodeword(int quantity, Reader reader) throws IOException {
         String codeword ="";
         for(int i = 0;i<quantity;i++)
-            codeword+=word.charAt(i)-'0';
+            codeword+=reader.readNextChar()-'0';
         return codeword;
     }
 

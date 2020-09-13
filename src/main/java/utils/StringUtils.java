@@ -10,6 +10,15 @@ public class StringUtils {
         return binary;
     }
 
+    public static String longToStringBinary(long longer){
+        String binary = Long.toBinaryString(longer);
+        //It´ll prepend n zeros until the string have the size of binary especified on the second parameter
+        while(binary.length() != 8){
+            binary = "0" + binary;
+        }
+        return binary;
+    }
+
     public static String createStreamOnZeros(int howManyZeros){
         // howManyZeros 3 -> Return 000
         // howManyZeros 7 -> Return 0000000

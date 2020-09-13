@@ -5,7 +5,6 @@ import utils.StringUtils;
 import utils.Writer;
 import utils.Reader;
 import java.io.*;
-import java.util.Arrays;
 
 import static codifications.Constants.*;
 
@@ -55,10 +54,9 @@ public class Goulomb implements Codification {
 
         int digitsOnRest = MathUtils.logBase2(this.divisor);
         int quocient =  0;
-        String binary = reader.readBytes();
+        char character;
 
-        for (int count = 0; count < binary.length(); count++) {
-            char character = binary.charAt(count);
+        while((character= (char) reader.readNextChar())!=65535){
             if(!alreadyFoundStopBit){
                 if((character-'0') == STOP_BIT){
                     alreadyFoundStopBit = true;
@@ -69,9 +67,8 @@ public class Goulomb implements Codification {
                 String restInBinary = "";
                 restInBinary+=character;
                 for (int i =1; i<digitsOnRest; i++){
-                    restInBinary+=binary.charAt(++count)-'0';
+                    restInBinary+=reader.readNextChar()-'0';
                 }
-
                 int rest = Integer.parseInt(restInBinary,2);
                 char finalNumber = (char) ((quocient * this.divisor) + rest);
                 writer.write(finalNumber);

@@ -48,33 +48,30 @@ public class EliasGamma implements Codification {
 
         boolean alreadyFoundStopBit = false;
         int prefixLength = 0;
-        String binary = reader.readBytes();
+        char character;
 
-        for (int count = 0; count < binary.length(); count++) {
-            char character = binary.charAt(count);
-//            System.out.println("a"+character);
-        	if (!alreadyFoundStopBit && (character-'0') == STOP_BIT) {
-        		alreadyFoundStopBit = true;
-        	} else {
-        		if (!alreadyFoundStopBit) {
-        			prefixLength++;
-        			continue;
-        		}
+        while ((character = (char)reader.readNextChar()) != 65535) {
+            if (!alreadyFoundStopBit && (character-'0') == STOP_BIT) {
+                alreadyFoundStopBit = true;
+            } else {
+                if (!alreadyFoundStopBit) {
+                    prefixLength++;
+                    continue;
+                }
 
-        		String restInBinary = "";
+                String restInBinary = "";
                 restInBinary += character;
                 for (int i = 1; i < prefixLength; i++) {
-                    restInBinary += binary.charAt(++count)-'0';
-//                    System.out.println("b"+restInBinary);
+                    restInBinary += reader.readNextChar()-'0';
                 }
-                
+
                 int rest = Integer.parseInt(restInBinary,2);
                 char finalNumber = (char) ((int) Math.pow(2, prefixLength) + rest);
                 writer.write(finalNumber);
-                
+
                 alreadyFoundStopBit = false;
                 prefixLength = 0;
-        	}
+            }
         }
         writer.close();
         reader.close();
