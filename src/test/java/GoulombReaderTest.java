@@ -20,6 +20,3 @@ public class GoulombReaderTest {
 //        goulomb.decode(new File("src/main/resources/filesEncoded/arquivoFacil.txt.cod"));
     }
 }
-
-//17seg - primeira versao
-//1seg - segunda versão

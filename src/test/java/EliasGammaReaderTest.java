@@ -20,6 +20,3 @@ public class EliasGammaReaderTest {
 //        eliasGamma.decode(new File("src/main/resources/filesEncoded/arquivoFacil.txt.cod"));
     }
 }
-
-//25seg - primeira versao
-//1seg - segunda versao
