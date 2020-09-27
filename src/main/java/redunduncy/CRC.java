@@ -1,6 +1,8 @@
 package redunduncy;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import utils.StringUtils;
 
@@ -17,15 +19,25 @@ public class CRC {
 	    String hexFirstByte = Integer.toHexString(decimalFirstByte);
 	    String hexSecondByte = Integer.toHexString(decimalSecondByte);
 	    
-	    String check = hexToBin(hexFirstByte) + hexToBin(hexSecondByte) + StringUtils.createStreamOnZeros(8);
+	    String binSecondByte = hexToBin(hexSecondByte);
+	    int binLengthSecondByte = 8 - binSecondByte.length();
+    	binSecondByte = StringUtils.createStreamOnZeros(binLengthSecondByte) + binSecondByte;
+    	
+	    String check = hexToBin(hexFirstByte) + binSecondByte + StringUtils.createStreamOnZeros(8);
 	    check = removeZerosLeft(check);
 	    
 	    boolean finished = false;
 	    
-	    int usedZeros = 9 - (check.length() - 8);
+	    List<Integer> rightBits = new ArrayList<Integer>();
+	    
+	    for (int i = 0; i < check.length(); i++) {
+	    	if (i < 9) continue;
+	    	rightBits.add(Character.getNumericValue(check.charAt(i)));
+	    }
+
 	    while (finished == false) {
 	    	String next = "";
-			for (int i = 0; i < CRC_PRESET.length(); i++) {
+	    	for (int i = 0; i < CRC_PRESET.length(); i++) {	
 				int bit1 = check.charAt(i);
 				int bit2 = CRC_PRESET.charAt(i);
 				int finalBit = bit1 ^ bit2;
@@ -33,18 +45,18 @@ public class CRC {
 			}
 			
 			check = removeZerosLeft(next);
-			if (check.length() < 9) {
-				int count = 9 - check.length();
-				check += StringUtils.createStreamOnZeros(count);
-				usedZeros += count;
-			}
+			int size = rightBits.size();
+			for (int i = 0; i < size; i++) {
+				if (check.length() >= 9) break;
+		    	check += rightBits.remove(0);
+		    }
 			
-			if (usedZeros > 8) {
+			if (check.length() < 9) {
 				finished = true;
 			}
 		}
-	    String teste = check.substring(0, 8);
-		return check.substring(0, 8);
+	    String result = check.substring(0, 8);
+		return result;
     
 	}
 	
