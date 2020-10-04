@@ -28,7 +28,8 @@ public class Fibonacci implements Codification {
     public void encode(File file) throws IOException {
 
         Reader reader = new Reader(file);
-        Writer writer = new Writer(ENCODED_FOLDER + file.getName() + EXTENSION);
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION);
+        writer.write(getBitsIdentificacaoAlgoritmo());
         String bits = "";
 
         int character = 0;
@@ -75,7 +76,8 @@ public class Fibonacci implements Codification {
 
     public void decode(File file) throws IOException {
         Reader reader = new Reader(file);
-        Writer writer = new Writer(DECODED_FOLDER + file.getName());
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION_DECODED);
+        reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         String storedOccurrence = "";
         char numberOne = Integer.toString(1).charAt(0);
@@ -110,5 +112,11 @@ public class Fibonacci implements Codification {
         }
 
         return total;
+    }
+
+    @Override
+    public String getBitsIdentificacaoAlgoritmo() {
+        return "00000111" + //identificaçãoAlgoritmo
+                "00000000"; // informação extra goloumb
     }
 }

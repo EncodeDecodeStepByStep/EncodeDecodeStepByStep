@@ -62,4 +62,11 @@ public class Reader {
         is.close();
     }
 
+    public String readCabecalho() throws IOException {
+        StringBuilder binaryString = new StringBuilder();
+        for (int i = 0; i < 16; i++) {
+            binaryString.append((char) readNextChar());
+        }
+        return binaryString.toString();
+    }
 }

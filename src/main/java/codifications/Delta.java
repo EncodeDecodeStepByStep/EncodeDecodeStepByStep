@@ -29,7 +29,8 @@ public class Delta implements Codification {
     @Override
     public void encode(File file) throws IOException {
         Reader reader = new Reader(file);
-        Writer writer = new Writer(ENCODED_FOLDER + file.getName() + EXTENSION);
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION);
+        writer.write(getBitsIdentificacaoAlgoritmo());
         String bits = "";
 
         int currentCharacter = reader.read();
@@ -99,7 +100,8 @@ public class Delta implements Codification {
     @Override
     public void decode(File file) throws IOException {
         Reader reader = new Reader(file);
-        Writer writer = new Writer(DECODED_FOLDER + file.getName());
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION_DECODED);
+        reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         String quantOfDigitsString = getCodeword(QUANTITY_OF_DIGITS_SIZE, reader);
         this.quantOfDigits = Integer.parseInt(quantOfDigitsString, 2);
@@ -138,4 +140,9 @@ public class Delta implements Codification {
         return codeword;
     }
 
+    @Override
+    public String getBitsIdentificacaoAlgoritmo() {
+        return "00000001" + //identificaçãoAlgoritmo
+                "00000000"; // informação extra goloumb
+    }
 }
