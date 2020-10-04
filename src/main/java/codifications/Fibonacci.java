@@ -3,6 +3,7 @@ package codifications;
 import utils.Reader;
 import utils.Writer;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -25,10 +26,10 @@ public class Fibonacci implements Codification {
         return structure;
     }
 
-    public void encode(File file) throws IOException {
+    public void encode(File file, JProgressBar jp) throws IOException {
 
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION);
+        Reader reader = new Reader(file, jp);
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName() + EXTENSION);
         writer.write(getBitsIdentificacaoAlgoritmo());
         String bits = "";
 
@@ -49,6 +50,8 @@ public class Fibonacci implements Codification {
     }
 
     private String getFibonacciEncoding(int n) {
+        n++;
+
         String binary = "1";
         boolean isFirstOccurrence = false;
         int necessaryLength = 0;
@@ -74,9 +77,9 @@ public class Fibonacci implements Codification {
         return binary;
     }
 
-    public void decode(File file) throws IOException {
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION_DECODED);
+    public void decode(File file, JProgressBar jp) throws IOException {
+        Reader reader = new Reader(file, jp);
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\decoded_" + file.getName().replaceFirst("[.][^.]+$", ""));
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         String storedOccurrence = "";
@@ -84,13 +87,12 @@ public class Fibonacci implements Codification {
 
         char number;
         while ((number = (char) reader.readNextChar()) != 65535) {
-
             char lastChar = storedOccurrence.length() > 0 ? storedOccurrence.charAt(storedOccurrence.length() - 1) : 0;
 
             if (lastChar == numberOne && number == numberOne) {
                 int ascii = this.decodeStringFibonacci(storedOccurrence);
                 char teste = (char) ascii;
-                writer.write(teste);
+                writer.write(--teste);
                 storedOccurrence = "";
             } else {
                 storedOccurrence = storedOccurrence + number;

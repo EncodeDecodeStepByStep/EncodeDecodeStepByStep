@@ -5,6 +5,7 @@ import utils.Reader;
 import utils.StringUtils;
 import utils.Writer;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,10 +18,9 @@ public class EliasGamma implements Codification {
     public EliasGamma() {
     }
 
-    public void encode(File file) throws IOException {
-
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION);
+    public void encode(File file, JProgressBar jp) throws IOException {
+        Reader reader = new Reader(file, jp);
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName() + EXTENSION);
         writer.write(getBitsIdentificacaoAlgoritmo());
         String bits = "";
 
@@ -46,9 +46,9 @@ public class EliasGamma implements Codification {
         reader.close();
     }
 
-    public void decode(File file) throws IOException {
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION_DECODED);
+    public void decode(File file, JProgressBar jp) throws IOException {
+        Reader reader = new Reader(file, jp);
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\decoded_" + file.getName().replaceFirst("[.][^.]+$", ""));
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         boolean alreadyFoundStopBit = false;
