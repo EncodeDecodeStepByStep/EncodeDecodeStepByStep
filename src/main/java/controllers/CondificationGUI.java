@@ -2,6 +2,7 @@ package controllers;
 
 import codifications.Codification;
 import codifications.CodificationMapper;
+import utils.ErrorWriter;
 import utils.Reader;
 
 import javax.swing.*;
@@ -61,6 +62,8 @@ public class CondificationGUI extends JFrame implements ActionListener{
             System.out.println("codificado");
         } else {
             System.out.println("decodificando");
+
+            ErrorWriter.setFile(file.getParent(), file.getName());
             try {
                 this.codification = CodificationMapper.getCodificationByStringBits(new Reader(file).readCabecalho());
                 this.codification.decode(file);
