@@ -3,15 +3,15 @@
 ## Trabalho 1
 
 - [x] Goulomb 
-- [ ] Goulomb Tests
-- [ ] Elias-Gamma 
-- [ ] Elias-Gamma Tests
-- [ ] Fibonacci 
-- [ ] Fibonacci Tests
-- [ ] Delta 
-- [ ] Delta Tests
-- [ ] Unario 
-- [ ] Unario Tests
+- [x] Goulomb Tests
+- [x] Elias-Gamma 
+- [x] Elias-Gamma Tests
+- [x] Fibonacci 
+- [x] Fibonacci Tests
+- [x] Delta 
+- [x] Delta Tests
+- [x] Unario 
+- [x] Unario Tests
 
 ## Trabalho 2
 
