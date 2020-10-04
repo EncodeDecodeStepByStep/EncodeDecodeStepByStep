@@ -10,7 +10,7 @@ public class FibonacciReaderTest {
     public void deveFazerOEncodeDoArquivo() throws IOException {
         Fibonacci fibonacci = new Fibonacci();
 //        fibonacci.encode(new File("src/main/resources/filesToEncode/alice29.txt"));
-        fibonacci.encode(new File("src/main/resources/filesToEncode/sum"));
+        fibonacci.encode(new File("src/main/resources/filesToEncode/sum"), null);
 //    	fibonacci.encode(new File("src/main/resources/filesToEncode/arquivoFacil.txt"));
     }
 
@@ -18,7 +18,7 @@ public class FibonacciReaderTest {
     public void deveFazerDecodeDoArquivo() throws IOException {
         Fibonacci fibonacci = new Fibonacci();
 //        fibonacci.decode(new File("src/main/resources/filesEncoded/alice29.txt.cod"));
-        fibonacci.decode(new File("src/main/resources/filesEncoded/sum.cod"));
+        fibonacci.decode(new File("src/main/resources/filesEncoded/sum.cod"), null);
 //    	fibonacci.decode(new File("src/main/resources/filesEncoded/arquivoFacil.txt.cod"));
     }
 

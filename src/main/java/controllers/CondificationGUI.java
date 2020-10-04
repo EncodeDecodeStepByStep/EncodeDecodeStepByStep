@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-public class CondificationGUI extends JFrame implements ActionListener{
+public class CondificationGUI extends JFrame implements ActionListener {
     private JPanel mainPanel;
     private JTextField codificacaoDesejadaString;
     private JComboBox codificationBox;
@@ -32,6 +32,8 @@ public class CondificationGUI extends JFrame implements ActionListener{
     public CondificationGUI(String title) throws HeadlessException {
         super(title);
 
+
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
@@ -47,28 +49,36 @@ public class CondificationGUI extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        chooser.showOpenDialog(null);
-        file = chooser.getSelectedFile();
+        new Thread(new Runnable() {
+            public void run() {
+                chooser.showOpenDialog(null);
+                file = chooser.getSelectedFile();
+                chooser.setSelectedFile(null);
 
-        if (e.getSource() == encodeButton){
-            this.codification = CodificationMapper.getCodificationByStringName(String.valueOf(this.codificationBox.getSelectedItem()), (Integer) goulombDivisor.getValue());
-            System.out.println("codificando");
-            try {
-                codification.encode(file);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
+                progressBar1.setValue(0);
+                if (e.getSource() == encodeButton) {
+
+                    codification = CodificationMapper.getCodificationByStringName(String.valueOf(codificationBox.getSelectedItem()), (Integer) goulombDivisor.getValue());
+                    System.out.println("codificando");
+                    try {
+                        codification.encode(file, progressBar1);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                    System.out.println("codificado");
+                } else {
+                    System.out.println("decodificando");
+                    try {
+                        codification = CodificationMapper.getCodificationByStringBits(new Reader(file, null).readCabecalho());
+                        codification.decode(file, progressBar1);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                    System.out.println("decodificado");
+                }
             }
-            System.out.println("codificado");
-        } else {
-            System.out.println("decodificando");
-            try {
-                this.codification = CodificationMapper.getCodificationByStringBits(new Reader(file).readCabecalho());
-                this.codification.decode(file);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-            System.out.println("decodificado");
-        }
+        }).start();
 
     }
+
 }
