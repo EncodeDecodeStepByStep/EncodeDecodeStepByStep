@@ -3,6 +3,7 @@ package codifications;
 import utils.Reader;
 import utils.Writer;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -25,10 +26,10 @@ public class Fibonacci implements Codification {
         return structure;
     }
 
-    public void encode(File file) throws IOException {
+    public void encode(File file, JProgressBar jp) throws IOException {
 
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION);
+        Reader reader = new Reader(file, jp);
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName() + EXTENSION);
         writer.write(getBitsIdentificacaoAlgoritmo());
         String bits = "";
 
@@ -74,9 +75,9 @@ public class Fibonacci implements Codification {
         return binary;
     }
 
-    public void decode(File file) throws IOException {
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION_DECODED);
+    public void decode(File file, JProgressBar jp) throws IOException {
+        Reader reader = new Reader(file, jp);
+        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\decoded_" + file.getName().replaceFirst("[.][^.]+$", ""));
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         String storedOccurrence = "";

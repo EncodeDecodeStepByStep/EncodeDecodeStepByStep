@@ -1,5 +1,6 @@
 package utils;
 
+import javax.swing.*;
 import java.io.*;
 
 public class Reader {
@@ -9,18 +10,28 @@ public class Reader {
     private InputStream is;
     private int bytesLidos;
     private long localizacaoByteProtocoloRemocao;
+    private double porcentagemLida;
+    private double porcentagemByte;
+    private JProgressBar jp;
     private String binary;
 
-    public Reader(File file) throws FileNotFoundException {
+    public Reader(File file, JProgressBar jp) throws FileNotFoundException {
         this.fileReader = new FileReader(file);
         this.bufferedReader = new BufferedReader(fileReader);
         this.is = new FileInputStream(file);
         this.bytesLidos = 0;
         this.localizacaoByteProtocoloRemocao = file.length();
         this.binary = "";
+        this.porcentagemLida = 0;
+        this.porcentagemByte = 100 / this.localizacaoByteProtocoloRemocao;
+        this.jp = jp;
     }
 
     public int read() throws IOException {
+        if (this.jp != null) {
+            this.porcentagemLida = this.porcentagemLida + (double) 100 / this.localizacaoByteProtocoloRemocao;
+            this.jp.setValue( (int) porcentagemLida );
+        }
         return bufferedReader.read();
     }
 
@@ -33,6 +44,10 @@ public class Reader {
         }
         char nextChar = this.binary.charAt(0);
         this.binary = this.binary.substring(1);
+        if (this.jp != null) {
+            this.porcentagemLida = this.porcentagemLida + (double) 100 / this.localizacaoByteProtocoloRemocao;
+            this.jp.setValue( (int) porcentagemLida );
+        }
         return nextChar;
     }
 

@@ -10,7 +10,7 @@ public class DeltaTest {
     public void deveFazerOEncodeDoArquivo() throws IOException {
         Delta delta = new Delta();
 //        delta.encode(new File("src/main/resources/filesToEncode/alice29.txt"));
-        delta.encode(new File("src/main/resources/filesToEncode/sum"));
+        delta.encode(new File("src/main/resources/filesToEncode/sum"), null);
 //        delta.encode(new File("src/main/resources/filesToEncode/arquivoFacil.txt"));
     }
 
@@ -18,7 +18,7 @@ public class DeltaTest {
     public void deveFazerDecodeDoArquivo() throws IOException {
         Delta delta = new Delta();
 //        delta.decode(new File("src/main/resources/filesEncoded/alice29.txt.cod"));
-        delta.decode(new File("src/main/resources/filesEncoded/sum.cod"));
+        delta.decode(new File("src/main/resources/filesEncoded/sum.cod"), null);
 //        delta.decode(new File("src/main/resources/filesEncoded/arquivoFacil.txt.cod"));
     }
 }
