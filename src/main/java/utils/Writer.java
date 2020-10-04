@@ -19,8 +19,6 @@ public class Writer {
         this.fileWriter = new FileWriter(output);
         this.bufferedWriter = new BufferedWriter(fileWriter);
         this.os = new FileOutputStream(output);
-
-
     }
 
     public void write(char letter) throws IOException {
