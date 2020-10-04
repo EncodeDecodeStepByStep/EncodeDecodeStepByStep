@@ -35,7 +35,7 @@ public class Delta implements Codification {
 
         int currentCharacter = reader.read();
         int nextCharacter = reader.read();
-        List<Integer> characters = new ArrayList<>();
+        List<Integer> characters = new ArrayList<Integer>();
         characters.add(currentCharacter);
 
 
