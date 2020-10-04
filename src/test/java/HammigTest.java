@@ -55,26 +55,27 @@ public class HammigTest {
     }
 
     @Test
-    public void deveSinalizarErroNoPrimeiroBit(){
-        int guiltyDigitExpected = 1;
+    public void deveCorrigirErroNoPrimeiroBit(){
+
         for(Map.Entry<String, String> entry : hammingTable.entrySet()) {
-            String binaryFound = "";
             try {
+            String binaryFound = "";
+
                 String binaryWithRedunduncy = entry.getValue();
                 char characterAtFirstPosition = binaryWithRedunduncy.charAt(0) == '0' ? '1' : '0';
                 String binaryWithRedunduncyChanged= characterAtFirstPosition+ binaryWithRedunduncy.substring(1);
 
                 binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
-            } catch (WrongFormatExpection e) {
-                Assert.assertEquals(guiltyDigitExpected, e.getGuiltyBit());
+
+                Assert.assertEquals(binaryFound, binaryWithRedunduncy.substring(0, 4));
+            } catch (WrongFormatExpection wrongFormatExpection) {
+                wrongFormatExpection.printStackTrace();
             }
-            Assert.assertEquals(binaryFound.length(),0);
         }
     }
 
     @Test
-    public void deveSinalizarErroNoSegundoBit(){
-        int guiltyDigitExpected = 2;
+    public void deveCorrigirErroNoSegundoBit(){
         for(Map.Entry<String, String> entry : hammingTable.entrySet()) {
             String binaryFound = "";
             try {
@@ -82,16 +83,16 @@ public class HammigTest {
                 char characterAtSecondPosition = binaryWithRedunduncy.charAt(1) == '0' ? '1' : '0';
                 String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,1) + characterAtSecondPosition+ binaryWithRedunduncy.substring(2);
                 binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
+
+                Assert.assertEquals(binaryFound, binaryWithRedunduncy.substring(0, 4));
             } catch (WrongFormatExpection e) {
-                Assert.assertEquals(guiltyDigitExpected, e.getGuiltyBit());
+                e.printStackTrace();
             }
-            Assert.assertEquals(binaryFound.length(),0);
         }
     }
 
     @Test
-    public void deveSinalizarErroNoTerceiroBit(){
-        int guiltyDigitExpected = 3;
+    public void deveCorrigirErroNoNoTerceiroBit(){
         for(Map.Entry<String, String> entry : hammingTable.entrySet()) {
             String binaryFound = "";
             try {
@@ -99,16 +100,16 @@ public class HammigTest {
                 char characterAtThirdPosition = binaryWithRedunduncy.charAt(2) == '0' ? '1' : '0';
                 String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,2) + characterAtThirdPosition+ binaryWithRedunduncy.substring(3);
                 binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
+
+                Assert.assertEquals(binaryFound, binaryWithRedunduncy.substring(0, 4));
             } catch (WrongFormatExpection e) {
-                Assert.assertEquals(guiltyDigitExpected, e.getGuiltyBit());
+                e.printStackTrace();
             }
-            Assert.assertEquals(binaryFound.length(),0);
         }
     }
 
     @Test
-    public void deveSinalizarErroNoQuartoBit(){
-        int guiltyDigitExpected = 4;
+    public void deveCorrigirErroNoQuartoBit(){
         for(Map.Entry<String, String> entry : hammingTable.entrySet()) {
             String binaryFound = "";
             try {
@@ -116,61 +117,57 @@ public class HammigTest {
                 char characterAtFourthPosition = binaryWithRedunduncy.charAt(3) == '0' ? '1' : '0';
                 String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,3) + characterAtFourthPosition+ binaryWithRedunduncy.substring(4);
                 binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
+
+                Assert.assertEquals(binaryFound, binaryWithRedunduncy.substring(0, 4));
             } catch (WrongFormatExpection e) {
-                Assert.assertEquals(guiltyDigitExpected, e.getGuiltyBit());
+                e.printStackTrace();
             }
-            Assert.assertEquals(binaryFound.length(),0);
         }
     }
 
     @Test
-    public void deveSinalizarErroNoCincoBit(){
-        int guiltyDigitExpected = 5;
+    public void deveNotificarErroNoQuintoBit(){
         for(Map.Entry<String, String> entry : hammingTable.entrySet()) {
-            String binaryFound = "";
             try {
                 String binaryWithRedunduncy = entry.getValue();
                 char characterAtFifthPosition = binaryWithRedunduncy.charAt(4) == '0' ? '1' : '0';
                 String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,4) + characterAtFifthPosition+ binaryWithRedunduncy.substring(5);
-                binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
+                hamming.getValue(binaryWithRedunduncyChanged);
             } catch (WrongFormatExpection e) {
-                Assert.assertEquals(guiltyDigitExpected, e.getGuiltyBit());
+                Assert.assertEquals(e.getMessage(),"Erro critico no bit 5 em hamming");
             }
-            Assert.assertEquals(binaryFound.length(),0);
         }
     }
 
     @Test
-    public void deveSinalizarErroNoSextoBit(){
-        int guiltyDigitExpected = 6;
+    public void deveNotificarErroNoSextoBit(){
         for(Map.Entry<String, String> entry : hammingTable.entrySet()) {
-            String binaryFound = "";
             try {
                 String binaryWithRedunduncy = entry.getValue();
                 char characterAtSixthPosition = binaryWithRedunduncy.charAt(5) == '0' ? '1' : '0';
                 String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,5) + characterAtSixthPosition+ binaryWithRedunduncy.substring(6);
-                binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
+                hamming.getValue(binaryWithRedunduncyChanged);
+
             } catch (WrongFormatExpection e) {
-                Assert.assertEquals(guiltyDigitExpected, e.getGuiltyBit());
+                Assert.assertEquals(e.getMessage(),"Erro critico no bit 6 em hamming");
             }
-            Assert.assertEquals(binaryFound.length(),0);
         }
     }
 
     @Test
-    public void deveSinalizarErroNoSetimoBit(){
-        int guiltyDigitExpected = 7;
+    public void deveNotificarErroNoSetimoBit(){
+
         for(Map.Entry<String, String> entry : hammingTable.entrySet()) {
-            String binaryFound = "";
-            try {
+            try{
                 String binaryWithRedunduncy = entry.getValue();
                 char characterAtSeventhPosition = binaryWithRedunduncy.charAt(6) == '0' ? '1' : '0';
                 String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,6) + characterAtSeventhPosition;
-                binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
-            } catch (WrongFormatExpection e) {
-                Assert.assertEquals(guiltyDigitExpected, e.getGuiltyBit());
+
+                 hamming.getValue(binaryWithRedunduncyChanged);
+            } catch(WrongFormatExpection e){
+                Assert.assertEquals(e.getMessage(),"Erro critico no bit 7 em hamming");
             }
-            Assert.assertEquals(binaryFound.length(),0);
+
         }
     }
 }
