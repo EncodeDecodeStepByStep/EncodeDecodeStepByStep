@@ -32,8 +32,6 @@ public class CondificationGUI extends JFrame implements ActionListener {
     public CondificationGUI(String title) throws HeadlessException {
         super(title);
 
-
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();

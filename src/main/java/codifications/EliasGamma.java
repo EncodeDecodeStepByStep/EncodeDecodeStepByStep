@@ -19,7 +19,6 @@ public class EliasGamma implements Codification {
     }
 
     public void encode(File file, JProgressBar jp) throws IOException {
-
         Reader reader = new Reader(file, jp);
         Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName() + EXTENSION);
         writer.write(getBitsIdentificacaoAlgoritmo());
