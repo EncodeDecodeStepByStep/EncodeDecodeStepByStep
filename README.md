@@ -18,7 +18,7 @@ por isso seja paciente e espere)
 # Executando através do Jar
 Abra a pasta out/artifacts/TrabalhoTeoriaDaComputacao_jar e execute o jar dentro da pasta.
 
-##Desenvolvedores
+## Desenvolvedores
 1. Bruno Camboim
 2. Bruno Pozzebon
 3. Gustavo Steinmetz
