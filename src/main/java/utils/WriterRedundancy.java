@@ -62,12 +62,10 @@ public class WriterRedundancy implements WriterInterface{
             }
         }
         os.write(toByteArray(bits));
-        System.out.print(bits);
         if (divisorMenosResto != LENGTH_OF_BITS_IN_A_BYTE) {
             String bitsParaNaoFazerHamming = StringUtils.integerToStringBinary(qntdBitsSemHammingNoFinal,2);
             String bitsParaDescartarNoDecode = StringUtils.integerToStringBinary(divisorMenosResto, LENGTH_OF_BITS_IN_A_BYTE - 2);
             os.write(toByteArray(bitsParaNaoFazerHamming.concat(bitsParaDescartarNoDecode)));
-            System.out.println("\n\n"+bitsParaNaoFazerHamming.concat(bitsParaDescartarNoDecode));
         }
     }
 
