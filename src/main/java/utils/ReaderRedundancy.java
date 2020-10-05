@@ -95,8 +95,6 @@ public class ReaderRedundancy implements ReaderInterface {
                         this.binary = this.binary.substring(1);
                         return nextChar;
                     } else {
-//                        System.out.println("Binary" + this.binary);
-//                        System.out.println("BinaryHamming" + this.binaryComHammingAplicado);
                         this.binaryComHammingAplicado = "";
                         this.binary = "";
                         return -1;
@@ -121,8 +119,6 @@ public class ReaderRedundancy implements ReaderInterface {
         if (this.bytesLidos == (this.localizacaoByteProtocoloRemocao - 2)) {
             int ultimoBytePoluido = is.read();
             int byteProtocoloRemocao = is.read();
-//            System.out.println("\nbyteLido"+StringUtils.longToStringBinary(byteLido));
-//            System.out.println("byteProtocoloRemocao"+StringUtils.longToStringBinary(byteProtocoloRemocao));
             this.binary = this.binary.concat(protoloDeRemocaoDeBits(StringUtils.longToStringBinary(byteLido)
                     .concat(StringUtils.longToStringBinary(ultimoBytePoluido))
                     .concat(StringUtils.longToStringBinary(byteProtocoloRemocao))));
@@ -136,14 +132,10 @@ public class ReaderRedundancy implements ReaderInterface {
         String protolo = binaryfinal.substring(binaryfinal.length() - LENGTH_PROTOCOLO_REMOCAO_BITS);
         int bitsARemover = Integer.parseInt(protolo.substring(2), 2);
         int qtdBitsAIgnorarHamming = Integer.parseInt(protolo.substring(0,2), 2);
-//        System.out.println("binaryfinal:"+binaryfinal);
         String bitsRemovidos = binaryfinal.substring(0, binaryfinal.length() - (bitsARemover + LENGTH_PROTOCOLO_REMOCAO_BITS));
 
-//        System.out.println("bitsRemovidos qtd:"+qtdBitsAIgnorarHamming);
-//        System.out.println("bitsRemovidos antes:"+bitsRemovidos);
         String bitsAIgnorarHamming = bitsRemovidos.substring(bitsRemovidos.length() - qtdBitsAIgnorarHamming);
         bitsRemovidos = bitsRemovidos.substring(0, bitsRemovidos.length() - qtdBitsAIgnorarHamming);
-//        System.out.println(bitsAIgnorarHamming + " " + bitsRemovidos);
         bitsAIgnorarHamming = bitsAIgnorarHamming.replace("0", "2");
         bitsAIgnorarHamming = bitsAIgnorarHamming.replace("1", "3");
         return bitsRemovidos.concat(bitsAIgnorarHamming);

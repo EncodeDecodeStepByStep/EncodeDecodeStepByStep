@@ -85,7 +85,6 @@ public class CodificationGUI extends JFrame implements ActionListener {
                     progressBar1.setValue(0);
                     if (e.getSource() == encodeButton){
                         codification = CodificationMapper.getCodificationByStringName(String.valueOf(codificationBox.getSelectedItem()), (Integer) goulombDivisor.getValue());
-                        System.out.println("codificando");
                         try {
                             codification.encode(
                                     CodificationMapper.getWriter(String.valueOf(redunduncyBox.getSelectedItem()), file.getParentFile().getAbsolutePath()+ "\\" + file.getName() + EXTENSION),
@@ -93,9 +92,7 @@ public class CodificationGUI extends JFrame implements ActionListener {
                         } catch (IOException | WrongFormatExpection ioException) {
                             ioException.printStackTrace();
                         }
-                        System.out.println("codificado");
                     } else {
-                        System.out.println("decodificando");
                         try {
                             ReaderInterface reader = CodificationMapper.getReader(String.valueOf(redunduncyBox.getSelectedItem()), file, progressBar1);
 
@@ -109,7 +106,6 @@ public class CodificationGUI extends JFrame implements ActionListener {
                         } catch (IOException | WrongFormatExpection ioException) {
                             ioException.printStackTrace();
                         }
-                        System.out.println("decodificado");
                     }
                 }
             }).start();
