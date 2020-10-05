@@ -48,7 +48,6 @@ public class Writer implements WriterInterface{
             }
         }
         os.write(toByteArray(bytes));
-        System.out.print(bytes);
         if (divisorMenosResto != LENGTH_OF_BITS_IN_A_BYTE) {
             os.write(toByteArray(StringUtils.integerToStringBinary(divisorMenosResto, LENGTH_OF_BITS_IN_A_BYTE)));
             System.out.print(StringUtils.integerToStringBinary(divisorMenosResto, LENGTH_OF_BITS_IN_A_BYTE));

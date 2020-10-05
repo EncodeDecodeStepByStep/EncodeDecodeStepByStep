@@ -1,6 +1,7 @@
 package redunduncy;
 
 import expections.WrongFormatExpection;
+import utils.ErrorWriter;
 
 import java.io.File;
 import java.util.HashMap;
@@ -80,11 +81,29 @@ public class Hamming implements Redunduncy {
 
         String z = firstZ + secondZ + thirdZ;
 
+        String value = String.valueOf(new char[]{firstBit,secondBit,thirdBit,fourthBit});
+
         if(!z.equals("000")){
-            throw new WrongFormatExpection("Mensagem Corrompida",zTable.get(z));
+            int binaryWithProblem = zTable.get(z);
+
+            int binaryWithProblemIndex = binaryWithProblem-1;
+
+            ErrorWriter errorWriter = ErrorWriter.getInstance();
+
+            if(binaryWithProblemIndex<4){
+                errorWriter.write("Encontrado um erro no "+(binaryWithProblemIndex+1)+"º bit do codeword hamming");
+                char[] valueChars = value.toCharArray();
+                char wrongBinary = value.charAt(binaryWithProblem-1);
+
+                valueChars[binaryWithProblem-1] = wrongBinary=='0'?'1':'0';
+                value = String.valueOf(valueChars);
+            }else{
+                errorWriter.write("Encontrado um erro critico no "+(binaryWithProblemIndex+1)+"º bit, não foi possivel corrigir");
+                throw new WrongFormatExpection("Erro critico no bit "+(binaryWithProblemIndex+1)+" em hamming");
+            }
         }
 
-        return String.valueOf(new char[]{firstBit,secondBit,thirdBit,fourthBit});
+        return value;
     }
 
 }
