@@ -43,7 +43,7 @@ public class WriterRedundancy implements WriterInterface{
     }
 
     public void writeSemHamming(String bits) throws IOException, WrongFormatExpection {
-//        write8bitsOrConcatZerosToComplete(bits, null); //TODO pro cabeçalho com CRC
+        write8bitsOrConcatZerosToComplete(bits, null);
     }
 
     private void updateBitStringHamming() throws WrongFormatExpection {
@@ -54,7 +54,6 @@ public class WriterRedundancy implements WriterInterface{
     }
 
     private void write8bitsOrConcatZerosToComplete(String bits, Integer qntdBitsSemHammingNoFinal) throws IOException {
-//        System.out.println(bits);
         int resto = (bits.length() % LENGTH_OF_BITS_IN_A_BYTE);
         int divisorMenosResto = LENGTH_OF_BITS_IN_A_BYTE - resto;
         if (resto != 0) {
