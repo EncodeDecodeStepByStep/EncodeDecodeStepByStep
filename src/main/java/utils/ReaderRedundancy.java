@@ -42,10 +42,7 @@ public class ReaderRedundancy implements ReaderInterface {
         while (nextChar == -2){
 
             nextChar = readNextCharWithHamming();
-//            System.out.println("Loop aqui??");
         }
-//        if(teste.contains("000000110001000000011100100000001"))
-//            System.out.println("Stop!");
         return nextChar;
     }
 
@@ -72,8 +69,6 @@ public class ReaderRedundancy implements ReaderInterface {
         } else {
             if(this.binary.contains("2") || this.binary.contains("3")){
                 int indiceMenor2Ou3 = Math.min(this.binary.contains("3") ? this.binary.indexOf("3") : 9, this.binary.contains("2") ? this.binary.indexOf("2") : 9);
-//                System.out.println("this.binary"+this.binary);
-//                System.out.println("indiceMenor2Ou3"+indiceMenor2Ou3);
                 String substringSemHamming = this.binary.substring(indiceMenor2Ou3);
                 this.binary = this.binary.substring(0, indiceMenor2Ou3);
 
@@ -182,6 +177,5 @@ public class ReaderRedundancy implements ReaderInterface {
         }
 
         return "false";
-//        return "abobora"; //TODO pro cabeçalho com CRC
     }
 }
