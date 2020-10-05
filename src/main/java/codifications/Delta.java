@@ -2,6 +2,11 @@ package codifications;
 
 import expections.WrongFormatExpection;
 import utils.*;
+import redunduncy.CRC;
+import utils.MathUtils;
+import utils.Reader;
+import utils.StringUtils;
+import utils.Writer;
 
 import java.io.File;
 import java.io.IOException;
@@ -131,7 +136,11 @@ public class Delta implements Codification {
 
     @Override
     public String getBitsIdentificacaoAlgoritmo() {
-        return "00000001" + //identificaçãoAlgoritmo
-                "00000000"; // informação extra goloumb
+        String firstByte = "00000001"; //identificaçãoAlgoritmo
+        String secondByte = "00000000"; // informação extra goloumb
+        CRC crc = new CRC();
+        String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+//        return firstByte + secondByte + encodedCRC;
+        return firstByte + secondByte;
     }
 }
