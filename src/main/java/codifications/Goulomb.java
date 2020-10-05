@@ -3,10 +3,8 @@ package codifications;
 import expections.WrongFormatExpection;
 import utils.*;
 
-import java.io.File;
 import java.io.IOException;
 
-import static codifications.Constants.*;
 
 public class Goulomb implements Codification {
 

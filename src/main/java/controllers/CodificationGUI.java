@@ -2,8 +2,10 @@ package controllers;
 
 import codifications.Codification;
 import codifications.CodificationMapper;
+import expections.WrongFormatExpection;
 import utils.ErrorWriter;
 import utils.Reader;
+import utils.ReaderInterface;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -13,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import static codifications.Constants.EXTENSION;
 
 public class CodificationGUI extends JFrame implements ActionListener {
     private JPanel mainPanel;
@@ -80,23 +83,30 @@ public class CodificationGUI extends JFrame implements ActionListener {
                     chooser.setSelectedFile(null);
 
                     progressBar1.setValue(0);
-                    ErrorWriter.setFile(file.getParent(), file.getName());
-
-                    if (e.getSource() == encodeButton) {
+                    if (e.getSource() == encodeButton){
                         codification = CodificationMapper.getCodificationByStringName(String.valueOf(codificationBox.getSelectedItem()), (Integer) goulombDivisor.getValue());
                         System.out.println("codificando");
                         try {
-                            codification.encode(file, progressBar1);
-                        } catch (IOException ioException) {
+                            codification.encode(
+                                    CodificationMapper.getWriter(String.valueOf(redunduncyBox.getSelectedItem()), file.getParentFile().getAbsolutePath()+ "\\" + file.getName() + EXTENSION),
+                                    CodificationMapper.getReader(String.valueOf(redunduncyBox.getSelectedItem()), file, progressBar1));
+                        } catch (IOException | WrongFormatExpection ioException) {
                             ioException.printStackTrace();
                         }
                         System.out.println("codificado");
                     } else {
                         System.out.println("decodificando");
                         try {
-                            codification = CodificationMapper.getCodificationByStringBits(new Reader(file, null).readCabecalho());
-                            codification.decode(file, progressBar1);
-                        } catch (IOException ioException) {
+                            ReaderInterface reader = CodificationMapper.getReader(String.valueOf(redunduncyBox.getSelectedItem()), file, progressBar1);
+
+                            codification = CodificationMapper.getCodificationByStringBits(reader.readCabecalho());
+                            reader.close();
+
+
+                            codification.decode(
+                                    CodificationMapper.getWriter(String.valueOf(redunduncyBox.getSelectedItem()), file.getParentFile().getAbsolutePath()+ "\\decoded_" + file.getName().replaceFirst("[.][^.]+$", "")),
+                                    CodificationMapper.getReader(String.valueOf(redunduncyBox.getSelectedItem()), file, progressBar1));
+                        } catch (IOException | WrongFormatExpection ioException) {
                             ioException.printStackTrace();
                         }
                         System.out.println("decodificado");
