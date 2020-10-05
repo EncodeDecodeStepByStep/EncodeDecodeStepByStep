@@ -26,7 +26,7 @@ public class CodificationMapper {
 
     public static Codification getCodificationByStringBits(String bits){
         return bits.startsWith("00001111")
-                ? new Goulomb(Integer.parseInt("1001", 2))
+                ? new Goulomb(Integer.parseInt(bits.substring(8,16), 2))
                 : BITS_CODIFICATION_MAP.get(bits);
     }
 
