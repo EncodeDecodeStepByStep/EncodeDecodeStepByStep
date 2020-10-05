@@ -1,5 +1,6 @@
 package codifications;
 
+import utils.ErrorWriter;
 import utils.Reader;
 import utils.StringUtils;
 import utils.Writer;

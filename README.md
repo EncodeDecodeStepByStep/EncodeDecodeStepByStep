@@ -1,22 +1,7 @@
-# Trabalho Teoria da Informação
+## Modo de usar
+# Clonando esse repositório
+1. Clone o repositório
+2. Instale as dependências atráves do maven
+3. Execute o main em src/main/java/controllers/CodificationGUI, isso abre uma interface gráfica
 
-## Trabalho 1
-
-- [x] Goulomb 
-- [x] Goulomb Tests
-- [x] Elias-Gamma 
-- [x] Elias-Gamma Tests
-- [x] Fibonacci 
-- [x] Fibonacci Tests
-- [x] Delta 
-- [x] Delta Tests
-- [x] Unario 
-- [x] Unario Tests
-
-## Trabalho 2
-
-- [ ] Goulomb Tratamento de ruido 
-- [ ] Elias-Gamme Tratamento de ruido 
-- [ ] Fibonacci Tratamento de ruido 
-- [ ] Delta Tratamento de ruido 
-- [ ] Unario Tratamento de ruido 
+# Instalando através do Jar
