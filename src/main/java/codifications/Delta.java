@@ -1,5 +1,6 @@
 package codifications;
 
+import redunduncy.CRC;
 import utils.MathUtils;
 import utils.Reader;
 import utils.StringUtils;
@@ -99,8 +100,10 @@ public class Delta implements Codification {
 
     @Override
     public void decode(File file, JProgressBar jp) throws IOException {
+        System.out.println("aqu");
         Reader reader = new Reader(file, jp);
         Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\decoded_" + file.getName().replaceFirst("[.][^.]+$", ""));
+
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         String quantOfDigitsString = getCodeword(QUANTITY_OF_DIGITS_SIZE, reader);
@@ -142,7 +145,10 @@ public class Delta implements Codification {
 
     @Override
     public String getBitsIdentificacaoAlgoritmo() {
-        return "00000001" + //identificaçãoAlgoritmo
-                "00000000"; // informação extra goloumb
+        String firstByte = "00000001"; //identificaçãoAlgoritmo
+        String secondByte = "00000000"; // informação extra goloumb
+        CRC crc = new CRC();
+        String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+        return firstByte + secondByte + encodedCRC;
     }
 }

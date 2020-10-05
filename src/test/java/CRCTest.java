@@ -7,6 +7,6 @@ public class CRCTest {
 
     @Test
     public void realizarTestCRC() {
-        crc.calculateCRC8("00000000", "00110100");
+        crc.calculateCRC8("00000001", "00000000");
     }
 }

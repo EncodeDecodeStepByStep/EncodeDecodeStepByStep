@@ -8,7 +8,7 @@ import utils.StringUtils;
 
 public class CRC {
 	private final static String CRC_PRESET = "100000111";
-	// 16 bits = 2 bytes do cabeçalho
+	// 16 bits = 2 bytes do cabeÃ§alho
 	private final static int D = 16;
 	
 	public String calculateCRC8(String firstByte, String secondByte) {
@@ -55,6 +55,7 @@ public class CRC {
 				finished = true;
 			}
 		}
+		check = StringUtils.padLeftZeros(check, 8);
 	    String result = check.substring(0, 8);
 		return result;
     
