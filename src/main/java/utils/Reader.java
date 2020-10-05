@@ -1,9 +1,11 @@
 package utils;
 
+import expections.WrongFormatExpection;
+
 import javax.swing.*;
 import java.io.*;
 
-public class Reader {
+public class Reader implements ReaderInterface{
     public static final int LENGTH_PROTOCOLO_REMOCAO_BITS = 8;
     private BufferedReader bufferedReader;
     private FileReader fileReader;
@@ -49,6 +51,16 @@ public class Reader {
             this.jp.setValue( (int) porcentagemLida );
         }
         return nextChar;
+    }
+
+    @Override
+    public int readNextCharSemHamming() throws IOException {
+        return 0;
+    }
+
+    @Override
+    public int readNextCharWithHamming() throws IOException, WrongFormatExpection {
+        return 0;
     }
 
     private void updateNextByteOfBinary() throws IOException {

@@ -11,7 +11,7 @@ public class CRC {
 	// 16 bits = 2 bytes do cabeçalho
 	private final static int D = 16;
 	
-	public String calculateCRC8(String firstByte, String secondByte) {
+	public static String calculateCRC8(String firstByte, String secondByte) {
 		long firstByteLong = Long.parseLong(firstByte, 2);
 	    long secondByteLong = Long.parseLong(secondByte, 2);
 	    int decimalFirstByte = (int) (firstByteLong);

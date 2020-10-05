@@ -1,12 +1,13 @@
 package codifications;
 
+import expections.WrongFormatExpection;
+import utils.*;
 import redunduncy.CRC;
 import utils.MathUtils;
 import utils.Reader;
 import utils.StringUtils;
 import utils.Writer;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,11 +30,10 @@ public class Delta implements Codification {
 
 
     @Override
-    public void encode(File file, JProgressBar jp) throws IOException {
-        Reader reader = new Reader(file, jp);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName() + EXTENSION);
-        writer.write(getBitsIdentificacaoAlgoritmo());
-        String bits = "";
+    public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        writer.writeSemHamming(getBitsIdentificacaoAlgoritmo());
+        //writer.write(CRC.calculateCRC8(getBitsIdentificacaoAlgoritmo().substring(0,8), getBitsIdentificacaoAlgoritmo().substring(8)));
+//        String bits = "";
 
         int currentCharacter = reader.read();
         int nextCharacter = reader.read();
@@ -51,12 +51,12 @@ public class Delta implements Codification {
         this.quantOfDigits = (int) Math.ceil(MathUtils.logBase2ToDouble(biggest));
 
         String quantityOfDigits = StringUtils.integerToStringBinary(this.quantOfDigits + 1, QUANTITY_OF_DIGITS_SIZE);
-        bits = bits.concat(writer.gravaBitsEmPartesDe8ERetornaOResto(quantityOfDigits));
+        writer.write(quantityOfDigits);
 
         currentCharacter = characters.get(0);
         String firstNumberInBinary = StringUtils.integerToStringBinary(currentCharacter, FIRST_BINARY_SIZE);
 
-        bits = bits.concat(writer.gravaBitsEmPartesDe8ERetornaOResto(firstNumberInBinary));
+        writer.write(firstNumberInBinary);
 
         for (int i = 1; i < characters.size(); i++) {
             nextCharacter = characters.get(i);
@@ -72,14 +72,9 @@ public class Delta implements Codification {
             }
             currentCharacter = nextCharacter;
 
-            bits = bits.concat(codeword);
-            while (bits.length() > 8) {
-                writer.write(bits.substring(0, 8));
-                bits = bits.substring(8);
-            }
-        }
-        if (bits.length() != 0) {
-            writer.write(bits);
+//            writer.write(codeword);
+//            System.out.print(codeword);
+            writer.write(codeword);
         }
         writer.close();
         reader.close();
@@ -99,11 +94,7 @@ public class Delta implements Codification {
     }
 
     @Override
-    public void decode(File file, JProgressBar jp) throws IOException {
-        System.out.println("aqu");
-        Reader reader = new Reader(file, jp);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\decoded_" + file.getName().replaceFirst("[.][^.]+$", ""));
-
+    public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         String quantOfDigitsString = getCodeword(QUANTITY_OF_DIGITS_SIZE, reader);
@@ -136,7 +127,7 @@ public class Delta implements Codification {
         return signal == NEGATIVE ? (char) (lastSimbol - difference) : (char) (lastSimbol + difference);
     }
 
-    private String getCodeword(int quantity, Reader reader) throws IOException {
+    private String getCodeword(int quantity, ReaderInterface reader) throws IOException, WrongFormatExpection {
         String codeword = "";
         for (int i = 0; i < quantity; i++)
             codeword += reader.readNextChar() - '0';

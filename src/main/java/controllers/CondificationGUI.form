@@ -148,20 +148,21 @@
                 <item value="Gustavo Steinmetz"/>
                 <item value=""/>
                 <item value="Obs2: O arquivo ficará salvo no mesmo local que foi selecionado, apenas mudando a extensão."/>
+                <item value="Obs3: Se você codificou com tratamento de ruido, deve decoficar com tratamento tbm para dar certo."/>
               </model>
-            </properties>
-          </component>
-          <component id="d7635" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <foreground color="-16008940"/>
             </properties>
           </component>
           <component id="bc4ed" class="javax.swing.JSpinner" binding="goulombDivisor">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <foreground color="-16008940"/>
+            </properties>
+          </component>
+          <component id="d7635" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
