@@ -6,7 +6,7 @@ Além disso, criamos uma interface gráfica para facilitar a vizualização.
 ## Observações Importantes
 1. A codificação Unária pode demorar uma eternidade, dependendo da entrada que lhe for dada, por isso fique tranquilo,
 espere alguns minutos e terá o resultado dela.
-2. A progress bar na decodificação finaliza antes do arquivo de fato ser gerado (Isso fica mais aparente na decodificação unária,
+2. A progress bar na decodificação finaliza muito antes do arquivo de fato ser gerado (Isso fica mais aparente na decodificação unária e goulomb,
 por isso seja paciente e espere)
 
 ## Modo de usar
