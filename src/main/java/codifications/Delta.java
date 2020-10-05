@@ -35,7 +35,6 @@ public class Delta implements Codification {
         List<Integer> characters = new ArrayList<Integer>();
         characters.add(currentCharacter);
 
-
         while (nextCharacter != -1) {
             characters.add(nextCharacter);
             updateBiggests(currentCharacter, nextCharacter);

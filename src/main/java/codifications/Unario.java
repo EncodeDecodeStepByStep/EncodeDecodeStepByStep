@@ -15,6 +15,7 @@ public class Unario implements Codification {
 
         int character = reader.read();
         int bit = 0;
+
         while (character != -1) {
             String codeword = "";
             if (bit == 0) {

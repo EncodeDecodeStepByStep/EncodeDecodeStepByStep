@@ -38,6 +38,7 @@ public class Fibonacci implements Codification {
     }
 
     private String getFibonacciEncoding(int n) {
+        n++;
         String binary = "1";
         boolean isFirstOccurrence = false;
         int necessaryLength = 0;
@@ -71,13 +72,12 @@ public class Fibonacci implements Codification {
 
         char number;
         while ((number = (char) reader.readNextChar()) != 65535) {
-
             char lastChar = storedOccurrence.length() > 0 ? storedOccurrence.charAt(storedOccurrence.length() - 1) : 0;
 
             if (lastChar == numberOne && number == numberOne) {
                 int ascii = this.decodeStringFibonacci(storedOccurrence);
                 char teste = (char) ascii;
-                writer.write(teste);
+                writer.write(--teste);
                 storedOccurrence = "";
             } else {
                 storedOccurrence = storedOccurrence + number;
