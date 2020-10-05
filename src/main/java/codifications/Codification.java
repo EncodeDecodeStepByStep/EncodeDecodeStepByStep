@@ -16,5 +16,5 @@ public interface Codification {
 
     void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection;
 
-    String getBitsIdentificacaoAlgoritmo();
+    String getBitsIdentificacaoAlgoritmo(WriterInterface writer);
 }

@@ -21,18 +21,26 @@ public class EliasGamma implements Codification {
     }
 
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
-        writer.writeSemHamming(getBitsIdentificacaoAlgoritmo());
+        writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
 
         int character = 0;
         while ((character = reader.read()) != -1) {
-            int unaryNumber = MathUtils.logBase2(character);
-            String unaryString = StringUtils.createStreamOnZeros(unaryNumber);
+            character++;
+            if (character == 1) {
+                System.out.println("aqqqqq");
+                String codewards = "" + STOP_BIT;
+                writer.write(codewards);
+            } else {
+                int unaryNumber = MathUtils.logBase2(character);
+                String unaryString = StringUtils.createStreamOnZeros(unaryNumber);
+                int rest = (int) (character - (Math.pow(2, unaryNumber)));
 
-            int rest = (int) (character - (Math.pow(2, unaryNumber)));
-            String restInBinary = StringUtils.integerToStringBinary(rest, unaryNumber);
+                System.out.println("errro");
+                String restInBinary = StringUtils.integerToStringBinary(rest, unaryNumber);
 
-            String codewards = unaryString + STOP_BIT + restInBinary;
-            writer.write(codewards);
+                String codewards = unaryString + STOP_BIT + restInBinary;
+                writer.write(codewards);
+            }
         }
         writer.close();
         reader.close();
@@ -62,7 +70,7 @@ public class EliasGamma implements Codification {
 
                 int rest = Integer.parseInt(restInBinary, 2);
                 char finalNumber = (char) ((int) Math.pow(2, prefixLength) + rest);
-                writer.write(finalNumber);
+                writer.write(--finalNumber);
 
                 alreadyFoundStopBit = false;
                 prefixLength = 0;
@@ -73,12 +81,14 @@ public class EliasGamma implements Codification {
     }
 
     @Override
-    public String getBitsIdentificacaoAlgoritmo() {
+    public String getBitsIdentificacaoAlgoritmo(WriterInterface writer) {
         String firstByte = "00000011"; //identificaçãoAlgoritmo
         String secondByte = "00000000"; // informação extra goloumb
         CRC crc = new CRC();
         String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
-        //        return firstByte + secondByte + encodedCRC;
+        if (writer instanceof WriterRedundancy) {
+            return firstByte + secondByte + encodedCRC;
+        }
         return firstByte + secondByte;
     }
 }

@@ -31,7 +31,7 @@ public class Delta implements Codification {
 
     @Override
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
-        writer.writeSemHamming(getBitsIdentificacaoAlgoritmo());
+        writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
         //writer.write(CRC.calculateCRC8(getBitsIdentificacaoAlgoritmo().substring(0,8), getBitsIdentificacaoAlgoritmo().substring(8)));
 //        String bits = "";
 
@@ -133,12 +133,14 @@ public class Delta implements Codification {
     }
 
     @Override
-    public String getBitsIdentificacaoAlgoritmo() {
+    public String getBitsIdentificacaoAlgoritmo(WriterInterface writer) {
         String firstByte = "00000001"; //identificaçãoAlgoritmo
         String secondByte = "00000000"; // informação extra goloumb
         CRC crc = new CRC();
         String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
-//        return firstByte + secondByte + encodedCRC;
+        if (writer instanceof WriterRedundancy) {
+            return firstByte + secondByte + encodedCRC;
+        }
         return firstByte + secondByte;
     }
 }
