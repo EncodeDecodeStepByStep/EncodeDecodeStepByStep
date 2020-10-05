@@ -1,6 +1,7 @@
 package utils;
 
 import expections.WrongFormatExpection;
+import redunduncy.CRC;
 import redunduncy.Hamming;
 
 import javax.swing.*;
@@ -161,11 +162,26 @@ public class ReaderRedundancy implements ReaderInterface {
     }
 
     public String readCabecalho() throws IOException, WrongFormatExpection {
-//        StringBuilder binaryString = new StringBuilder();
-//        for (int i = 0; i < 16; i++) {
-//            binaryString.append((char) readNextChar());
-//        }
-//        return binaryString.toString();
-        return "abobora"; //TODO pro cabeçalho com CRC
+        CRC crc = new CRC();
+
+        StringBuilder binaryStringFirstByte = new StringBuilder();
+        StringBuilder binaryStringSecondByte = new StringBuilder();
+        StringBuilder binaryStringThirdByte = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            binaryStringFirstByte.append((char) readNextChar());
+        }
+        for (int i = 0; i < 8; i++) {
+            binaryStringSecondByte.append((char) readNextChar());
+        }
+        for (int i = 0; i < 8; i++) {
+            binaryStringThirdByte.append((char) readNextChar());
+        }
+        String decodedCrc = crc.calculateCRC8(binaryStringFirstByte.toString(), binaryStringSecondByte.toString());
+        if (decodedCrc.equals(binaryStringThirdByte)) {
+            return "true";
+        }
+
+        return "false";
+//        return "abobora"; //TODO pro cabeçalho com CRC
     }
 }

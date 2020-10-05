@@ -25,15 +25,22 @@ public class EliasGamma implements Codification {
 
         int character = 0;
         while ((character = reader.read()) != -1) {
-            int unaryNumber = MathUtils.logBase2(character);
-            String unaryString = StringUtils.createStreamOnZeros(unaryNumber);
+            character++;
+            if (character == 1) {
+                System.out.println("aqqqqq");
+                String codewards = "" + STOP_BIT;
+                writer.write(codewards);
+            } else {
+                int unaryNumber = MathUtils.logBase2(character);
+                String unaryString = StringUtils.createStreamOnZeros(unaryNumber);
+                int rest = (int) (character - (Math.pow(2, unaryNumber)));
 
-            int rest = (int) (character - (Math.pow(2, unaryNumber)));
-            String restInBinary = StringUtils.integerToStringBinary(rest, unaryNumber);
+                System.out.println("errro");
+                String restInBinary = StringUtils.integerToStringBinary(rest, unaryNumber);
 
-            String codewards = unaryString + STOP_BIT + restInBinary;
-//            System.out.print(codewards);
-            writer.write(codewards);
+                String codewards = unaryString + STOP_BIT + restInBinary;
+                writer.write(codewards);
+            }
         }
         writer.close();
         reader.close();
@@ -63,7 +70,7 @@ public class EliasGamma implements Codification {
 
                 int rest = Integer.parseInt(restInBinary, 2);
                 char finalNumber = (char) ((int) Math.pow(2, prefixLength) + rest);
-                writer.write(finalNumber);
+                writer.write(--finalNumber);
 
                 alreadyFoundStopBit = false;
                 prefixLength = 0;
