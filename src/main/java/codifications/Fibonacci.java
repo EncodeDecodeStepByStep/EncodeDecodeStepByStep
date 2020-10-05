@@ -1,7 +1,7 @@
 package codifications;
 
-import utils.Reader;
-import utils.Writer;
+import expections.WrongFormatExpection;
+import utils.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,24 +25,13 @@ public class Fibonacci implements Codification {
         return structure;
     }
 
-    public void encode(File file) throws IOException {
-
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION);
-        writer.write(getBitsIdentificacaoAlgoritmo());
-        String bits = "";
+    public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        writer.writeSemHamming(getBitsIdentificacaoAlgoritmo());
 
         int character = 0;
         while ((character = reader.read()) != -1) {
             String encodingBinary = this.getFibonacciEncoding(character);
-            bits = bits.concat(encodingBinary);
-            while (bits.length() > 8) {
-                writer.write(bits.substring(0, 8));
-                bits = bits.substring(8);
-            }
-        }
-        if (bits.length() != 0) {
-            writer.write(bits);
+            writer.write(encodingBinary);
         }
         writer.close();
         reader.close();
@@ -74,9 +63,7 @@ public class Fibonacci implements Codification {
         return binary;
     }
 
-    public void decode(File file) throws IOException {
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION_DECODED);
+    public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         String storedOccurrence = "";
