@@ -24,7 +24,6 @@ public class Goulomb implements Codification {
     public void encode(File file, JProgressBar jp) throws IOException {
 
         Reader reader = new Reader(file, jp);
-        System.out.println(file.getAbsolutePath() + file.getName() + EXTENSION);
         Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName() + EXTENSION);
         writer.write(getBitsIdentificacaoAlgoritmo());
         String bits = "";

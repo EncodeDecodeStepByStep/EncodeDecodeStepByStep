@@ -100,7 +100,6 @@ public class Hamming implements Redunduncy {
                 errorWriter.write("Encontrado um erro critico no "+(binaryWithProblemIndex+1)+"º bit, não foi possivel corrigir");
                 throw new WrongFormatExpection("Erro critico no bit "+(binaryWithProblemIndex+1)+" em hamming");
             }
-            errorWriter.close();
         }
 
         return value;
