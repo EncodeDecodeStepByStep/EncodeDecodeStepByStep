@@ -55,7 +55,9 @@ public class CondificationGUI extends JFrame implements ActionListener{
             public void run() {
         chooser.showOpenDialog(null);
         file = chooser.getSelectedFile();
+        chooser.setSelectedFile(null);
 
+        progressBar1.setValue(0);
         if (e.getSource() == encodeButton){
             codification = CodificationMapper.getCodificationByStringName(String.valueOf(codificationBox.getSelectedItem()), (Integer) goulombDivisor.getValue());
             System.out.println("codificando");
@@ -87,4 +89,5 @@ public class CondificationGUI extends JFrame implements ActionListener{
             }
         }).start();
     }
+
 }
