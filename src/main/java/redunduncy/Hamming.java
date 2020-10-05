@@ -2,14 +2,15 @@ package redunduncy;
 
 import expections.WrongFormatExpection;
 
+import java.io.File;
 import java.util.HashMap;
 
 public class Hamming implements Redunduncy {
 
-    private final int OUT_LENGTH = 7;
-    private final int IN_LENGTH = 4;
+    private static final int OUT_LENGTH = 7;
+    private static final int IN_LENGTH = 4;
 
-    private final HashMap<String, Integer> zTable = new HashMap<String, Integer>(){
+    private static final HashMap<String, Integer> zTable = new HashMap<String, Integer>(){
         {
             put("000", 0);
             put("001", 7);
@@ -22,12 +23,12 @@ public class Hamming implements Redunduncy {
         }
     };
 
-    @Override
-    public String introduceRedunduncy(String bytes) throws WrongFormatExpection {
+//    @Override
+    public static String introduceRedunduncy(String bytes) throws WrongFormatExpection {
         if(bytes.length()!=IN_LENGTH){
             return bytes;
         }
-
+        //1110101
         char firstBit = bytes.charAt(0);
         char secondBit = bytes.charAt(1);
         char thirdBit = bytes.charAt(2);
@@ -44,15 +45,15 @@ public class Hamming implements Redunduncy {
         return bytes + fifthBit + sixthBit + seventhBit;
     }
 
-    private boolean verifyBits(char ...args) {
+    private static boolean verifyBits(char... args) {
         for (char bit : args)
             if(bit!='0' && bit!='1')
                 return true;
         return false;
     }
 
-    @Override
-    public String getValue(String bytes) throws WrongFormatExpection {
+//    @Override
+    public static String getValue(String bytes) throws WrongFormatExpection {
         if(bytes.length()!=OUT_LENGTH){
             return bytes;
         }
