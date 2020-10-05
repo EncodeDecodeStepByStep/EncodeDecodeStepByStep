@@ -91,7 +91,7 @@ public class Reader implements ReaderInterface{
 
     public String readCabecalho() throws IOException {
         StringBuilder binaryString = new StringBuilder();
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 16; i++) {
             char c = (char) readNextChar();
             binaryString.append(c);
         }

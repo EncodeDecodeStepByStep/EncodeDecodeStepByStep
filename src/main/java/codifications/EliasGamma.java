@@ -79,6 +79,7 @@ public class EliasGamma implements Codification {
         String secondByte = "00000000"; // informação extra goloumb
         CRC crc = new CRC();
         String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
-        return firstByte + secondByte + encodedCRC;
+        //        return firstByte + secondByte + encodedCRC;
+        return firstByte + secondByte;
     }
 }
