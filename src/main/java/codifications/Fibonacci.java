@@ -1,5 +1,8 @@
 package codifications;
 
+import redunduncy.CRC;
+import utils.Reader;
+import utils.Writer;
 import expections.WrongFormatExpection;
 import utils.*;
 
@@ -66,7 +69,6 @@ public class Fibonacci implements Codification {
 
     public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
-
         String storedOccurrence = "";
         char numberOne = Integer.toString(1).charAt(0);
 
@@ -103,7 +105,11 @@ public class Fibonacci implements Codification {
 
     @Override
     public String getBitsIdentificacaoAlgoritmo() {
-        return "00000111" + //identificaçãoAlgoritmo
-                "00000000"; // informação extra goloumb
+        String firstByte = "00000111"; //identificaçãoAlgoritmo
+        String secondByte = "00000000"; // informação extra goloumb
+        CRC crc = new CRC();
+        String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+//        return firstByte + secondByte + encodedCRC;
+        return firstByte + secondByte;
     }
 }
