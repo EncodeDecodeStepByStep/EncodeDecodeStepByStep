@@ -1,5 +1,6 @@
 package codifications;
 
+import redunduncy.CRC;
 import utils.MathUtils;
 import utils.Reader;
 import utils.StringUtils;
@@ -84,7 +85,10 @@ public class EliasGamma implements Codification {
 
     @Override
     public String getBitsIdentificacaoAlgoritmo() {
-        return "00000011" + //identificaçãoAlgoritmo
-                "00000000"; // informação extra goloumb
+        String firstByte = "00000011"; //identificaçãoAlgoritmo
+        String secondByte = "00000000"; // informação extra goloumb
+        CRC crc = new CRC();
+        String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+        return firstByte + secondByte + encodedCRC;
     }
 }

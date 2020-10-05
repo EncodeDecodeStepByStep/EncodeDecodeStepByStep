@@ -1,5 +1,6 @@
 package codifications;
 
+import redunduncy.CRC;
 import utils.Reader;
 import utils.Writer;
 
@@ -80,8 +81,8 @@ public class Fibonacci implements Codification {
     public void decode(File file, JProgressBar jp) throws IOException {
         Reader reader = new Reader(file, jp);
         Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\decoded_" + file.getName().replaceFirst("[.][^.]+$", ""));
-        reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
+        reader.readCabecalho();// apenas para passar os bits do cabeçalho
         String storedOccurrence = "";
         char numberOne = Integer.toString(1).charAt(0);
 
@@ -118,7 +119,10 @@ public class Fibonacci implements Codification {
 
     @Override
     public String getBitsIdentificacaoAlgoritmo() {
-        return "00000111" + //identificaçãoAlgoritmo
-                "00000000"; // informação extra goloumb
+        String firstByte = "00000111"; //identificaçãoAlgoritmo
+        String secondByte = "00000000"; // informação extra goloumb
+        CRC crc = new CRC();
+        String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+        return firstByte + secondByte + encodedCRC;
     }
 }

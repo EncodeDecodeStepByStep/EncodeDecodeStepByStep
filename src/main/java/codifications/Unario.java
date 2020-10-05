@@ -1,5 +1,6 @@
 package codifications;
 
+import redunduncy.CRC;
 import utils.Reader;
 import utils.StringUtils;
 import utils.Writer;
@@ -68,7 +69,10 @@ public class Unario implements Codification {
 
     @Override
     public String getBitsIdentificacaoAlgoritmo() {
-        return "00011111" + //identificaçãoAlgoritmo
-                "00000000"; // informação extra goloumb
+        String firstByte = "00011111"; //identificaçãoAlgoritmo
+        String secondByte = "00000000"; // informação extra goloumb
+        CRC crc = new CRC();
+        String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+        return firstByte + secondByte + encodedCRC;
     }
 }

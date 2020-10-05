@@ -1,5 +1,6 @@
 package codifications;
 
+import redunduncy.CRC;
 import utils.MathUtils;
 import utils.Reader;
 import utils.StringUtils;
@@ -88,7 +89,10 @@ public class Goulomb implements Codification {
 
     @Override
     public String getBitsIdentificacaoAlgoritmo() {
-        return "00001111" + //identificaçãoAlgoritmo
-                StringUtils.integerToStringBinary(divisor, 8); // informação extra divisor goloumb
+        String firstByte = "00001111"; //identificaçãoAlgoritmo
+        String secondByte = StringUtils.integerToStringBinary(divisor, 8); // informação extra goloumb
+        CRC crc = new CRC();
+        String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+        return firstByte + secondByte + encodedCRC;
     }
 }
