@@ -1,15 +1,20 @@
 package codifications;
 
-import javax.swing.*;
+import expections.WrongFormatExpection;
+import utils.Reader;
+import utils.ReaderInterface;
+import utils.Writer;
+import utils.WriterInterface;
+
 import java.io.File;
 import java.io.IOException;
 
 public interface Codification {
 
 
-    void encode(File file, JProgressBar jp) throws IOException;
+    void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection;
 
-    void decode(File file, JProgressBar jp) throws IOException;
+    void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection;
 
     String getBitsIdentificacaoAlgoritmo();
 }

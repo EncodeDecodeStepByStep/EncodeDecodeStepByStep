@@ -1,14 +1,18 @@
 package utils;
 
+import expections.WrongFormatExpection;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class Writer {
+public class Writer implements WriterInterface{
     public static final int LENGTH_OF_BITS_IN_A_BYTE = 8;
     private BufferedWriter bufferedWriter;
     private FileWriter fileWriter;
     private OutputStream os;
+    private String bitsStringControle;
+
 
     public Writer(String path) throws IOException {
         File output = new File(path);
@@ -19,13 +23,23 @@ public class Writer {
         this.fileWriter = new FileWriter(output);
         this.bufferedWriter = new BufferedWriter(fileWriter);
         this.os = new FileOutputStream(output);
+        this.bitsStringControle = "";
     }
 
     public void write(char letter) throws IOException {
         bufferedWriter.write(letter);
     }
 
-    public void write(String bytes) throws IOException {
+    public void write(String bits) throws IOException {
+        this.bitsStringControle = bitsStringControle.concat(bits);
+
+        while(bitsStringControle.length() >= 8) {
+            write8bitsOrConcatZerosToComplete(this.bitsStringControle.substring(0, 8));
+            this.bitsStringControle = this.bitsStringControle.substring(8);
+        }
+    }
+
+    public void write8bitsOrConcatZerosToComplete(String bytes) throws IOException {
         int resto = (bytes.length() % LENGTH_OF_BITS_IN_A_BYTE);
         int divisorMenosResto = LENGTH_OF_BITS_IN_A_BYTE - resto;
         if (resto != 0) {
@@ -34,9 +48,16 @@ public class Writer {
             }
         }
         os.write(toByteArray(bytes));
+        System.out.print(bytes);
         if (divisorMenosResto != LENGTH_OF_BITS_IN_A_BYTE) {
             os.write(toByteArray(StringUtils.integerToStringBinary(divisorMenosResto, LENGTH_OF_BITS_IN_A_BYTE)));
+            System.out.print(StringUtils.integerToStringBinary(divisorMenosResto, LENGTH_OF_BITS_IN_A_BYTE));
         }
+    }
+
+    @Override
+    public void writeSemHamming(String bits) throws IOException, WrongFormatExpection {
+        write(bits);
     }
 
     public static byte[] toByteArray(String input) {
@@ -54,6 +75,10 @@ public class Writer {
     }
 
     public void close() throws IOException {
+        if(this.bitsStringControle.length() > 0){
+            write8bitsOrConcatZerosToComplete(bitsStringControle);
+            this.bitsStringControle = "";
+        }
         bufferedWriter.close();
         fileWriter.close();
         os.close();
