@@ -15,7 +15,8 @@ por isso seja paciente e espere)
 2. Instale as dependências atráves do maven
 3. Execute o main em src/main/java/controllers/CodificationGUI, isso abre uma interface gráfica
 
-# Instalando através do Jar
+# Executando através do Jar
+Abra a pasta out/artifacts/TrabalhoTeoriaDaComputacao_jar e execute o jar dentro da pasta.
 
 ##Desenvolvedores
 1. Bruno Camboim
