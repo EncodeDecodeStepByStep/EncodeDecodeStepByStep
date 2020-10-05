@@ -2,7 +2,9 @@ package controllers;
 
 import codifications.Codification;
 import codifications.CodificationMapper;
-import utils.Reader;
+import expections.WrongFormatExpection;
+import utils.ReaderInterface;
+import utils.ReaderRedundancy;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+
+import static codifications.Constants.EXTENSION;
 
 public class CondificationGUI extends JFrame implements ActionListener{
     private JPanel mainPanel;
@@ -47,28 +51,40 @@ public class CondificationGUI extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        new Thread(new Runnable() {
+            public void run() {
         chooser.showOpenDialog(null);
         file = chooser.getSelectedFile();
 
         if (e.getSource() == encodeButton){
-            this.codification = CodificationMapper.getCodificationByStringName(String.valueOf(this.codificationBox.getSelectedItem()), (Integer) goulombDivisor.getValue());
+            codification = CodificationMapper.getCodificationByStringName(String.valueOf(codificationBox.getSelectedItem()), (Integer) goulombDivisor.getValue());
             System.out.println("codificando");
             try {
-                codification.encode(file);
-            } catch (IOException ioException) {
+                codification.encode(
+                        CodificationMapper.getWriter(String.valueOf(redunduncyBox.getSelectedItem()), file.getParentFile().getAbsolutePath()+ "\\" + file.getName() + EXTENSION),
+                        CodificationMapper.getReader(String.valueOf(redunduncyBox.getSelectedItem()), file, progressBar1));
+            } catch (IOException | WrongFormatExpection ioException) {
                 ioException.printStackTrace();
             }
             System.out.println("codificado");
         } else {
             System.out.println("decodificando");
             try {
-                this.codification = CodificationMapper.getCodificationByStringBits(new Reader(file).readCabecalho());
-                this.codification.decode(file);
-            } catch (IOException ioException) {
+                ReaderInterface reader = CodificationMapper.getReader(String.valueOf(redunduncyBox.getSelectedItem()), file, progressBar1);
+
+                codification = CodificationMapper.getCodificationByStringBits(reader.readCabecalho());
+                reader.close();
+
+
+                codification.decode(
+                        CodificationMapper.getWriter(String.valueOf(redunduncyBox.getSelectedItem()), file.getParentFile().getAbsolutePath()+ "\\decoded_" + file.getName().replaceFirst("[.][^.]+$", "")),
+                        CodificationMapper.getReader(String.valueOf(redunduncyBox.getSelectedItem()), file, progressBar1));
+            } catch (IOException | WrongFormatExpection ioException) {
                 ioException.printStackTrace();
             }
             System.out.println("decodificado");
         }
-
+            }
+        }).start();
     }
 }

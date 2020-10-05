@@ -1,8 +1,7 @@
 package codifications;
 
-import utils.Reader;
-import utils.StringUtils;
-import utils.Writer;
+import expections.WrongFormatExpection;
+import utils.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +10,8 @@ import static codifications.Constants.*;
 
 public class Unario implements Codification {
     @Override
-    public void encode(File file) throws IOException {
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION);
-        writer.write(getBitsIdentificacaoAlgoritmo());
-        String bits = "";
+    public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        writer.writeSemHamming(getBitsIdentificacaoAlgoritmo());
 
         int character = reader.read();
         int bit = 0;
@@ -28,21 +24,15 @@ public class Unario implements Codification {
                 codeword = StringUtils.createStreamWithOnes(character);
                 bit = 0;
             }
-            bits = bits.concat(codeword);
-            bits = writer.gravaBitsEmPartesDe8ERetornaOResto(bits);
+            writer.write(codeword);
             character = reader.read();
-        }
-        if (bits.length() != 0) {
-            writer.write(bits);
         }
         reader.close();
         writer.close();
     }
 
     @Override
-    public void decode(File file) throws IOException {
-        Reader reader = new Reader(file);
-        Writer writer = new Writer(file.getParentFile().getAbsolutePath()+ "\\" + file.getName().replaceFirst("[.][^.]+$", "") + EXTENSION_DECODED);
+    public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         int bitRead = reader.readNextChar();
