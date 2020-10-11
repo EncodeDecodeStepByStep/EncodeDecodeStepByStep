@@ -1,0 +1,66 @@
+{
+  "name": "encode-decode-step-by-step",
+  "version": "0.1.0",
+  "main": "public/electron.js",
+  "author": "Bruno Pozzebon,Bruno Camboim,Gustavo Steinmetz",
+  "description": "A codificator that show step by step process of Encode and Decode. Algorithms supported: Delta, Elias Gamma, Fibonacci, Goulomb, Unary. Possibility of Error detection with Hamming in body and CRC-8 in header.",
+  "build": {
+    "appId": "encode-decode-step-by-step.com",
+    "win": {
+      "icon": "build/icon.jpg"
+    }
+  },
+  "homepage": "./",
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "cross-env": "^7.0.2",
+    "electron-is-dev": "^1.2.0",
+    "konva": "^7.1.3",
+    "react": "^16.13.1",
+    "react-create-global-state": "^1.0.0",
+    "react-dom": "^16.13.1",
+    "react-icons": "^3.10.0",
+    "react-konva": "^16.13.0-6",
+    "react-loader-spinner": "^3.1.14",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-toastify": "^6.0.8",
+    "styled-components": "^5.2.0",
+    "axios": "^0.19.0",
+    "tree-kill": "1.2.2"
+  },
+  "scripts": {
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "build": "yarn react-build && yarn electron-build",
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.1.5",
+    "concurrently": "^5.2.0",
+    "electron": "^9.1.1",
+    "electron-builder": "^22.7.0",
+    "typescript": "^4.0.3",
+    "wait-on": "^5.1.0"
+  }
+}
