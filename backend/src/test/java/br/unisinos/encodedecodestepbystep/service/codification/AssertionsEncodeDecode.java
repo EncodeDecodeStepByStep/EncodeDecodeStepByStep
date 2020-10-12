@@ -15,7 +15,7 @@ public class AssertionsEncodeDecode {
 
     public static void makeAssertions() throws IOException {
         arquivoEsperado = new File("src/test/resources/filesToEncodeDecodeTest/alice29.txt");
-        arquivoRetornado = new File("src/test/resources/filesToEncodeDecodeTest/decode_alice29.txt");
+        arquivoRetornado = new File("src/test/resources/filesToEncodeDecodeTest/decoded_alice29.txt");
 
         InputStream isParaEsperado = new FileInputStream(arquivoEsperado);
         InputStream isParaResultado = new FileInputStream(arquivoRetornado);

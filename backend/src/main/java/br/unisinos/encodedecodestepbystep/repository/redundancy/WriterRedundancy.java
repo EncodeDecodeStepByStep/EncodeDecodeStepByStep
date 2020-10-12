@@ -1,6 +1,7 @@
 package br.unisinos.encodedecodestepbystep.repository.redundancy;
 
-import br.unisinos.encodedecodestepbystep.service.redundancy.Hamming;
+import br.unisinos.encodedecodestepbystep.domain.Codification;
+import br.unisinos.encodedecodestepbystep.service.redundancy.HammingService;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
@@ -18,9 +19,11 @@ public class WriterRedundancy implements WriterInterface {
     private OutputStream os;
     private String bitsStringControle;
     private String bitsStringControleHamming;
+    private File output;
 
     public WriterRedundancy(String path) throws IOException {
-        File output = new File(path);
+        output = new File(path);
+        Codification.setFile(output);
 
         if (output.exists()) {
             output.delete();
@@ -52,7 +55,7 @@ public class WriterRedundancy implements WriterInterface {
 
     private void updateBitStringHamming() throws WrongFormatExpection {
         while(bitsStringControle.length() >= 4) {
-            this.bitsStringControleHamming = this.bitsStringControleHamming.concat(Hamming.introduceRedunduncy(bitsStringControle.substring(0, 4)));
+            this.bitsStringControleHamming = this.bitsStringControleHamming.concat(HammingService.introduceRedunduncy(bitsStringControle.substring(0, 4)));
             this.bitsStringControle = this.bitsStringControle.substring(4);
         }
     }
@@ -96,5 +99,15 @@ public class WriterRedundancy implements WriterInterface {
         bufferedWriter.close();
         fileWriter.close();
         os.close();
+    }
+
+//     //TODO escrever arquivo intermediario
+//    private void writeCodewordsSizeForStepsTempFile(Integer codewordSize) throws IOException {
+//        this.fileWriterCodewordsSizeArray.write(codewordSize.toString().concat(","));
+//    }
+
+    @Override
+    public File getFile() {
+        return output;
     }
 }

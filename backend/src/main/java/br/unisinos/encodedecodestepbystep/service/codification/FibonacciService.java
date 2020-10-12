@@ -4,15 +4,17 @@ package br.unisinos.encodedecodestepbystep.service.codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
-import br.unisinos.encodedecodestepbystep.service.redundancy.CRC;
+import br.unisinos.encodedecodestepbystep.service.redundancy.CRCService;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-public class Fibonacci implements Codification {
+@Service
+public class FibonacciService implements Codification {
     private int[] fibonacci_sequence;
 
-    public Fibonacci() {
+    public FibonacciService() {
         this.fibonacci_sequence = this.createStructureFibonacci();
     }
 
@@ -106,8 +108,8 @@ public class Fibonacci implements Codification {
         String firstByte = "00000111"; //identificaçãoAlgoritmo
         String secondByte = "00000000"; // informação extra goloumb
         if (writer instanceof WriterRedundancy) {
-            CRC crc = new CRC();
-            String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+            CRCService crcService = new CRCService();
+            String encodedCRC = crcService.calculateCRC8(firstByte, secondByte);
             return firstByte + secondByte + encodedCRC;
         }
         return firstByte + secondByte;

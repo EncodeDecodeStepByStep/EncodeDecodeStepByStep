@@ -14,18 +14,16 @@ import java.io.IOException;
 
 import static br.unisinos.encodedecodestepbystep.service.codification.AssertionsEncodeDecode.makeAssertions;
 import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.*;
-import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpDecodeWithRedundancySum;
-import static org.junit.jupiter.api.Assertions.*;
 
-class FibonacciTest {
+class DeltaServiceTest {
 
     WriterInterface writer;
     ReaderInterface reader;
-    Fibonacci fibonacci;
+    DeltaService deltaService;
 
     @BeforeEach
     void setUp() {
-        this.fibonacci = new Fibonacci();
+        this.deltaService = new DeltaService();
     }
 
     void setUp(ReaderWriterWrapper readerWriterWrapper) {
@@ -36,10 +34,10 @@ class FibonacciTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeAlice29());
-        fibonacci.encode(this.writer, this.reader);
+        deltaService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeAlice29());
-        fibonacci.decode(this.writer, this.reader);
+        deltaService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -47,10 +45,10 @@ class FibonacciTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeSum());
-        fibonacci.encode(this.writer, this.reader);
+        deltaService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeSum());
-        fibonacci.decode(this.writer, this.reader);
+        deltaService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -58,10 +56,10 @@ class FibonacciTest {
 //    @Test
 //    void deveFicarIgualOArquivoOriginalQuandoExecutadoComTratamentoDeRuidoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
 //        setUp(setUpEncodeWithRedundancyAlice29());
-//        fibonacci.encode(this.writer, this.reader);
+//        delta.encode(this.writer, this.reader);
 //
 //        setUp(setUpDecodeWithRedundancyAlice29());
-//        fibonacci.decode(this.writer, this.reader);
+//        delta.decode(this.writer, this.reader);
 //
 //        makeAssertions();
 //    }
@@ -69,25 +67,25 @@ class FibonacciTest {
 //    @Test
 //    void deveFicarIgualOArquivoOriginalQuandoExecutadoComTratamentoDeRuidoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
 //        setUp(setUpEncodeWithRedundancySum());
-//        fibonacci.encode(this.writer, this.reader);
+//        delta.encode(this.writer, this.reader);
 //
 //        setUp(setUpDecodeWithRedundancySum());
-//        fibonacci.decode(this.writer, this.reader);
+//        delta.decode(this.writer, this.reader);
 //
 //        makeAssertions();
 //    }
 
     @Test
-    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() {
-        String bitsIdentificacaoAlgoritmoEsperado = "0000011100000000";
-        String bitsIdentificacaoAlgoritmoRetornado = fibonacci.getBitsIdentificacaoAlgoritmo(new Writer());
+    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() throws IOException {
+        String bitsIdentificacaoAlgoritmoEsperado = "0000000100000000";
+        String bitsIdentificacaoAlgoritmoRetornado = deltaService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoComByteCRC8QuandoUtilizadoTratamentoDeRuido() throws IOException {
-        String bitsIdentificacaoAlgoritmoEsperado = "000001110000000001101011";
-        String bitsIdentificacaoAlgoritmoRetornado = fibonacci.getBitsIdentificacaoAlgoritmo(new WriterRedundancy());
+        String bitsIdentificacaoAlgoritmoEsperado = "000000010000000000010101";
+        String bitsIdentificacaoAlgoritmoRetornado = deltaService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 }

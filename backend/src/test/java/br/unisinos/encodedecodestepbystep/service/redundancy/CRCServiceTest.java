@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CRCTest {
+class CRCServiceTest {
 
     @Test
     void calculateCRC8() {

@@ -14,17 +14,16 @@ import java.io.IOException;
 
 import static br.unisinos.encodedecodestepbystep.service.codification.AssertionsEncodeDecode.makeAssertions;
 import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.*;
-import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpDecodeWithRedundancySum;
 
-class EliasGammaTest {
+class GoulombServiceTest {
 
     WriterInterface writer;
     ReaderInterface reader;
-    EliasGamma eliasGamma;
+    GoulombService goulombService;
 
     @BeforeEach
     void setUp() {
-        this.eliasGamma = new EliasGamma();
+        this.goulombService = new GoulombService(2);
     }
 
     void setUp(ReaderWriterWrapper readerWriterWrapper) {
@@ -35,10 +34,10 @@ class EliasGammaTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeAlice29());
-        eliasGamma.encode(this.writer, this.reader);
+        goulombService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeAlice29());
-        eliasGamma.decode(this.writer, this.reader);
+        goulombService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -46,10 +45,10 @@ class EliasGammaTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeSum());
-        eliasGamma.encode(this.writer, this.reader);
+        goulombService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeSum());
-        eliasGamma.decode(this.writer, this.reader);
+        goulombService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -57,10 +56,10 @@ class EliasGammaTest {
 //    @Test
 //    void deveFicarIgualOArquivoOriginalQuandoExecutadoComTratamentoDeRuidoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
 //        setUp(setUpEncodeWithRedundancyAlice29());
-//        eliasGamma.encode(this.writer, this.reader);
+//        goulomb.encode(this.writer, this.reader);
 //
 //        setUp(setUpDecodeWithRedundancyAlice29());
-//        eliasGamma.decode(this.writer, this.reader);
+//        goulomb.decode(this.writer, this.reader);
 //
 //        makeAssertions();
 //    }
@@ -68,25 +67,33 @@ class EliasGammaTest {
 //    @Test
 //    void deveFicarIgualOArquivoOriginalQuandoExecutadoComTratamentoDeRuidoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
 //        setUp(setUpEncodeWithRedundancySum());
-//        eliasGamma.encode(this.writer, this.reader);
+//        goulomb.encode(this.writer, this.reader);
 //
 //        setUp(setUpDecodeWithRedundancySum());
-//        eliasGamma.decode(this.writer, this.reader);
+//        goulomb.decode(this.writer, this.reader);
 //
 //        makeAssertions();
 //    }
 
     @Test
-    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() {
-        String bitsIdentificacaoAlgoritmoEsperado = "0000001100000000";
-        String bitsIdentificacaoAlgoritmoRetornado = eliasGamma.getBitsIdentificacaoAlgoritmo(new Writer());
+    void deveRetornarIdentificaoEmBitsDoAlgoritmoComSegundoByteCorrepondendoAoTamanhoDoDivisor() throws IOException {
+        goulombService = new GoulombService(21);
+        String bitsIdentificacaoAlgoritmoEsperado = "0000111100010101";
+        String bitsIdentificacaoAlgoritmoRetornado = goulombService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
+        Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
+    }
+
+    @Test
+    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() throws IOException {
+        String bitsIdentificacaoAlgoritmoEsperado = "0000111100000010";
+        String bitsIdentificacaoAlgoritmoRetornado = goulombService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoComByteCRC8QuandoUtilizadoTratamentoDeRuido() throws IOException {
-        String bitsIdentificacaoAlgoritmoEsperado = "000000110000000000111111";
-        String bitsIdentificacaoAlgoritmoRetornado = eliasGamma.getBitsIdentificacaoAlgoritmo(new WriterRedundancy());
+        String bitsIdentificacaoAlgoritmoEsperado = "000011110000001011001101";
+        String bitsIdentificacaoAlgoritmoRetornado = goulombService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 }

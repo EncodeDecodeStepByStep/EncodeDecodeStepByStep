@@ -2,19 +2,20 @@ package br.unisinos.encodedecodestepbystep.service.codification;
 
 
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
-import br.unisinos.encodedecodestepbystep.service.redundancy.CRC;
+import br.unisinos.encodedecodestepbystep.service.redundancy.CRCService;
 import br.unisinos.encodedecodestepbystep.utils.MathUtils;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Delta implements Codification {
+@Service
+public class DeltaService implements Codification {
     private int biggestIncrease = 0;
     private int biggestDecrease = 0;
     private int quantOfDigits;
@@ -71,8 +72,10 @@ public class Delta implements Codification {
             }
             currentCharacter = nextCharacter;
 
+            System.out.print(codeword);
             writer.write(codeword);
         }
+        System.out.println();
         writer.close();
         reader.close();
     }
@@ -136,8 +139,8 @@ public class Delta implements Codification {
         String firstByte = "00000001"; //identificaçãoAlgoritmo
         String secondByte = "00000000"; // informação extra goloumb
         if (writer instanceof WriterRedundancy) {
-            CRC crc = new CRC();
-            String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+            CRCService crcService = new CRCService();
+            String encodedCRC = crcService.calculateCRC8(firstByte, secondByte);
             return firstByte + secondByte + encodedCRC;
         }
         return firstByte + secondByte;

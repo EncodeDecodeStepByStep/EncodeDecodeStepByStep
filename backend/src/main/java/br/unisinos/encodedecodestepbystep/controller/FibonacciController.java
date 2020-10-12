@@ -5,7 +5,7 @@ import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
-import br.unisinos.encodedecodestepbystep.service.codification.UnarioService;
+import br.unisinos.encodedecodestepbystep.service.codification.FibonacciService;
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController()
-@RequestMapping("/unary")
-public class UnarioController {
+@RequestMapping("/fibonacci")
+public class FibonacciController {
 
     @Autowired
-    private UnarioService unarioService;
+    private FibonacciService fibonacciService;
 
     @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/encode")
@@ -29,7 +29,7 @@ public class UnarioController {
                 Codification.setProgressPercentage(new MutableDouble(0));
 
                 ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getEncodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
-                unarioService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
+                fibonacciService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -53,7 +53,7 @@ public class UnarioController {
             try {
                 Codification.setProgressPercentage(new MutableDouble(0));
                 ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getDecodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
-                unarioService.decode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
+                fibonacciService.decode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
             } catch (Exception e) {
                 e.printStackTrace();
             }

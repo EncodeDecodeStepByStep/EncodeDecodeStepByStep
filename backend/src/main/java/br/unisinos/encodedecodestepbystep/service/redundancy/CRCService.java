@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 
-public class CRC {
+public class CRCService {
 	private final static String CRC_PRESET = "100000111";
 	// 16 bits = 2 bytes do cabeçalho
 	private final static int D = 16;

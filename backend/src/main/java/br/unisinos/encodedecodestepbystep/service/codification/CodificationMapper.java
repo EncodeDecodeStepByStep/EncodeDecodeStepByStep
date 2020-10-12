@@ -7,6 +7,7 @@ import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
 import br.unisinos.encodedecodestepbystep.repository.codification.Writer;
 import br.unisinos.encodedecodestepbystep.repository.redundancy.ReaderRedundancy;
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
+import org.apache.commons.lang3.mutable.MutableDouble;
 
 import javax.swing.*;
 import java.io.File;
@@ -20,38 +21,38 @@ public class CodificationMapper {
 
     private static final Map<String, Codification> NAMES_CODIFICATION_MAP = Collections.unmodifiableMap(
             new HashMap<String, Codification>() {{
-                put("Delta", new Delta());
-                put("Elias Gamma", new EliasGamma());
-                put("Fibonacci", new Fibonacci());
-                put("Goulomb", new Goulomb(-1));
-                put("Unario", new Unario());
+                put("Delta", new DeltaService());
+                put("Elias Gamma", new EliasGammaService());
+                put("Fibonacci", new FibonacciService());
+                put("Goulomb", new GoulombService(-1));
+                put("Unario", new UnarioService());
             }}
     );
     private static final Map<String, Codification> BITS_CODIFICATION_MAP = Collections.unmodifiableMap(
             new HashMap<String, Codification>() {{
-                put("0000000100000000", new Delta());
-                put("0000001100000000", new EliasGamma());
-                put("0000011100000000", new Fibonacci());
-                put("0001111100000000", new Unario());
+                put("0000000100000000", new DeltaService());
+                put("0000001100000000", new EliasGammaService());
+                put("0000011100000000", new FibonacciService());
+                put("0001111100000000", new UnarioService());
             }}
     );
 
     Codification getCodificationByStringBits(String bits) {
         return bits.startsWith("00001111")
-                ? new Goulomb(Integer.parseInt(bits.substring(8, 16), 2))
+                ? new GoulombService(Integer.parseInt(bits.substring(8, 16), 2))
                 : BITS_CODIFICATION_MAP.get(bits);
     }
 
     public static Codification getCodificationByStringName(String name, Integer divisor) {
-        return NAMES_CODIFICATION_MAP.get(name) instanceof Goulomb
-                ? new Goulomb(divisor)
+        return NAMES_CODIFICATION_MAP.get(name) instanceof GoulombService
+                ? new GoulombService(divisor)
                 : NAMES_CODIFICATION_MAP.get(name);
     }
 
-    public static ReaderInterface getReader(String nameRedundancy, File file, JProgressBar jp) throws FileNotFoundException {
+    public static ReaderInterface getReader(String nameRedundancy, File file, MutableDouble progressPercentage) throws FileNotFoundException {
         return new HashMap<String, ReaderInterface>() {{
-            put("Com tratamento de ruido", new ReaderRedundancy(file, jp));
-            put("Sem tratamento de ruido", new Reader(file, jp));
+            put("Com tratamento de ruido", new ReaderRedundancy(file, progressPercentage));
+            put("Sem tratamento de ruido", new Reader(file, progressPercentage));
         }}.get(nameRedundancy);
     }
 

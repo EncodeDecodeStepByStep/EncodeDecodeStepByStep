@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-class HammingTest {
+class HammingServiceTest {
 
-//    Hamming hamming = new Hamming();
+//    HammingService hammingService = new HammingService();
 //    HashMap<String, String> hammingTable = new HashMap<String, String>();
 //
 //    @BeforeEach
@@ -38,7 +38,7 @@ class HammingTest {
 //        for (Map.Entry<String, String> entry : hammingTable.entrySet()) {
 //            String binary = entry.getKey();
 //            String messageExpected = entry.getValue();
-//            String binaryWithRedunduncy = hamming.introduceRedunduncy(binary);
+//            String binaryWithRedunduncy = hammingService.introduceRedunduncy(binary);
 //            Assertions.assertEquals(binaryWithRedunduncy, messageExpected);
 //        }
 //    }
@@ -49,7 +49,7 @@ class HammingTest {
 //            String binaryExpected = entry.getKey();
 //            String binaryWithRedunduncy = entry.getValue();
 //
-//            String binary = hamming.getValue(binaryWithRedunduncy);
+//            String binary = hammingService.getValue(binaryWithRedunduncy);
 //
 //            Assertions.assertEquals(binary, binaryExpected);
 //        }
@@ -66,7 +66,7 @@ class HammingTest {
 //                char characterAtFirstPosition = binaryWithRedunduncy.charAt(0) == '0' ? '1' : '0';
 //                String binaryWithRedunduncyChanged= characterAtFirstPosition+ binaryWithRedunduncy.substring(1);
 //
-//                binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
+//                binaryFound = hammingService.getValue(binaryWithRedunduncyChanged);
 //
 //                Assertions.assertEquals(binaryFound, binaryWithRedunduncy.substring(0, 4));
 //            } catch (WrongFormatExpection wrongFormatExpection) {
@@ -83,7 +83,7 @@ class HammingTest {
 //                String binaryWithRedunduncy = entry.getValue();
 //                char characterAtSecondPosition = binaryWithRedunduncy.charAt(1) == '0' ? '1' : '0';
 //                String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,1) + characterAtSecondPosition+ binaryWithRedunduncy.substring(2);
-//                binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
+//                binaryFound = hammingService.getValue(binaryWithRedunduncyChanged);
 //
 //                Assertions.assertEquals(binaryFound, binaryWithRedunduncy.substring(0, 4));
 //            } catch (WrongFormatExpection e) {
@@ -100,7 +100,7 @@ class HammingTest {
 //                String binaryWithRedunduncy = entry.getValue();
 //                char characterAtThirdPosition = binaryWithRedunduncy.charAt(2) == '0' ? '1' : '0';
 //                String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,2) + characterAtThirdPosition+ binaryWithRedunduncy.substring(3);
-//                binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
+//                binaryFound = hammingService.getValue(binaryWithRedunduncyChanged);
 //
 //                Assertions.assertEquals(binaryFound, binaryWithRedunduncy.substring(0, 4));
 //            } catch (WrongFormatExpection e) {
@@ -117,7 +117,7 @@ class HammingTest {
 //                String binaryWithRedunduncy = entry.getValue();
 //                char characterAtFourthPosition = binaryWithRedunduncy.charAt(3) == '0' ? '1' : '0';
 //                String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,3) + characterAtFourthPosition+ binaryWithRedunduncy.substring(4);
-//                binaryFound = hamming.getValue(binaryWithRedunduncyChanged);
+//                binaryFound = hammingService.getValue(binaryWithRedunduncyChanged);
 //
 //                Assertions.assertEquals(binaryFound, binaryWithRedunduncy.substring(0, 4));
 //            } catch (WrongFormatExpection e) {
@@ -133,7 +133,7 @@ class HammingTest {
 //                String binaryWithRedunduncy = entry.getValue();
 //                char characterAtFifthPosition = binaryWithRedunduncy.charAt(4) == '0' ? '1' : '0';
 //                String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,4) + characterAtFifthPosition+ binaryWithRedunduncy.substring(5);
-//                hamming.getValue(binaryWithRedunduncyChanged);
+//                hammingService.getValue(binaryWithRedunduncyChanged);
 //            } catch (WrongFormatExpection e) {
 //                Assertions.assertEquals(e.getMessage(),"Erro critico no bit 5 em hamming");
 //            }
@@ -147,7 +147,7 @@ class HammingTest {
 //                String binaryWithRedunduncy = entry.getValue();
 //                char characterAtSixthPosition = binaryWithRedunduncy.charAt(5) == '0' ? '1' : '0';
 //                String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,5) + characterAtSixthPosition+ binaryWithRedunduncy.substring(6);
-//                hamming.getValue(binaryWithRedunduncyChanged);
+//                hammingService.getValue(binaryWithRedunduncyChanged);
 //
 //            } catch (WrongFormatExpection e) {
 //                Assertions.assertEquals(e.getMessage(),"Erro critico no bit 6 em hamming");
@@ -164,7 +164,7 @@ class HammingTest {
 //                char characterAtSeventhPosition = binaryWithRedunduncy.charAt(6) == '0' ? '1' : '0';
 //                String binaryWithRedunduncyChanged= binaryWithRedunduncy.substring(0,6) + characterAtSeventhPosition;
 //
-//                hamming.getValue(binaryWithRedunduncyChanged);
+//                hammingService.getValue(binaryWithRedunduncyChanged);
 //            } catch(WrongFormatExpection e){
 //                Assertions.assertEquals(e.getMessage(),"Erro critico no bit 7 em hamming");
 //            }

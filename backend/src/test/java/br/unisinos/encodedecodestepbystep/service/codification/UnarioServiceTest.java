@@ -14,18 +14,16 @@ import java.io.IOException;
 
 import static br.unisinos.encodedecodestepbystep.service.codification.AssertionsEncodeDecode.makeAssertions;
 import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.*;
-import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpDecodeWithRedundancySum;
-import static org.junit.jupiter.api.Assertions.*;
 
-class UnarioTest {
+class UnarioServiceTest {
 
     WriterInterface writer;
     ReaderInterface reader;
-    Unario unario;
+    UnarioService unarioService;
 
     @BeforeEach
     void setUp() {
-        this.unario = new Unario();
+        this.unarioService = new UnarioService();
     }
 
     void setUp(ReaderWriterWrapper readerWriterWrapper) {
@@ -36,10 +34,10 @@ class UnarioTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeAlice29());
-        unario.encode(this.writer, this.reader);
+        unarioService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeAlice29());
-        unario.decode(this.writer, this.reader);
+        unarioService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -47,10 +45,10 @@ class UnarioTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeSum());
-        unario.encode(this.writer, this.reader);
+        unarioService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeSum());
-        unario.decode(this.writer, this.reader);
+        unarioService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -78,16 +76,16 @@ class UnarioTest {
 //    }
 
     @Test
-    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() {
+    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() throws IOException {
         String bitsIdentificacaoAlgoritmoEsperado = "0001111100000000";
-        String bitsIdentificacaoAlgoritmoRetornado = unario.getBitsIdentificacaoAlgoritmo(new Writer());
+        String bitsIdentificacaoAlgoritmoRetornado = unarioService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoComByteCRC8QuandoUtilizadoTratamentoDeRuido() throws IOException {
         String bitsIdentificacaoAlgoritmoEsperado = "000111110000000010010100";
-        String bitsIdentificacaoAlgoritmoRetornado = unario.getBitsIdentificacaoAlgoritmo(new WriterRedundancy());
+        String bitsIdentificacaoAlgoritmoRetornado = unarioService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 }

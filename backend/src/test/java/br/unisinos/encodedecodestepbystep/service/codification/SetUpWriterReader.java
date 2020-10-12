@@ -22,7 +22,7 @@ public class SetUpWriterReader {
     }
 
     private static ReaderWriterWrapper setUpDecode(String fileName) throws IOException {
-        WriterInterface writer = new Writer(PATH_FILES_TO_ENCODE_DECODE_TEST + "decode_" + fileName);
+        WriterInterface writer = new Writer(PATH_FILES_TO_ENCODE_DECODE_TEST + "decoded_" + fileName);
         ReaderInterface reader = new Reader(new File(PATH_FILES_TO_ENCODE_DECODE_TEST + fileName + ".cod"), null);
         return new ReaderWriterWrapper(reader, writer);
     }
@@ -34,7 +34,7 @@ public class SetUpWriterReader {
     }
 
     private static ReaderWriterWrapper setUpDecodeWithRedundancy(String fileName) throws IOException {
-        WriterInterface writer = new WriterRedundancy(PATH_FILES_TO_ENCODE_DECODE_TEST + "decode_" + fileName);
+        WriterInterface writer = new WriterRedundancy(PATH_FILES_TO_ENCODE_DECODE_TEST + "decoded_" + fileName);
         ReaderInterface reader = new ReaderRedundancy(new File(PATH_FILES_TO_ENCODE_DECODE_TEST + fileName + ".cod"), null);
         return new ReaderWriterWrapper(reader, writer);
     }

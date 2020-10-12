@@ -15,15 +15,15 @@ import java.io.IOException;
 import static br.unisinos.encodedecodestepbystep.service.codification.AssertionsEncodeDecode.makeAssertions;
 import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.*;
 
-class DeltaTest {
+class EliasGammaServiceTest {
 
     WriterInterface writer;
     ReaderInterface reader;
-    Delta delta;
+    EliasGammaService eliasGammaService;
 
     @BeforeEach
     void setUp() {
-        this.delta = new Delta();
+        this.eliasGammaService = new EliasGammaService();
     }
 
     void setUp(ReaderWriterWrapper readerWriterWrapper) {
@@ -34,10 +34,10 @@ class DeltaTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeAlice29());
-        delta.encode(this.writer, this.reader);
+        eliasGammaService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeAlice29());
-        delta.decode(this.writer, this.reader);
+        eliasGammaService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -45,10 +45,10 @@ class DeltaTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeSum());
-        delta.encode(this.writer, this.reader);
+        eliasGammaService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeSum());
-        delta.decode(this.writer, this.reader);
+        eliasGammaService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -56,10 +56,10 @@ class DeltaTest {
 //    @Test
 //    void deveFicarIgualOArquivoOriginalQuandoExecutadoComTratamentoDeRuidoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
 //        setUp(setUpEncodeWithRedundancyAlice29());
-//        delta.encode(this.writer, this.reader);
+//        eliasGamma.encode(this.writer, this.reader);
 //
 //        setUp(setUpDecodeWithRedundancyAlice29());
-//        delta.decode(this.writer, this.reader);
+//        eliasGamma.decode(this.writer, this.reader);
 //
 //        makeAssertions();
 //    }
@@ -67,25 +67,25 @@ class DeltaTest {
 //    @Test
 //    void deveFicarIgualOArquivoOriginalQuandoExecutadoComTratamentoDeRuidoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
 //        setUp(setUpEncodeWithRedundancySum());
-//        delta.encode(this.writer, this.reader);
+//        eliasGamma.encode(this.writer, this.reader);
 //
 //        setUp(setUpDecodeWithRedundancySum());
-//        delta.decode(this.writer, this.reader);
+//        eliasGamma.decode(this.writer, this.reader);
 //
 //        makeAssertions();
 //    }
 
     @Test
-    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() {
-        String bitsIdentificacaoAlgoritmoEsperado = "0000000100000000";
-        String bitsIdentificacaoAlgoritmoRetornado = delta.getBitsIdentificacaoAlgoritmo(new Writer());
+    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() throws IOException {
+        String bitsIdentificacaoAlgoritmoEsperado = "0000001100000000";
+        String bitsIdentificacaoAlgoritmoRetornado = eliasGammaService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoComByteCRC8QuandoUtilizadoTratamentoDeRuido() throws IOException {
-        String bitsIdentificacaoAlgoritmoEsperado = "000000010000000000010101";
-        String bitsIdentificacaoAlgoritmoRetornado = delta.getBitsIdentificacaoAlgoritmo(new WriterRedundancy());
+        String bitsIdentificacaoAlgoritmoEsperado = "000000110000000000111111";
+        String bitsIdentificacaoAlgoritmoRetornado = eliasGammaService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 }
