@@ -46,6 +46,7 @@ export const SideMenu = (props: SideMenu) => {
 
   function handleInput(e) {
     const files =e.target.files;
+    console.log(files[0].path)
     
     if(files){
       setFile(files[0].path);

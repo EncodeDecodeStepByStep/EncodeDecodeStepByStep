@@ -1,10 +1,11 @@
 package br.unisinos.encodedecodestepbystep.repository.codification;
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
+import org.apache.commons.lang3.mutable.MutableDouble;
 
-import javax.swing.*;
 import java.io.*;
 
 public class Reader implements ReaderInterface {
@@ -14,27 +15,46 @@ public class Reader implements ReaderInterface {
     private InputStream is;
     private int bytesLidos;
     private long localizacaoByteProtocoloRemocao;
-    private double porcentagemLida;
-    private double porcentagemByte;
-    private JProgressBar jp;
+    private double porcentageLida;
+    private MutableDouble progressPercentage;
     private String binary;
+    private File file;
+    private BufferedReader bufferedReaderCodewordsSizeArray;
 
-    public Reader(File file, JProgressBar jp) throws FileNotFoundException {
+
+    public Reader(File file, MutableDouble progressPercentage) throws FileNotFoundException {
+        Codification.setNumberOfCharsTotal(file.length());
+
+        this.file = file;
         this.fileReader = new FileReader(file);
         this.bufferedReader = new BufferedReader(fileReader);
         this.is = new FileInputStream(file);
         this.bytesLidos = 0;
         this.localizacaoByteProtocoloRemocao = file.length();
         this.binary = "";
-        this.porcentagemLida = 0;
-        this.porcentagemByte = 100 / this.localizacaoByteProtocoloRemocao;
-        this.jp = jp;
+        this.porcentageLida = 0;
+        this.progressPercentage = progressPercentage;
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File("src/main/resources/database/CodewordsSizesArray.repository")));
+    }
+
+    public Reader() throws FileNotFoundException {
+        this.file = Codification.getFile();
+        this.fileReader = new FileReader(Codification.getFile());
+        this.bufferedReader = new BufferedReader(fileReader);
+        this.is = new FileInputStream(Codification.getFile());
+
+        this.bytesLidos = 0;
+        this.localizacaoByteProtocoloRemocao = Codification.getFile().length();
+        this.binary = "";
+        this.porcentageLida = 0;
+        this.progressPercentage = new MutableDouble(0);
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File("src/main/resources/database/CodewordsSizesArray.repository")));
     }
 
     public int read() throws IOException {
-        if (this.jp != null) {
-            this.porcentagemLida = this.porcentagemLida + (double) 100 / this.localizacaoByteProtocoloRemocao;
-            this.jp.setValue( (int) porcentagemLida );
+        if (this.progressPercentage != null) {
+            this.porcentageLida = this.porcentageLida + (double) 100 / this.localizacaoByteProtocoloRemocao;
+            this.progressPercentage.setValue(porcentageLida);
         }
         return bufferedReader.read();
     }
@@ -48,9 +68,9 @@ public class Reader implements ReaderInterface {
         }
         char nextChar = this.binary.charAt(0);
         this.binary = this.binary.substring(1);
-        if (this.jp != null) {
-            this.porcentagemLida = this.porcentagemLida + (double) 100 / this.localizacaoByteProtocoloRemocao;
-            this.jp.setValue( (int) porcentagemLida );
+        if (this.progressPercentage != null) {
+            this.porcentageLida = this.porcentageLida + (double) 100 / this.localizacaoByteProtocoloRemocao;
+            this.progressPercentage.setValue(porcentageLida);
         }
         return nextChar;
     }
@@ -99,5 +119,32 @@ public class Reader implements ReaderInterface {
         }
 
         return binaryString.toString();
+    }
+
+    @Override
+    public File getFile() {
+        return this.file;
+    }
+
+    @Override
+    public String readNextStep() throws IOException {
+        this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17); // para ignorar o cabeçalho + a virgula
+        StringBuilder codeword = new StringBuilder("");
+        while (true) {
+            int charLido = this.bufferedReaderCodewordsSizeArray.read();
+            Codification.setNumberOfCodewordsReaded(Codification.getNumberOfCodewordsReaded() + 1);
+            if (-1 == charLido) {
+                Codification.setStepsFinished(true);
+                System.out.println("terminou");
+                break;
+            }
+            if (',' == ((char) charLido)) {
+                Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded()+1);
+                break;
+            }
+            codeword.append((char) charLido);
+        }
+        System.out.println(codeword.toString());
+        return codeword.toString();
     }
 }

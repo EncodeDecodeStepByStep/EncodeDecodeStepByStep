@@ -5,7 +5,7 @@ import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
-import br.unisinos.encodedecodestepbystep.service.codification.UnarioService;
+import br.unisinos.encodedecodestepbystep.service.codification.GoulombService;
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,22 +14,23 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController()
-@RequestMapping("/unary")
-public class UnarioController {
+@RequestMapping("/goulomb")
+public class GoulombController {
 
     @Autowired
-    private UnarioService unarioService;
+    private GoulombService goulombService;
 
     @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/encode")
     @ResponseStatus(HttpStatus.OK)
-    public void encode(@RequestBody String path) {
+    public void encode(@RequestBody String path, @RequestBody int divisor) {
+        goulombService.setDivisor(divisor);
         new Thread(() -> {
             try {
                 Codification.setProgressPercentage(new MutableDouble(0));
 
                 ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getEncodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
-                unarioService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
+                goulombService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -48,12 +49,13 @@ public class UnarioController {
     @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/decode")
     @ResponseStatus(HttpStatus.OK)
-    public void decode(@RequestBody String path) {
+    public void decode(@RequestBody String path, @RequestBody int divisor) {
+        goulombService.setDivisor(divisor);
         new Thread(() -> {
             try {
                 Codification.setProgressPercentage(new MutableDouble(0));
                 ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getDecodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
-                unarioService.decode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
+                goulombService.decode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
             } catch (Exception e) {
                 e.printStackTrace();
             }

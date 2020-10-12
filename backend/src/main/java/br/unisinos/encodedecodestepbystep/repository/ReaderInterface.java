@@ -2,6 +2,7 @@ package br.unisinos.encodedecodestepbystep.repository;
 
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 
+import java.io.File;
 import java.io.IOException;
 
 public interface ReaderInterface {
@@ -17,4 +18,8 @@ public interface ReaderInterface {
     void close() throws IOException;
 
     String readCabecalho() throws IOException, WrongFormatExpection;
+
+    File getFile();
+
+    String readNextStep() throws IOException;
 }

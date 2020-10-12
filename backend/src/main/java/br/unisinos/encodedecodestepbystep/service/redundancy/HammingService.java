@@ -6,7 +6,7 @@ import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 
 import java.util.HashMap;
 
-public class Hamming implements Redunduncy {
+public class HammingService implements Redunduncy {
 
     private static final int OUT_LENGTH = 7;
     private static final int IN_LENGTH = 4;

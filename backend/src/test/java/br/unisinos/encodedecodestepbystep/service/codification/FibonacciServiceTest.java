@@ -14,18 +14,16 @@ import java.io.IOException;
 
 import static br.unisinos.encodedecodestepbystep.service.codification.AssertionsEncodeDecode.makeAssertions;
 import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.*;
-import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpDecodeWithRedundancySum;
-import static org.junit.jupiter.api.Assertions.*;
 
-class GoulombTest {
+class FibonacciServiceTest {
 
     WriterInterface writer;
     ReaderInterface reader;
-    Goulomb goulomb;
+    FibonacciService fibonacciService;
 
     @BeforeEach
     void setUp() {
-        this.goulomb = new Goulomb(2);
+        this.fibonacciService = new FibonacciService();
     }
 
     void setUp(ReaderWriterWrapper readerWriterWrapper) {
@@ -36,10 +34,10 @@ class GoulombTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeAlice29());
-        goulomb.encode(this.writer, this.reader);
+        fibonacciService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeAlice29());
-        goulomb.decode(this.writer, this.reader);
+        fibonacciService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -47,10 +45,10 @@ class GoulombTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
         setUp(setUpEncodeSum());
-        goulomb.encode(this.writer, this.reader);
+        fibonacciService.encode(this.writer, this.reader);
 
         setUp(setUpDecodeSum());
-        goulomb.decode(this.writer, this.reader);
+        fibonacciService.decode(this.writer, this.reader);
 
         makeAssertions();
     }
@@ -58,10 +56,10 @@ class GoulombTest {
 //    @Test
 //    void deveFicarIgualOArquivoOriginalQuandoExecutadoComTratamentoDeRuidoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
 //        setUp(setUpEncodeWithRedundancyAlice29());
-//        goulomb.encode(this.writer, this.reader);
+//        fibonacci.encode(this.writer, this.reader);
 //
 //        setUp(setUpDecodeWithRedundancyAlice29());
-//        goulomb.decode(this.writer, this.reader);
+//        fibonacci.decode(this.writer, this.reader);
 //
 //        makeAssertions();
 //    }
@@ -69,33 +67,25 @@ class GoulombTest {
 //    @Test
 //    void deveFicarIgualOArquivoOriginalQuandoExecutadoComTratamentoDeRuidoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
 //        setUp(setUpEncodeWithRedundancySum());
-//        goulomb.encode(this.writer, this.reader);
+//        fibonacci.encode(this.writer, this.reader);
 //
 //        setUp(setUpDecodeWithRedundancySum());
-//        goulomb.decode(this.writer, this.reader);
+//        fibonacci.decode(this.writer, this.reader);
 //
 //        makeAssertions();
 //    }
 
     @Test
-    void deveRetornarIdentificaoEmBitsDoAlgoritmoComSegundoByteCorrepondendoAoTamanhoDoDivisor() {
-        goulomb = new Goulomb(21);
-        String bitsIdentificacaoAlgoritmoEsperado = "0000111100010101";
-        String bitsIdentificacaoAlgoritmoRetornado = goulomb.getBitsIdentificacaoAlgoritmo(new Writer());
-        Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
-    }
-
-    @Test
-    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() {
-        String bitsIdentificacaoAlgoritmoEsperado = "0000111100000010";
-        String bitsIdentificacaoAlgoritmoRetornado = goulomb.getBitsIdentificacaoAlgoritmo(new Writer());
+    void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() throws IOException {
+        String bitsIdentificacaoAlgoritmoEsperado = "0000011100000000";
+        String bitsIdentificacaoAlgoritmoRetornado = fibonacciService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoComByteCRC8QuandoUtilizadoTratamentoDeRuido() throws IOException {
-        String bitsIdentificacaoAlgoritmoEsperado = "000011110000001011001101";
-        String bitsIdentificacaoAlgoritmoRetornado = goulomb.getBitsIdentificacaoAlgoritmo(new WriterRedundancy());
+        String bitsIdentificacaoAlgoritmoEsperado = "000001110000000001101011";
+        String bitsIdentificacaoAlgoritmoRetornado = fibonacciService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 }

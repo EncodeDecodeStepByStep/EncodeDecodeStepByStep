@@ -1,13 +1,15 @@
 package br.unisinos.encodedecodestepbystep.repository.redundancy;
 
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
-import br.unisinos.encodedecodestepbystep.service.redundancy.CRC;
-import br.unisinos.encodedecodestepbystep.service.redundancy.Hamming;
+import br.unisinos.encodedecodestepbystep.service.redundancy.CRCService;
+import br.unisinos.encodedecodestepbystep.service.redundancy.HammingService;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
+import org.apache.commons.lang3.mutable.MutableDouble;
 
 import javax.swing.*;
 import java.io.*;
+import java.math.BigDecimal;
 
 public class ReaderRedundancy implements ReaderInterface {
     public static final int LENGTH_PROTOCOLO_REMOCAO_BITS = 8;
@@ -18,11 +20,12 @@ public class ReaderRedundancy implements ReaderInterface {
     private long localizacaoByteProtocoloRemocao;
     private String binary;
     private String binaryComHammingAplicado;
-    private double porcentagemLida;
-    private double porcentagemByte;
-    private JProgressBar jp;
+    private double porcentageLida;
+    private MutableDouble progressPercentage;
+    private File file;
 
-    public ReaderRedundancy(File file, JProgressBar jp) throws FileNotFoundException {
+    public ReaderRedundancy(File file, MutableDouble progressPercentage) throws FileNotFoundException {
+        this.file = file;
         this.fileReader = new FileReader(file);
         this.bufferedReader = new BufferedReader(fileReader);
         this.is = new FileInputStream(file);
@@ -30,9 +33,8 @@ public class ReaderRedundancy implements ReaderInterface {
         this.localizacaoByteProtocoloRemocao = file.length();
         this.binary = "";
         this.binaryComHammingAplicado = "";
-        this.porcentagemLida = 0;
-        this.porcentagemByte = 100 / this.localizacaoByteProtocoloRemocao;
-        this.jp = jp;
+        this.porcentageLida = 0;
+        this.progressPercentage = progressPercentage;
     }
 
     public int read() throws IOException {
@@ -62,7 +64,7 @@ public class ReaderRedundancy implements ReaderInterface {
 
     public int readNextCharWithHamming() throws IOException, WrongFormatExpection {
         if(this.binary.length() >= 7 && !this.binary.endsWith("-1") && !this.binary.contains("2") && !this.binary.contains("3")) {
-            this.binaryComHammingAplicado = this.binaryComHammingAplicado.concat(Hamming.getValue(this.binary.substring(0,7)));
+            this.binaryComHammingAplicado = this.binaryComHammingAplicado.concat(HammingService.getValue(this.binary.substring(0,7)));
             this.binary = this.binary.substring(7);
 
             char nextChar = this.binaryComHammingAplicado.charAt(0);
@@ -75,7 +77,7 @@ public class ReaderRedundancy implements ReaderInterface {
                 this.binary = this.binary.substring(0, indiceMenor2Ou3);
 
                 while (this.binary.length() >= 7){
-                    this.binaryComHammingAplicado = this.binaryComHammingAplicado.concat(Hamming.getValue(this.binary.substring(0,7)));
+                    this.binaryComHammingAplicado = this.binaryComHammingAplicado.concat(HammingService.getValue(this.binary.substring(0,7)));
                     this.binary = this.binary.substring(7);
                 }
 
@@ -151,7 +153,7 @@ public class ReaderRedundancy implements ReaderInterface {
     }
 
     public String readCabecalho() throws IOException, WrongFormatExpection {
-        CRC crc = new CRC();
+        CRCService crcService = new CRCService();
 
         StringBuilder binaryStringFirstByte = new StringBuilder();
         StringBuilder binaryStringSecondByte = new StringBuilder();
@@ -165,11 +167,22 @@ public class ReaderRedundancy implements ReaderInterface {
         for (int i = 0; i < 8; i++) {
             binaryStringThirdByte.append((char) readNextChar());
         }
-        String decodedCrc = crc.calculateCRC8(binaryStringFirstByte.toString(), binaryStringSecondByte.toString());
+        String decodedCrc = crcService.calculateCRC8(binaryStringFirstByte.toString(), binaryStringSecondByte.toString());
         if (decodedCrc.equals(binaryStringThirdByte)) {
             return "true";
         }
 
         return "false";
+    }
+
+    @Override
+    public File getFile() {
+        return this.file;
+    }
+
+    @Override
+    public String readNextStep() throws IOException {
+        //TODO
+        return null;
     }
 }

@@ -4,13 +4,15 @@ package br.unisinos.encodedecodestepbystep.service.codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
-import br.unisinos.encodedecodestepbystep.service.redundancy.CRC;
+import br.unisinos.encodedecodestepbystep.service.redundancy.CRCService;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-public class Unario implements Codification {
+@Service
+public class UnarioService implements Codification {
     @Override
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
@@ -63,8 +65,8 @@ public class Unario implements Codification {
         String firstByte = "00011111"; //identificaçãoAlgoritmo
         String secondByte = "00000000"; // informação extra goloumb
         if (writer instanceof WriterRedundancy) {
-            CRC crc = new CRC();
-            String encodedCRC = crc.calculateCRC8(firstByte, secondByte);
+            CRCService crcService = new CRCService();
+            String encodedCRC = crcService.calculateCRC8(firstByte, secondByte);
             return firstByte + secondByte + encodedCRC;
         }
         return firstByte + secondByte;

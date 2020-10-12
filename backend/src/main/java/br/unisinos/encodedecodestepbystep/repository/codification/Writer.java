@@ -1,25 +1,30 @@
 package br.unisinos.encodedecodestepbystep.repository.codification;
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
-import lombok.NoArgsConstructor;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-@NoArgsConstructor
 public class Writer implements WriterInterface {
     public static final int LENGTH_OF_BITS_IN_A_BYTE = 8;
     private BufferedWriter bufferedWriter;
     private FileWriter fileWriter;
     private OutputStream os;
     private String bitsStringControle;
-
+    private File output;
+    private FileWriter fileWriterCodewordsSizeArray;
 
     public Writer(String path) throws IOException {
-        File output = new File(path);
+        output = new File(path);
+        Codification.setFile(output);
+        Codification.setNumberOfCodewordsReaded(0L);
+        Codification.setNumberOfCharsReaded(0L);
 
         if (output.exists()) {
             output.delete();
@@ -28,6 +33,7 @@ public class Writer implements WriterInterface {
         this.bufferedWriter = new BufferedWriter(fileWriter);
         this.os = new FileOutputStream(output);
         this.bitsStringControle = "";
+        this.fileWriterCodewordsSizeArray = new FileWriter(new File("src/main/resources/database/CodewordsSizesArray.repository"));
     }
 
     public void write(char letter) throws IOException {
@@ -35,6 +41,7 @@ public class Writer implements WriterInterface {
     }
 
     public void write(String bits) throws IOException {
+        writeCodewordsForStepsTempFile(bits);
         this.bitsStringControle = bitsStringControle.concat(bits);
 
         while(bitsStringControle.length() >= 8) {
@@ -84,6 +91,17 @@ public class Writer implements WriterInterface {
         bufferedWriter.close();
         fileWriter.close();
         os.close();
+        this.fileWriterCodewordsSizeArray.close();
+    }
+
+    @Override
+    public File getFile() {
+        return output;
+    }
+
+    private void writeCodewordsForStepsTempFile(String codeword) throws IOException {
+        this.fileWriterCodewordsSizeArray.write(codeword.concat(","));
+        this.fileWriterCodewordsSizeArray.flush();
     }
 
     public String gravaBitsEmPartesDe8ERetornaOResto(String bits) throws IOException {
