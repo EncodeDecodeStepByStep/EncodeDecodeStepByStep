@@ -22,7 +22,6 @@ public class Writer implements WriterInterface {
 
     public Writer(String path) throws IOException {
         output = new File(path);
-        Codification.setFile(output);
         Codification.setNumberOfCodewordsReaded(0L);
         Codification.setNumberOfCharsReaded(0L);
 
