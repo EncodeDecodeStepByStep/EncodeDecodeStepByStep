@@ -6,6 +6,8 @@ import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
 import br.unisinos.encodedecodestepbystep.service.codification.DeltaService;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +17,10 @@ import java.io.IOException;
 
 @RestController()
 @RequestMapping("/delta")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DeltaController {
 
-    @Autowired
-    private DeltaService deltaService;
+    private final DeltaService deltaService;
 
     @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/encode")

@@ -10,6 +10,7 @@ public class CodificationDTOMapper {
                 .codeword(Codification.getCodeword())
                 .numberOfCharsTotal(Codification.getNumberOfCharsTotal())
                 .numberOfCharsReaded(Codification.getNumberOfCharsReaded())
+                .characterBeforeCodification(Codification.getCharacterBeforeCodification())
                 .progressPercentage(Codification.getProgressPercentage().getValue())
                 .stepMade(Codification.getStepMade())
                 .stepsFinished(Codification.isStepsFinished())
