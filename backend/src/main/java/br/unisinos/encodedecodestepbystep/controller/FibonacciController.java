@@ -6,6 +6,7 @@ import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
 import br.unisinos.encodedecodestepbystep.service.codification.FibonacciService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,10 @@ import java.io.IOException;
 
 @RestController()
 @RequestMapping("/fibonacci")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class FibonacciController {
 
-    @Autowired
-    private FibonacciService fibonacciService;
+    private final FibonacciService fibonacciService;
 
     @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/encode")
