@@ -24,6 +24,7 @@ public class Reader implements ReaderInterface {
 
     public Reader(File file, MutableDouble progressPercentage) throws FileNotFoundException {
         Codification.setNumberOfCharsTotal(file.length());
+        Codification.setFile(file);
 
         this.file = file;
         this.fileReader = new FileReader(file);
@@ -129,6 +130,7 @@ public class Reader implements ReaderInterface {
     @Override
     public String readNextStep() throws IOException {
         this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17); // para ignorar o cabeçalho + a virgula
+        this.bufferedReader.skip(Codification.getNumberOfCharsReaded());
         StringBuilder codeword = new StringBuilder("");
         while (true) {
             int charLido = this.bufferedReaderCodewordsSizeArray.read();
@@ -139,12 +141,13 @@ public class Reader implements ReaderInterface {
                 break;
             }
             if (',' == ((char) charLido)) {
-                Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded()+1);
+                Codification.setCharacterBeforeCodification(String.valueOf((char) this.bufferedReader.read()));
+                Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded() + 1);
                 break;
             }
             codeword.append((char) charLido);
         }
-        System.out.println(codeword.toString());
+//        System.out.println(codeword.toString());
         return codeword.toString();
     }
 }
