@@ -9,7 +9,8 @@ public class Codification {
     private static Long numberOfCharsTotal;
     private static Long numberOfCharsReaded;
     private static String codeword;
-    private static String stepMade; // Descrição da ação(passo) q foi feita para mostra
+    private static String characterBeforeCodification;
+    private static String stepMade; // Descrição da ação(passo) q foi feita para mostrar
     private static MutableDouble progressPercentage;
     private static boolean stepsFinished;
 
@@ -79,5 +80,13 @@ public class Codification {
 
     public static void setStepsFinished(boolean stepsFinished) {
         Codification.stepsFinished = stepsFinished;
+    }
+
+    public static String getCharacterBeforeCodification() {
+        return characterBeforeCodification;
+    }
+
+    public static void setCharacterBeforeCodification(String characterBeforeCodification) {
+        Codification.characterBeforeCodification = characterBeforeCodification;
     }
 }

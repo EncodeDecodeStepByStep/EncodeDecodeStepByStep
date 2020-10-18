@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class EncodeDecodeStepByStepConfiguration {
 
     @Bean
-    public GoulombService goulombService(){
+    public GoulombService goulombService() {
         return new GoulombService(2);
     }
 }

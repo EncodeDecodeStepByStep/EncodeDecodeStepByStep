@@ -7,9 +7,7 @@ import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 import org.apache.commons.lang3.mutable.MutableDouble;
 
-import javax.swing.*;
 import java.io.*;
-import java.math.BigDecimal;
 
 public class ReaderRedundancy implements ReaderInterface {
     public static final int LENGTH_PROTOCOLO_REMOCAO_BITS = 8;
@@ -43,7 +41,7 @@ public class ReaderRedundancy implements ReaderInterface {
 
     public int readNextChar() throws IOException, WrongFormatExpection {
         int nextChar = readNextCharWithHamming();
-        while (nextChar == -2){
+        while (nextChar == -2) {
 
             nextChar = readNextCharWithHamming();
         }
@@ -63,21 +61,21 @@ public class ReaderRedundancy implements ReaderInterface {
     }
 
     public int readNextCharWithHamming() throws IOException, WrongFormatExpection {
-        if(this.binary.length() >= 7 && !this.binary.endsWith("-1") && !this.binary.contains("2") && !this.binary.contains("3")) {
-            this.binaryComHammingAplicado = this.binaryComHammingAplicado.concat(HammingService.getValue(this.binary.substring(0,7)));
+        if (this.binary.length() >= 7 && !this.binary.endsWith("-1") && !this.binary.contains("2") && !this.binary.contains("3")) {
+            this.binaryComHammingAplicado = this.binaryComHammingAplicado.concat(HammingService.getValue(this.binary.substring(0, 7)));
             this.binary = this.binary.substring(7);
 
             char nextChar = this.binaryComHammingAplicado.charAt(0);
             this.binaryComHammingAplicado = this.binaryComHammingAplicado.substring(1);
             return nextChar;
         } else {
-            if(this.binary.contains("2") || this.binary.contains("3")){
+            if (this.binary.contains("2") || this.binary.contains("3")) {
                 int indiceMenor2Ou3 = Math.min(this.binary.contains("3") ? this.binary.indexOf("3") : 9, this.binary.contains("2") ? this.binary.indexOf("2") : 9);
                 String substringSemHamming = this.binary.substring(indiceMenor2Ou3);
                 this.binary = this.binary.substring(0, indiceMenor2Ou3);
 
-                while (this.binary.length() >= 7){
-                    this.binaryComHammingAplicado = this.binaryComHammingAplicado.concat(HammingService.getValue(this.binary.substring(0,7)));
+                while (this.binary.length() >= 7) {
+                    this.binaryComHammingAplicado = this.binaryComHammingAplicado.concat(HammingService.getValue(this.binary.substring(0, 7)));
                     this.binary = this.binary.substring(7);
                 }
 
@@ -89,13 +87,13 @@ public class ReaderRedundancy implements ReaderInterface {
                 this.binaryComHammingAplicado = this.binaryComHammingAplicado.substring(1);
                 return nextChar;
             }
-            if(this.binary.endsWith("-1")){
-                if(this.binaryComHammingAplicado.length() > 0){
+            if (this.binary.endsWith("-1")) {
+                if (this.binaryComHammingAplicado.length() > 0) {
                     char nextChar = this.binaryComHammingAplicado.charAt(0);
                     this.binaryComHammingAplicado = this.binaryComHammingAplicado.substring(1);
                     return nextChar;
                 } else {
-                    if (this.binary.length() > 2){ // pois n queremos retornar a string "-1"
+                    if (this.binary.length() > 2) { // pois n queremos retornar a string "-1"
                         char nextChar = this.binary.charAt(0);
                         this.binary = this.binary.substring(1);
                         return nextChar;
@@ -107,7 +105,7 @@ public class ReaderRedundancy implements ReaderInterface {
                 }
             } else {
                 updateNextByteOfBinary();
-                if(this.binaryComHammingAplicado.length() > 0) {
+                if (this.binaryComHammingAplicado.length() > 0) {
                     char nextChar = this.binaryComHammingAplicado.charAt(0);
                     this.binaryComHammingAplicado = this.binaryComHammingAplicado.substring(1);
                     return nextChar;
@@ -136,7 +134,7 @@ public class ReaderRedundancy implements ReaderInterface {
     private String protoloDeRemocaoDeBits(String binaryfinal) {
         String protolo = binaryfinal.substring(binaryfinal.length() - LENGTH_PROTOCOLO_REMOCAO_BITS);
         int bitsARemover = Integer.parseInt(protolo.substring(2), 2);
-        int qtdBitsAIgnorarHamming = Integer.parseInt(protolo.substring(0,2), 2);
+        int qtdBitsAIgnorarHamming = Integer.parseInt(protolo.substring(0, 2), 2);
         String bitsRemovidos = binaryfinal.substring(0, binaryfinal.length() - (bitsARemover + LENGTH_PROTOCOLO_REMOCAO_BITS));
 
         String bitsAIgnorarHamming = bitsRemovidos.substring(bitsRemovidos.length() - qtdBitsAIgnorarHamming);

@@ -11,7 +11,7 @@ public class HammingService implements Redunduncy {
     private static final int OUT_LENGTH = 7;
     private static final int IN_LENGTH = 4;
 
-    private static final HashMap<String, Integer> zTable = new HashMap<String, Integer>(){
+    private static final HashMap<String, Integer> zTable = new HashMap<String, Integer>() {
         {
             put("000", 0);
             put("001", 7);
@@ -24,9 +24,9 @@ public class HammingService implements Redunduncy {
         }
     };
 
-//    @Override
+    //    @Override
     public static String introduceRedunduncy(String bytes) throws WrongFormatExpection {
-        if(bytes.length()!=IN_LENGTH){
+        if (bytes.length() != IN_LENGTH) {
             return bytes;
         }
         //1110101
@@ -35,27 +35,27 @@ public class HammingService implements Redunduncy {
         char thirdBit = bytes.charAt(2);
         char fourthBit = bytes.charAt(3);
 
-        if(verifyBits(firstBit, secondBit, thirdBit, fourthBit)){
+        if (verifyBits(firstBit, secondBit, thirdBit, fourthBit)) {
             throw new WrongFormatExpection("A mensagem não estava em binário");
         }
 
-        int fifthBit = (firstBit+secondBit+thirdBit)%2;
-        int sixthBit = (secondBit+thirdBit+fourthBit)%2;
-        int seventhBit = (firstBit+thirdBit+fourthBit)%2;
+        int fifthBit = (firstBit + secondBit + thirdBit) % 2;
+        int sixthBit = (secondBit + thirdBit + fourthBit) % 2;
+        int seventhBit = (firstBit + thirdBit + fourthBit) % 2;
 
         return bytes + fifthBit + sixthBit + seventhBit;
     }
 
     private static boolean verifyBits(char... args) {
         for (char bit : args)
-            if(bit!='0' && bit!='1')
+            if (bit != '0' && bit != '1')
                 return true;
         return false;
     }
 
-//    @Override
+    //    @Override
     public static String getValue(String bytes) throws WrongFormatExpection {
-        if(bytes.length()!=OUT_LENGTH){
+        if (bytes.length() != OUT_LENGTH) {
             return bytes;
         }
 
@@ -67,13 +67,13 @@ public class HammingService implements Redunduncy {
         char sixth = bytes.charAt(5);
         char seventh = bytes.charAt(6);
 
-        if(verifyBits(firstBit, secondBit, thirdBit, fourthBit, fifthBit, sixth, seventh)){
+        if (verifyBits(firstBit, secondBit, thirdBit, fourthBit, fifthBit, sixth, seventh)) {
             throw new WrongFormatExpection("A mensagem não estava em binário");
         }
 
-        boolean fifthIsRight = String.valueOf((firstBit + secondBit + thirdBit)%2).equals(String.valueOf(fifthBit));
-        boolean sixthIsRight = String.valueOf((secondBit + thirdBit + fourthBit)%2).equals(String.valueOf(sixth));
-        boolean seventhIsRight = String.valueOf((firstBit + thirdBit+ fourthBit)%2).equals(String.valueOf(seventh));
+        boolean fifthIsRight = String.valueOf((firstBit + secondBit + thirdBit) % 2).equals(String.valueOf(fifthBit));
+        boolean sixthIsRight = String.valueOf((secondBit + thirdBit + fourthBit) % 2).equals(String.valueOf(sixth));
+        boolean seventhIsRight = String.valueOf((firstBit + thirdBit + fourthBit) % 2).equals(String.valueOf(seventh));
 
         String firstZ = fifthIsRight ? "0" : "1";
         String secondZ = sixthIsRight ? "0" : "1";
@@ -81,25 +81,25 @@ public class HammingService implements Redunduncy {
 
         String z = firstZ + secondZ + thirdZ;
 
-        String value = String.valueOf(new char[]{firstBit,secondBit,thirdBit,fourthBit});
+        String value = String.valueOf(new char[]{firstBit, secondBit, thirdBit, fourthBit});
 
-        if(!z.equals("000")){
+        if (!z.equals("000")) {
             int binaryWithProblem = zTable.get(z);
 
-            int binaryWithProblemIndex = binaryWithProblem-1;
+            int binaryWithProblemIndex = binaryWithProblem - 1;
 
             ErrorWriter errorWriter = ErrorWriter.getInstance();
 
-            if(binaryWithProblemIndex<4){
-                errorWriter.write("Encontrado um erro no "+(binaryWithProblemIndex+1)+"º bit do codeword hamming");
+            if (binaryWithProblemIndex < 4) {
+                errorWriter.write("Encontrado um erro no " + (binaryWithProblemIndex + 1) + "º bit do codeword hamming");
                 char[] valueChars = value.toCharArray();
-                char wrongBinary = value.charAt(binaryWithProblem-1);
+                char wrongBinary = value.charAt(binaryWithProblem - 1);
 
-                valueChars[binaryWithProblem-1] = wrongBinary=='0'?'1':'0';
+                valueChars[binaryWithProblem - 1] = wrongBinary == '0' ? '1' : '0';
                 value = String.valueOf(valueChars);
-            }else{
-                errorWriter.write("Encontrado um erro critico no "+(binaryWithProblemIndex+1)+"º bit, não foi possivel corrigir");
-                throw new WrongFormatExpection("Erro critico no bit "+(binaryWithProblemIndex+1)+" em hamming");
+            } else {
+                errorWriter.write("Encontrado um erro critico no " + (binaryWithProblemIndex + 1) + "º bit, não foi possivel corrigir");
+                throw new WrongFormatExpection("Erro critico no bit " + (binaryWithProblemIndex + 1) + " em hamming");
             }
         }
 

@@ -1,13 +1,5 @@
 package br.unisinos.encodedecodestepbystep.service.redundancy;
 
-import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
-import java.util.Map;
-
 class HammingServiceTest {
 
 //    HammingService hammingService = new HammingService();

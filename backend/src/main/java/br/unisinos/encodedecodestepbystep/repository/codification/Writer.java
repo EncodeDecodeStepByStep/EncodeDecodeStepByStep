@@ -1,15 +1,13 @@
 package br.unisinos.encodedecodestepbystep.repository.codification;
 
 import br.unisinos.encodedecodestepbystep.domain.Codification;
-import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
+import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Writer implements WriterInterface {
     public static final int LENGTH_OF_BITS_IN_A_BYTE = 8;
@@ -22,7 +20,6 @@ public class Writer implements WriterInterface {
 
     public Writer(String path) throws IOException {
         output = new File(path);
-        Codification.setFile(output);
         Codification.setNumberOfCodewordsReaded(0L);
         Codification.setNumberOfCharsReaded(0L);
 
@@ -36,6 +33,20 @@ public class Writer implements WriterInterface {
         this.fileWriterCodewordsSizeArray = new FileWriter(new File("src/main/resources/database/CodewordsSizesArray.repository"));
     }
 
+    public static byte[] toByteArray(String input) {
+
+        List<String> codewardsSplit = Arrays.asList(input.split("(?<=\\G.{8})"));
+        byte[] bitMontados = new byte[codewardsSplit.size()];
+        for (int i = 0; i < codewardsSplit.size(); i++) {
+            bitMontados[i] = convertBitsToByte(codewardsSplit.get(i));
+        }
+        return bitMontados;
+    }
+
+    private static byte convertBitsToByte(String bits) {
+        return (byte) Integer.parseInt(bits, 2);
+    }
+
     public void write(char letter) throws IOException {
         bufferedWriter.write(letter);
     }
@@ -44,7 +55,7 @@ public class Writer implements WriterInterface {
         writeCodewordsForStepsTempFile(bits);
         this.bitsStringControle = bitsStringControle.concat(bits);
 
-        while(bitsStringControle.length() >= 8) {
+        while (bitsStringControle.length() >= 8) {
             write8bitsOrConcatZerosToComplete(this.bitsStringControle.substring(0, 8));
             this.bitsStringControle = this.bitsStringControle.substring(8);
         }
@@ -69,22 +80,8 @@ public class Writer implements WriterInterface {
         write(bits);
     }
 
-    public static byte[] toByteArray(String input) {
-
-        List<String> codewardsSplit = Arrays.asList(input.split("(?<=\\G.{8})"));
-        byte[] bitMontados = new byte[codewardsSplit.size()];
-        for (int i = 0; i < codewardsSplit.size(); i++) {
-            bitMontados[i] = convertBitsToByte(codewardsSplit.get(i));
-        }
-        return bitMontados;
-    }
-
-    private static byte convertBitsToByte(String bits) {
-        return (byte) Integer.parseInt(bits, 2);
-    }
-
     public void close() throws IOException {
-        if(this.bitsStringControle.length() > 0){
+        if (this.bitsStringControle.length() > 0) {
             write8bitsOrConcatZerosToComplete(bitsStringControle);
             this.bitsStringControle = "";
         }

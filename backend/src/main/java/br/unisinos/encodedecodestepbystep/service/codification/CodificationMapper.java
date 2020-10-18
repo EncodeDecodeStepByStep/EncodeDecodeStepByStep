@@ -9,7 +9,6 @@ import br.unisinos.encodedecodestepbystep.repository.redundancy.ReaderRedundancy
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
 import org.apache.commons.lang3.mutable.MutableDouble;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,12 +38,6 @@ public class CodificationMapper {
             }}
     );
 
-    Codification getCodificationByStringBits(String bits) {
-        return bits.startsWith("00001111")
-                ? new GoulombService(Integer.parseInt(bits.substring(8, 16), 2))
-                : BITS_CODIFICATION_MAP.get(bits);
-    }
-
     public static Codification getCodificationByStringName(String name, Integer divisor) {
         return NAMES_CODIFICATION_MAP.get(name) instanceof GoulombService
                 ? new GoulombService(divisor)
@@ -59,11 +52,18 @@ public class CodificationMapper {
     }
 
     public static WriterInterface getWriter(String nameRedundancy, String filePath) throws IOException {
-        return  new HashMap<String, WriterInterface>() {
+        return new HashMap<String, WriterInterface>() {
             {
                 put("Com tratamento de ruido", new WriterRedundancy(filePath));
                 put("Sem tratamento de ruido", new Writer(filePath));
-            }}.get(nameRedundancy);
+            }
+        }.get(nameRedundancy);
+    }
+
+    Codification getCodificationByStringBits(String bits) {
+        return bits.startsWith("00001111")
+                ? new GoulombService(Integer.parseInt(bits.substring(8, 16), 2))
+                : BITS_CODIFICATION_MAP.get(bits);
     }
 
 }
