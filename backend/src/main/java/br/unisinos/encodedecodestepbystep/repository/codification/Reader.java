@@ -142,7 +142,7 @@ public class Reader implements ReaderInterface {
             }
             if (',' == ((char) charLido)) {
                 Codification.setCharacterBeforeCodification(String.valueOf((char) this.bufferedReader.read()));
-                Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded()+1);
+                Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded() + 1);
                 break;
             }
             codeword.append((char) charLido);

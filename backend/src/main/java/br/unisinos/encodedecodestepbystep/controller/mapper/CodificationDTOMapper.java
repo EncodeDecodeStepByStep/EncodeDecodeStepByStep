@@ -5,7 +5,7 @@ import br.unisinos.encodedecodestepbystep.domain.Codification;
 
 public class CodificationDTOMapper {
 
-    public static CodificationDTO getCodificationDTO(){
+    public static CodificationDTO getCodificationDTO() {
         return CodificationDTO.builder()
                 .codeword(Codification.getCodeword())
                 .numberOfCharsTotal(Codification.getNumberOfCharsTotal())
