@@ -26,6 +26,7 @@ public class CodificationMapper {
                 put("Fibonacci", new FibonacciService());
                 put("Goulomb", new GoulombService(-1));
                 put("Unario", new UnarioService());
+                put("Huffman", new HuffmanService());
             }}
     );
     private static final Map<String, Codification> BITS_CODIFICATION_MAP = Collections.unmodifiableMap(
@@ -34,6 +35,7 @@ public class CodificationMapper {
                 put("0000001100000000", new EliasGammaService());
                 put("0000011100000000", new FibonacciService());
                 put("0001111100000000", new UnarioService());
+                put("0011111100000000", new HuffmanService());
             }}
     );
 

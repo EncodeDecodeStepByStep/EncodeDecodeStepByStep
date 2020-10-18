@@ -11,7 +11,7 @@ type ButtonProps = {
     disabled?:boolean;
 }
 
-function handleClick(e, disabled:boolean, onClick:Function){
+function handleClick(e:any, disabled:boolean, onClick:Function){
     if(!disabled){
         onClick(e);
     }
