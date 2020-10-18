@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 bruno
-=======
-Gustavo Steinmetz
->>>>>>> dc9552f0d05462edf0c681f6c0cb36b85b26220c
