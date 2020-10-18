@@ -18,8 +18,8 @@ import java.util.Map;
 
 public class CodificationMapper {
 
-    private static final Map<String, Codification> NAMES_CODIFICATION_MAP = Collections.unmodifiableMap(
-            new HashMap<String, Codification>() {{
+    private static final Map<String, CodificationService> NAMES_CODIFICATION_MAP = Collections.unmodifiableMap(
+            new HashMap<String, CodificationService>() {{
                 put("Delta", new DeltaService());
                 put("Elias Gamma", new EliasGammaService());
                 put("Fibonacci", new FibonacciService());
@@ -28,8 +28,8 @@ public class CodificationMapper {
                 put("Huffman", new HuffmanService());
             }}
     );
-    private static final Map<String, Codification> BITS_CODIFICATION_MAP = Collections.unmodifiableMap(
-            new HashMap<String, Codification>() {{
+    private static final Map<String, CodificationService> BITS_CODIFICATION_MAP = Collections.unmodifiableMap(
+            new HashMap<String, CodificationService>() {{
                 put("0000000100000000", new DeltaService());
                 put("0000001100000000", new EliasGammaService());
                 put("0000011100000000", new FibonacciService());
@@ -38,7 +38,7 @@ public class CodificationMapper {
             }}
     );
 
-    public static Codification getCodificationByStringName(String name, Integer divisor) {
+    public static CodificationService getCodificationByStringName(String name, Integer divisor) {
         return NAMES_CODIFICATION_MAP.get(name) instanceof GoulombService
                 ? new GoulombService(divisor)
                 : NAMES_CODIFICATION_MAP.get(name);
@@ -60,7 +60,7 @@ public class CodificationMapper {
         }.get(nameRedundancy);
     }
 
-    Codification getCodificationByStringBits(String bits) {
+    CodificationService getCodificationByStringBits(String bits) {
         return bits.startsWith("00001111")
                 ? new GoulombService(Integer.parseInt(bits.substring(8, 16), 2))
                 : BITS_CODIFICATION_MAP.get(bits);

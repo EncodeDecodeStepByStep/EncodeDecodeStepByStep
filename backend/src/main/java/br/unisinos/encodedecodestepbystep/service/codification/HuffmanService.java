@@ -1,5 +1,6 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
@@ -12,7 +13,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 @Service
-public class HuffmanService implements Codification {
+public class HuffmanService implements CodificationService {
     private static final int QUANTITY_OF_DIGITS_SIZE = 5;
 
     @Override
@@ -31,6 +32,8 @@ public class HuffmanService implements Codification {
         }
         Map<Integer, Integer> sortedMap = this.sortByValue(map, true);
 
+        Codification.setHuffmanSorted(sortedMap);
+
         boolean newLine = false;
         int lengthEncode = 0;
         Map<Character, String> huffmanTree = new HashMap<Character, String>();
@@ -45,6 +48,8 @@ public class HuffmanService implements Codification {
             }
             lengthEncode++;
         }
+
+        Codification.setHuffmanTree(huffmanTree);
 
         for (Map.Entry<Character, String> entry : huffmanTree.entrySet()) {
             String codeword = entry.getValue();

@@ -7,7 +7,7 @@ import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 
 import java.io.IOException;
 
-public interface Codification {
+public interface CodificationService {
 
 
     void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection;

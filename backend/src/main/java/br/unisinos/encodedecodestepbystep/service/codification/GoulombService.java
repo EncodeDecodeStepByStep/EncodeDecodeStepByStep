@@ -12,7 +12,7 @@ import lombok.Setter;
 import java.io.IOException;
 
 @Setter
-public class GoulombService implements Codification {
+public class GoulombService implements CodificationService {
 
     private static final byte STOP_BIT = 1;
 
