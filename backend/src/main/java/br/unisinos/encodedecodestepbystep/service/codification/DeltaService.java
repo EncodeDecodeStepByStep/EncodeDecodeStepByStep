@@ -72,10 +72,8 @@ public class DeltaService implements Codification {
             }
             currentCharacter = nextCharacter;
 
-            System.out.print(codeword);
             writer.write(codeword);
         }
-        System.out.println();
         writer.close();
         reader.close();
     }
