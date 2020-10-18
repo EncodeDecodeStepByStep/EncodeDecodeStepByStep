@@ -6,6 +6,7 @@ import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
 import br.unisinos.encodedecodestepbystep.service.codification.GoulombService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,10 @@ import java.io.IOException;
 
 @RestController()
 @RequestMapping("/goulomb")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GoulombController {
 
-    @Autowired
-    private GoulombService goulombService;
+    private final GoulombService goulombService;
 
     @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/encode")

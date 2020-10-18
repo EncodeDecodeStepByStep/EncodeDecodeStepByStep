@@ -13,7 +13,7 @@ public class WrongFormatExpection extends Exception {
         this.guiltyBit = guiltyBit;
     }
 
-    public int getGuiltyBit(){
+    public int getGuiltyBit() {
         return this.guiltyBit;
     }
 }

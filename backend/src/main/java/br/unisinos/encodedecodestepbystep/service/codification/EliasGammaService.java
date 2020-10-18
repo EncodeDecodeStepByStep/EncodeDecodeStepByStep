@@ -37,7 +37,7 @@ public class EliasGammaService implements Codification {
                 String restInBinary = StringUtils.integerToStringBinary(rest, unaryNumber);
 
                 String codewards = unaryString + STOP_BIT + restInBinary;
-                System.out.println(codewards);
+//                System.out.println(codewards);
                 writer.write(codewards);
             }
         }

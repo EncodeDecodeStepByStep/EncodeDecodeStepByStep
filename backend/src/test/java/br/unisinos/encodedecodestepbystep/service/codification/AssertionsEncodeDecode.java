@@ -22,7 +22,7 @@ public class AssertionsEncodeDecode {
 
         int byteEsperado = 0;
         int byteRetornado = 0;
-        while (byteEsperado != -1 && byteRetornado !=-1) {
+        while (byteEsperado != -1 && byteRetornado != -1) {
             byteEsperado = isParaEsperado.read();
             byteRetornado = isParaResultado.read();
 

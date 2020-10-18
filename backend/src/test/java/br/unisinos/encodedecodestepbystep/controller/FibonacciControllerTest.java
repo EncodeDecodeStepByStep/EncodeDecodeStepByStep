@@ -12,10 +12,10 @@ import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
-class EliasGammaControllerTest {
+class FibonacciControllerTest {
 
     @Autowired
-    EliasGammaController eliasGammaController;
+    FibonacciController fibonacciController;
 
     private InputStream isEsperadoBeforeCodification;
     private InputStream isCodewordEsperado;
@@ -36,11 +36,11 @@ class EliasGammaControllerTest {
     @Test
     void deveSerOsMesmosCodewordsGravadosNoEncodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeEncode() throws InterruptedException, IOException {
         StringBuilder codewordEsperado = new StringBuilder("");
-        eliasGammaController.encode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt");
+        fibonacciController.encode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt");
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         this.isCodewordEsperado.skip(17); // para skippar cabeçalho + virgula
-        CodificationDTO codificationDTORetornado = eliasGammaController.nextStep();
+        CodificationDTO codificationDTORetornado = fibonacciController.nextStep();
         while (!codificationDTORetornado.getStepsFinished()) {
             while (codewordEsperado.length() != codificationDTORetornado.getCodeword().length()) {
                 codewordEsperado.append((char) this.isCodewordEsperado.read());
@@ -51,7 +51,7 @@ class EliasGammaControllerTest {
             Assertions.assertEquals(codewordEsperado.toString(), codificationDTORetornado.getCodeword());
 
             codewordEsperado = new StringBuilder("");
-            codificationDTORetornado = eliasGammaController.nextStep();
+            codificationDTORetornado = fibonacciController.nextStep();
         }
     }
 
