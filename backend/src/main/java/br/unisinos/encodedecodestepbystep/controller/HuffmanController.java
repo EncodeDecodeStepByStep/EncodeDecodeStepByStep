@@ -46,6 +46,14 @@ public class HuffmanController {
     }
 
     @CrossOrigin("http://localhost:3000")
+    @GetMapping("/hashes")
+    @ResponseStatus(HttpStatus.OK)
+    public CodificationDTO hashes() throws IOException {
+        Codification.setStepMade("Não faço ideia, pois não codei o algoritmo");
+        return CodificationDTOMapper.getCodificationDTO();
+    }
+
+    @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/decode")
     @ResponseStatus(HttpStatus.OK)
     public void decode(@RequestBody String path) {
