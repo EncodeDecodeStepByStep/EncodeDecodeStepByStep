@@ -1,11 +1,11 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
 
+import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
+import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
 import br.unisinos.encodedecodestepbystep.service.redundancy.CRCService;
 import br.unisinos.encodedecodestepbystep.utils.MathUtils;
-import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
-import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 import org.springframework.stereotype.Service;
@@ -16,18 +16,15 @@ import java.util.List;
 
 @Service
 public class DeltaService implements Codification {
-    private int biggestIncrease = 0;
-    private int biggestDecrease = 0;
-    private int quantOfDigits;
-
     private static final int QUANTITY_OF_DIGITS_SIZE = 5;
     private static final int FIRST_BINARY_SIZE = 16;
     private static final String CHANGED = "1";
     private static final String NO_CHANGES = "0";
-
     private static final char NEGATIVE = '1';
     private static final char POSITIVE = '0';
-
+    private int biggestIncrease = 0;
+    private int biggestDecrease = 0;
+    private int quantOfDigits;
 
     @Override
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {

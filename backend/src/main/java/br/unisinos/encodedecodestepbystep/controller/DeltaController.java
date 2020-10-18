@@ -6,7 +6,6 @@ import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
 import br.unisinos.encodedecodestepbystep.service.codification.DeltaService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
