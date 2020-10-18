@@ -7,7 +7,7 @@ export const Main = () => {
     <Container>
         <Header/>
         <MainProgram>
-           <SideMenu opened={true}/>
+           <SideMenu/>
            <ExecutionWindow/>
         </MainProgram>
     </Container>

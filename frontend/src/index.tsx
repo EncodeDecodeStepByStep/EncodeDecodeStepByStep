@@ -11,12 +11,10 @@ import {
   ProcessingProvider,
   CodificationMethodProvider,
   FinishedCodificationProvider,
-  FileToProcessProvider,
 } from "./context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <FileToProcessProvider>
       <FinishedCodificationProvider>
         <CodificationMethodProvider>
           <ProcessingProvider>
@@ -27,7 +25,6 @@ ReactDOM.render(
           </ProcessingProvider>
         </CodificationMethodProvider>
       </FinishedCodificationProvider>
-    </FileToProcessProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useModal } from '../../hooks';
 import { Icon, Modal} from '../index';
-import { Typografy } from '../Typografy';
 import {Container, ModalContent} from './style'
 import Programmer from '../../assets/programmer.mp4'
-import axios from 'axios'
 
 export const Header = () => {
   
@@ -15,15 +13,8 @@ export const Header = () => {
   }
 
   function renderModal(){
-      axios.get('http://localhost:8080')
-          .then(function(response){
-              console.log(response.data); // ex.: { user: 'Your User'}
-              console.log(response.status); // ex.: 200
-          });
-
       return (
-      <ModalContent>
-        
+      <ModalContent>        
           <video src={Programmer} autoPlay loop/>
           <nav>
             <ul>

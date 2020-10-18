@@ -16,12 +16,18 @@ export const Container = styled.div`
 export const OnProcessing = styled.section`
   h2 {
     color: rgb(73, 210, 128);
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
   &>div{
     display: flex;
     justify-content: center;
+  }
+
+  .percentage-value{
+    color: rgb(73, 210, 128);
+    font-weight:bold;
+    margin-top:10px;
   }
 `;
 

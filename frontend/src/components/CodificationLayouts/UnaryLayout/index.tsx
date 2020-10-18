@@ -2,43 +2,34 @@ import React, { useEffect, useState } from "react";
 import { PRIMARY } from "../../../constants/colors";
 import { Icon } from "../../Icon";
 import { UnaryCodewordRow } from "./styles";
+import CodewordResponse from '../../../models/codewordEncodingResponse'
 
 interface UnaryLayoutProps {
-  text: string;
+  code: CodewordResponse[];
   index: number;
-  setLength:Function
 }
 export const UnaryLayout = (props: UnaryLayoutProps) => {
-  const [splittedText, setSplittedText] = useState([]);
   const [showIndex, setShowIndex] = useState(0);
 
-  useEffect(() => {
-    const { text, setLength } = props;
-    if (text) {
-        const textSplitted = text.split("-");
-        if(textSplitted.length){
-            setLength(textSplitted.length)
-            setSplittedText(textSplitted);
-        }
-      
-    }
-  }, [props, props.text]);
+  useEffect(()=>{
+    console.log("cu")
+  },[props,props.code.length])
 
   useEffect(() => {
     setShowIndex(props.index);
   }, [ props.index]);
 
-  const renderCodeword = (codeword: string) => {
+  const renderCodeword = (codeword:CodewordResponse) => {
       if(codeword){
         return (
             <UnaryCodewordRow>
-              <span className="codeword">{codeword}</span>
+              <span className="codeword">{codeword.value}</span>
               <div>
                 <span className="utf8">UTF-8</span>
-                <strong className="code">{codeword.length}</strong>
+                <strong className="code">{codeword.value.length}</strong>
                 <Icon.TransformTo size={15} color={PRIMARY} />
                 <span className="codevalue">
-                  {String.fromCharCode(codeword.length)}
+                  {String.fromCharCode(codeword.value.length)}
                 </span>
               </div>
             </UnaryCodewordRow>
@@ -47,9 +38,11 @@ export const UnaryLayout = (props: UnaryLayoutProps) => {
   };
 
   const renderCodewords = () => {
-      const layoutArray = [];
+    const {code} = props
+    console.log(code);
+    const layoutArray = [];
     for (let i = 0; i < showIndex; i++) {
-      let codeword = splittedText[i];
+      let codeword = code[i];
       layoutArray.push(renderCodeword(codeword));
     }
     return layoutArray;
