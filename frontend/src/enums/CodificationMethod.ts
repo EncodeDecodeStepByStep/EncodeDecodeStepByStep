@@ -5,5 +5,8 @@ export enum CodificationMethod{
     ELIAS_GAMMA,
     FIBONACCI,
     DELTA,
-    UNARIO
+    UNARIO,
+    HAMMING,
+    CRC_8,
+    HUFFMAN,
 }

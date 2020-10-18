@@ -102,5 +102,3 @@ export const Card = styled.div`
     margin: 10px 0 5px 0;
   }
 `;
-
-export const ClosedContainer = styled.div``;

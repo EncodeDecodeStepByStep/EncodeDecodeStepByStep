@@ -1,8 +1,5 @@
 const { app, BrowserWindow } = require('electron')
 const isDev = require('electron-is-dev');
-const ipc = require('electron').ipcMain
-const fs = require('fs');
-const Unary  = require('./codifications/Unary')
 
 const childProcess = require('child_process')
 const path = require('path');
@@ -47,10 +44,3 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-ipc.handle('coding', async (event, arg)=> {
-  const unary = new Unary();
-  await unary.encode(arg.file);
-  return {ok:true, filesaved:arg.file+".cod"}
-})
-
