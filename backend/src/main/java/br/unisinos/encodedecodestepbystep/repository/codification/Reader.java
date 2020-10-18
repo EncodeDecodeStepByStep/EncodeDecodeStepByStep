@@ -147,7 +147,7 @@ public class Reader implements ReaderInterface {
             }
             codeword.append((char) charLido);
         }
-        System.out.println(codeword.toString());
+//        System.out.println(codeword.toString());
         return codeword.toString();
     }
 }

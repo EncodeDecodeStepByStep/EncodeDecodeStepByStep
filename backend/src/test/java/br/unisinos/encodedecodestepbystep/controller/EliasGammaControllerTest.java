@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class EliasGammaControllerTest {
@@ -17,10 +18,13 @@ class EliasGammaControllerTest {
     EliasGammaController eliasGammaController;
 
     private InputStream isEsperadoBeforeCodification;
+    private InputStream isCodewordEsperado;
+
 
     @BeforeEach
     void setUp() throws FileNotFoundException {
-        isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/alice29.txt"));
+        this.isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/alice29.txt"));
+        this.isCodewordEsperado = new FileInputStream(new File("src/main/resources/database/CodewordsSizesArray.repository"));
     }
 
     @AfterEach
@@ -29,20 +33,24 @@ class EliasGammaControllerTest {
 
     @Test
     void deveSerOsMesmosCodewordsGravadosNoEncodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeEncode() throws InterruptedException, IOException {
-        // TODO problemas pra testar devido ao paralelismo
-//        eliasGammaController.encode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt");
-//
-//        CodificationDTO codificationDTORetornado = eliasGammaController.nextStep();
-//        int i = 5;
-//        while (!codificationDTORetornado.getCodeword().isEmpty()){
-//            System.out.println(i++);
-//            System.out.println(codificationDTORetornado.getCharacterBeforeCodification());
-//
-//            Assertions.assertEquals((char) isEsperadoBeforeCodification.read(), codificationDTORetornado.getCharacterBeforeCodification().charAt(0));
-//            codificationDTORetornado.getCodeword(); // TODO assert
-//
-//            codificationDTORetornado = eliasGammaController.nextStep();
-//        }
+        StringBuilder codewordEsperado = new StringBuilder("");
+        eliasGammaController.encode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt");
+
+        TimeUnit.SECONDS.sleep(5); // para dar tempo para iniciar thread do encode
+        this.isCodewordEsperado.skip(17); // para skippar cabeçalho + virgula
+        CodificationDTO codificationDTORetornado = eliasGammaController.nextStep();
+        while (!codificationDTORetornado.getStepsFinished()){
+            while (codewordEsperado.length() != codificationDTORetornado.getCodeword().length()){
+                codewordEsperado.append((char) this.isCodewordEsperado.read());
+            }
+            this.isCodewordEsperado.read(); // para jogar o caracter da virgula fora.
+
+            Assertions.assertEquals((char) this.isEsperadoBeforeCodification.read(), codificationDTORetornado.getCharacterBeforeCodification().charAt(0));
+            Assertions.assertEquals(codewordEsperado.toString() ,codificationDTORetornado.getCodeword());
+
+            codewordEsperado = new StringBuilder("");
+            codificationDTORetornado = eliasGammaController.nextStep();
+        }
 
     }
 
