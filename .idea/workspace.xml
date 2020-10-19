@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5b9e9806-33ef-4811-b819-224331ffa47c" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.1\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1iQL1gUJFz9fBN8Ey7C8Ck3gcsZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
+  </component>
+  <component name="RunManager" selected="Application.CodificationGUI">
+    <configuration name="CodificationGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="controllers.CodificationGUI" />
+      <module name="TrabalhoTeoriaDaComputacao" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CondificationGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="controllers.CondificationGUI" />
+      <module name="TrabalhoTeoriaDaComputacao" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CRCTest.realizarTestCRC" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TrabalhoTeoriaDaComputacao" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CRCTest" />
+      <option name="METHOD_NAME" value="realizarTestCRC" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GoulombReaderTest.deveFazerDecodeDoArquivo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TrabalhoTeoriaDaComputacao" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GoulombReaderTest" />
+      <option name="METHOD_NAME" value="deveFazerDecodeDoArquivo" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GoulombReaderTest.deveFazerOEncodeDoArquivo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TrabalhoTeoriaDaComputacao" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GoulombReaderTest" />
+      <option name="METHOD_NAME" value="deveFazerOEncodeDoArquivo" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CodificationGUI" />
+        <item itemvalue="Application.CondificationGUI" />
+        <item itemvalue="JUnit.CRCTest.realizarTestCRC" />
+        <item itemvalue="JUnit.GoulombReaderTest.deveFazerDecodeDoArquivo" />
+        <item itemvalue="JUnit.GoulombReaderTest.deveFazerOEncodeDoArquivo" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5b9e9806-33ef-4811-b819-224331ffa47c" name="Default Changelist" comment="" />
+      <created>1601834657696</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601834657696</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="720" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601838117114">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="720" y="322" key="#com.intellij.fileTypes.FileTypeChooser/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601838117114" />
+    <state width="1877" height="301" key="GridCell.Tab.0.bottom" timestamp="1601903458609">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1877" height="301" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1601903458609" />
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601865516513" />
+    <state width="1877" height="301" key="GridCell.Tab.0.center" timestamp="1601903458609">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1877" height="301" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1601903458609" />
+    <state width="1877" height="274" key="GridCell.Tab.0.center/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601865516512" />
+    <state width="1877" height="301" key="GridCell.Tab.0.left" timestamp="1601903458609">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1877" height="301" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1601903458609" />
+    <state width="1877" height="274" key="GridCell.Tab.0.left/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601865516512" />
+    <state width="1877" height="301" key="GridCell.Tab.0.right" timestamp="1601903458609">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1877" height="301" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1601903458609" />
+    <state width="1877" height="274" key="GridCell.Tab.0.right/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601865516512" />
+    <state width="1877" height="301" key="GridCell.Tab.1.bottom" timestamp="1601903458609">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1877" height="301" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1601903458609" />
+    <state width="1877" height="301" key="GridCell.Tab.1.bottom/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601846764679" />
+    <state width="1877" height="301" key="GridCell.Tab.1.center" timestamp="1601903458609">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1877" height="301" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1601903458609" />
+    <state width="1877" height="301" key="GridCell.Tab.1.center/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601846764679" />
+    <state width="1877" height="301" key="GridCell.Tab.1.left" timestamp="1601903458609">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1877" height="301" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1601903458609" />
+    <state width="1877" height="301" key="GridCell.Tab.1.left/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601846764678" />
+    <state width="1877" height="301" key="GridCell.Tab.1.right" timestamp="1601903458609">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1877" height="301" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1601903458609" />
+    <state width="1877" height="301" key="GridCell.Tab.1.right/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601846764679" />
+    <state x="184" y="86" key="MergeDialog" timestamp="1601860958826">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="86" key="MergeDialog/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601860958826" />
+    <state x="598" y="281" key="MultipleFileMergeDialog" timestamp="1601860958865">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="598" y="281" key="MultipleFileMergeDialog/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601860958865" />
+    <state x="469" y="256" width="982" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1601856856391">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="469" y="256" width="982" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601856856391" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1601847931191">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/1920.165.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1601847931191" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint type="java-exception">
+          <properties class="java.lang.StringIndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="16" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

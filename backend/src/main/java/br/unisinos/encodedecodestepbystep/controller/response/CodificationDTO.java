@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Map;
+
 @Getter
 @Setter
 @ToString
@@ -28,4 +30,8 @@ public class CodificationDTO {
     //Decode
     private String bitsBeforeDecode;
     private String characterDecoded;
+
+    //Huffman
+    private Map<Character, String> huffmanTree;
+    private Map<Integer, Integer> huffmanCount;
 }

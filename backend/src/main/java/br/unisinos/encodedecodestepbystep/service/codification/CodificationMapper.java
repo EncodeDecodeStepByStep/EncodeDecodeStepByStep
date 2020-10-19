@@ -31,6 +31,8 @@ public class CodificationMapper {
 
     private UnarioService unarioService;
 
+    private UnarioService huffmanService;
+
     private Map<String, CodificationService> namesCodificationMap = new HashMap<>();
     private Map<String, CodificationService> bitsCodificationMap = new HashMap<>();
 
@@ -51,11 +53,13 @@ public class CodificationMapper {
         namesCodificationMap.put("Fibonacci", fibonacciService);
         namesCodificationMap.put("Goulomb", goulombService);
         namesCodificationMap.put("Unario", unarioService);
+        namesCodificationMap.put("Huffman", huffmanService);
 
         bitsCodificationMap.put("0000000100000000", deltaService);
         bitsCodificationMap.put("0000001100000000", eliasGammaService);
         bitsCodificationMap.put("0000011100000000", fibonacciService);
         bitsCodificationMap.put("0001111100000000", unarioService);
+        bitsCodificationMap.put("0011111100000000", huffmanService);
 
     }
 

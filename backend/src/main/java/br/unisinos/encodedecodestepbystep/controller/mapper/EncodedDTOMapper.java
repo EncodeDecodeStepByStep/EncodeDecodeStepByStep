@@ -18,5 +18,14 @@ public class EncodedDTOMapper {
                 .stepsFinished(Codification.isStepsFinished())
                 .build();
     }
+
+    public static EncodedDTO getHuffmanEncodedDTO() {
+        EncodedDTO encodedDTO = getEncodedDTO();
+        encodedDTO.setHuffmanCount(Codification.getHuffmanSorted());
+        encodedDTO.setHuffmanTree(Codification.getHuffmanTree());
+        return encodedDTO;
+    }
+
+
 }
 
