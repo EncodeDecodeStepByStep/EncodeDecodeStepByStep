@@ -3,6 +3,7 @@ package br.unisinos.encodedecodestepbystep.domain;
 import org.apache.commons.lang3.mutable.MutableDouble;
 
 import java.io.File;
+import java.util.Map;
 
 public class Codification {
 
@@ -19,6 +20,8 @@ public class Codification {
     private static File file;
     private static Long numberOfCodewordsReaded;
     private static boolean mustSaveInCodeword;
+    private static Map<Integer, Integer> huffmanSorted;
+    private static Map<Character, String> huffmanTree;
 
 
     public static Long getNumberOfCodewordsReaded() {
@@ -27,6 +30,22 @@ public class Codification {
 
     public static void setNumberOfCodewordsReaded(Long numberOfCodewordsReaded) {
         Codification.numberOfCodewordsReaded = numberOfCodewordsReaded;
+    }
+
+    public static Map<Integer, Integer> getHuffmanSorted() {
+        return huffmanSorted;
+    }
+
+    public static void setHuffmanSorted(Map<Integer, Integer> huffmanSorted) {
+        Codification.huffmanSorted = huffmanSorted;
+    }
+
+    public static Map<Character, String> getHuffmanTree() {
+        return huffmanTree;
+    }
+
+    public static void setHuffmanTree(Map<Character, String> huffmanTree) {
+        Codification.huffmanTree = huffmanTree;
     }
 
     public static String getCodeword() {

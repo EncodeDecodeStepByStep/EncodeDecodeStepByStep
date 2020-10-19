@@ -56,5 +56,4 @@ public class AutomaticContoller {
     public Double getProgressPercentage() {
         return Codification.getProgressPercentage().getValue();
     }
-
 }
