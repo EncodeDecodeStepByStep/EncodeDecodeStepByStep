@@ -1,5 +1,6 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
@@ -33,9 +34,11 @@ class FibonacciServiceTest {
 
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
+        Codification.setEncodeCodification(true);
         setUp(setUpEncodeAlice29());
         fibonacciService.encode(this.writer, this.reader);
 
+        Codification.setEncodeCodification(false);
         setUp(setUpDecodeAlice29());
         fibonacciService.decode(this.writer, this.reader);
 
@@ -44,9 +47,11 @@ class FibonacciServiceTest {
 
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
+        Codification.setEncodeCodification(true);
         setUp(setUpEncodeSum());
         fibonacciService.encode(this.writer, this.reader);
 
+        Codification.setEncodeCodification(false);
         setUp(setUpDecodeSum());
         fibonacciService.decode(this.writer, this.reader);
 

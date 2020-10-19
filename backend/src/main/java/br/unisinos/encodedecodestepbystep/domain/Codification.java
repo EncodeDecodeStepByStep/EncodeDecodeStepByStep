@@ -6,16 +6,19 @@ import java.io.File;
 
 public class Codification {
 
+    private static Boolean encodeCodification;
+    private static String codificationName;
     private static Long numberOfCharsTotal;
     private static Long numberOfCharsReaded;
     private static String codeword;
-    private static String characterBeforeCodification;
+    private static String characterCodification;
     private static String stepMade; // Descrição da ação(passo) q foi feita para mostrar
     private static MutableDouble progressPercentage;
     private static boolean stepsFinished;
 
     private static File file;
     private static Long numberOfCodewordsReaded;
+    private static boolean mustSaveInCodeword;
 
 
     public static Long getNumberOfCodewordsReaded() {
@@ -82,11 +85,43 @@ public class Codification {
         Codification.stepsFinished = stepsFinished;
     }
 
-    public static String getCharacterBeforeCodification() {
-        return characterBeforeCodification;
+    public static String getCharacterCodification() {
+        return characterCodification;
     }
 
-    public static void setCharacterBeforeCodification(String characterBeforeCodification) {
-        Codification.characterBeforeCodification = characterBeforeCodification;
+    public static void setCharacterCodification(String characterCodification) {
+        Codification.characterCodification = characterCodification;
+    }
+
+    public static boolean isEncodeCodification() {
+        return encodeCodification;
+    }
+
+    public static void setEncodeCodification(boolean encodeCodification) {
+        Codification.encodeCodification = encodeCodification;
+    }
+
+    public static String getCodificationName() {
+        return codificationName;
+    }
+
+    public static void setCodificationName(String codificationName) {
+        Codification.codificationName = codificationName;
+    }
+
+    public static Boolean getEncodeCodification() {
+        return encodeCodification;
+    }
+
+    public static void setEncodeCodification(Boolean encodeCodification) {
+        Codification.encodeCodification = encodeCodification;
+    }
+
+    public static boolean isMustSaveInCodeword() {
+        return mustSaveInCodeword;
+    }
+
+    public static void setMustSaveInCodeword(boolean mustSaveInCodeword) {
+        Codification.mustSaveInCodeword = mustSaveInCodeword;
     }
 }
