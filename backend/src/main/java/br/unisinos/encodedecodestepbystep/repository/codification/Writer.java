@@ -1,5 +1,6 @@
 package br.unisinos.encodedecodestepbystep.repository.codification;
 
+import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
@@ -22,6 +23,9 @@ public class Writer implements WriterInterface {
         output = new File(path);
         Codification.setNumberOfCodewordsReaded(0L);
         Codification.setNumberOfCharsReaded(0L);
+        Codification.setMustSaveInCodeword(true);
+        if(!Codification.isEncodeCodification())
+            Codification.setFile(output);
 
         if (output.exists()) {
             output.delete();
@@ -47,7 +51,8 @@ public class Writer implements WriterInterface {
         return (byte) Integer.parseInt(bits, 2);
     }
 
-    public void write(char letter) throws IOException {
+    public void write(char letter, String bitsReaded) throws IOException {
+        writeCodewordsForStepsTempFile(String.valueOf(letter), bitsReaded);
         bufferedWriter.write(letter);
     }
 
@@ -99,6 +104,10 @@ public class Writer implements WriterInterface {
     private void writeCodewordsForStepsTempFile(String codeword) throws IOException {
         this.fileWriterCodewordsSizeArray.write(codeword.concat(","));
         this.fileWriterCodewordsSizeArray.flush();
+    }
+
+    private void writeCodewordsForStepsTempFile(String codeword, String bitsReaded) throws IOException {
+        writeCodewordsForStepsTempFile(bitsReaded);
     }
 
     public String gravaBitsEmPartesDe8ERetornaOResto(String bits) throws IOException {

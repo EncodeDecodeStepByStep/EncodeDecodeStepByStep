@@ -1,16 +1,18 @@
 package br.unisinos.encodedecodestepbystep.controller.mapper;
 
-import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
+import br.unisinos.encodedecodestepbystep.controller.response.EncodedDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 
-public class CodificationDTOMapper {
+public class EncodedDTOMapper {
 
-    public static CodificationDTO getCodificationDTO() {
-        return CodificationDTO.builder()
+    public static EncodedDTO getEncodedDTO() {
+        return EncodedDTO.builder()
+                .codificationName(Codification.getCodificationName())
+                .encodeCodification(Codification.getEncodeCodification())
                 .codeword(Codification.getCodeword())
                 .numberOfCharsTotal(Codification.getNumberOfCharsTotal())
                 .numberOfCharsReaded(Codification.getNumberOfCharsReaded())
-                .characterBeforeCodification(Codification.getCharacterBeforeCodification())
+                .characterBeforeEncode(Codification.getCharacterCodification())
                 .progressPercentage(Codification.getProgressPercentage().getValue())
                 .stepMade(Codification.getStepMade())
                 .stepsFinished(Codification.isStepsFinished())

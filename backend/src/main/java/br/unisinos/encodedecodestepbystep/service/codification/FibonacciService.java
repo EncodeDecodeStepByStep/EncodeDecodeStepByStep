@@ -1,6 +1,7 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class FibonacciService implements Codification {
+public class FibonacciService implements CodificationService {
     private int[] fibonacci_sequence;
 
     public FibonacciService() {
@@ -29,6 +30,7 @@ public class FibonacciService implements Codification {
     }
 
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Fibonacci");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
 
         int character = 0;
@@ -71,15 +73,18 @@ public class FibonacciService implements Codification {
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
         String storedOccurrence = "";
         char numberOne = Integer.toString(1).charAt(0);
+        StringBuilder bitsReaded = new StringBuilder("");
 
         char number;
         while ((number = (char) reader.readNextChar()) != 65535) {
+            bitsReaded.append(number);
             char lastChar = storedOccurrence.length() > 0 ? storedOccurrence.charAt(storedOccurrence.length() - 1) : 0;
 
             if (lastChar == numberOne && number == numberOne) {
                 int ascii = this.decodeStringFibonacci(storedOccurrence);
                 char teste = (char) ascii;
-                writer.write(--teste);
+                writer.write(--teste, bitsReaded.toString());
+                bitsReaded = new StringBuilder("");
                 storedOccurrence = "";
             } else {
                 storedOccurrence = storedOccurrence + number;

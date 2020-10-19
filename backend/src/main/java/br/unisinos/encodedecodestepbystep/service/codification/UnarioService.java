@@ -1,6 +1,7 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class UnarioService implements Codification {
+public class UnarioService implements CodificationService {
+
     @Override
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Unario");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
 
         int character = reader.read();
@@ -39,18 +42,23 @@ public class UnarioService implements Codification {
 
     @Override
     public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Unario");
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
+        StringBuilder bitsReaded = new StringBuilder("");
 
         int bitRead = reader.readNextChar();
+        bitsReaded.append((char)bitRead);
         int last = bitRead;
         int counter = 0;
 
         while (bitRead != -1) {
             bitRead = reader.readNextChar();
+            bitsReaded.append((char)bitRead);
             counter++;
             if (bitRead != last) {
                 char character = (char) counter;
-                writer.write(character);
+                writer.write(character, bitsReaded.toString());
+                bitsReaded = new StringBuilder("");
                 last = bitRead;
                 counter = 0;
             }
