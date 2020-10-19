@@ -2,11 +2,13 @@ import React from 'react';
 import {MdSearch} from 'react-icons/md'
 import {FaUserAlt, FaArrowAltCircleRight} from 'react-icons/fa'
 import {MdArrowBack, MdArrowForward, MdClose} from 'react-icons/md'
-import {BsFillSkipEndFill} from 'react-icons/bs'
+import {BsFillSkipEndFill, BsArrowDownShort} from 'react-icons/bs'
 import {CgShapeTriangle} from 'react-icons/cg'
-import {AiOutlineNodeCollapse, AiOutlineGoogle, AiOutlineFieldBinary} from 'react-icons/ai'
-import {TiFlowMerge} from 'react-icons/ti'
-import {GiRadioactive} from 'react-icons/gi'
+import { AiOutlineGoogle} from 'react-icons/ai'
+import {GiBowlSpiral, GiRadioactive} from 'react-icons/gi'
+import {RiStackshareLine, RiBubbleChartFill} from 'react-icons/ri'
+import { XOR } from './style';
+import {GoFileBinary} from 'react-icons/go'
 
 type IconProps = {
     size: number, 
@@ -70,19 +72,19 @@ export class Icon{
 
     static Fibonatti = (props:IconProps)=>{
         return (
-            <AiOutlineNodeCollapse size={props.size} color={props.color}/>
+            <GiBowlSpiral size={props.size} color={props.color}/>
         )
     }
 
     static Unario = (props:IconProps)=>{
         return (
-            <AiOutlineFieldBinary size={props.size} color={props.color}/>
+            <GoFileBinary size={props.size} color={props.color}/>
         )
     }
 
     static Hamming = (props:IconProps)=>{
         return (
-            <TiFlowMerge size={props.size} color={props.color}/>
+            <RiBubbleChartFill size={props.size} color={props.color}/>
         )
     }
 
@@ -92,5 +94,23 @@ export class Icon{
         )
     }
 
+    static Huffman = (props:IconProps)=>{
+        return (
+            <RiStackshareLine size={props.size} color={props.color}/>
+        )
+    }
+
+    static Crc8 = (props:IconProps)=>{
+        return (
+            <XOR color={props.color}>XOR</XOR>
+        )
+    } 
+
+    static Down = (props:IconProps)=>{
+        return (
+            <BsArrowDownShort size={props.size} color={props.color}/>
+        )
+    } 
+    
     
 }

@@ -1,5 +1,6 @@
 package br.unisinos.encodedecodestepbystep.controller;
 
+import br.unisinos.encodedecodestepbystep.controller.request.EncodeRequest;
 import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -36,7 +37,7 @@ class GoulombControllerTest {
     @Test
     void deveSerOsMesmosCodewordsGravadosNoEncodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeEncode() throws InterruptedException, IOException {
         StringBuilder codewordEsperado = new StringBuilder("");
-        goulombController.encode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt", 2);
+        goulombController.encode(new EncodeRequest("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt", 2));
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         this.isCodewordEsperado.skip(17); // para skippar cabeçalho + virgula

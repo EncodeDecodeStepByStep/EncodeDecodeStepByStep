@@ -1,7 +1,11 @@
 import api from './baseApi'
 
-export async function encode(method:string, path:string){
-    const response = await api.post(`/${method}/normal/encode`, path);
+export async function encode(method:string, path:string, divisor:number){
+    const data = (method==='goulomb') ? {path:path, divisor:divisor} : path;
+    
+    const response = await api.post(`/${method}/normal/encode`, data);
+    
+    
     return response;
 }
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PRIMARY } from "../../constants/colors";
+import { PRIMARY } from "../../../constants/colors";
 
 export const Container = styled.div`
   background-color: rgb(44, 49, 68);
@@ -8,6 +8,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 30%;
+  overflow-y: auto;
 `;
 
 export const FormRow = styled.div`
@@ -47,7 +48,14 @@ export const InputRow = styled.div`
   align-items: center;
   cursor:pointer;
 
-  input {
+  input{
+    width:100%;
+    background-color:transparent;
+    color:white;
+    border:none;
+  }
+
+  input[type='file'] {
     display: none;
   }
 

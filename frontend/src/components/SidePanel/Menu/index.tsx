@@ -1,34 +1,32 @@
 import React, { useRef, useState } from "react";
-import { Button } from "../Button";
-import { Icon } from "../Icon";
-import { Typografy } from "../Typografy";
+import { Button, Icon, Typografy } from "../../index";
 import {
-  Container,
   ButtonsRow,
   Card,
   CodificationCards,
   FormRow,
   FormRowHeader,
-  InputRow
+  InputRow,
+  Container
 } from "./style";
-import codifications from "../../constants/codifications";
-import { EncodingDecoding } from "../../enums/EncodingDecoding";
+import codifications from "../../../constants/codifications";
+import { EncodingDecoding } from "../../../enums/EncodingDecoding";
 import { toast } from "react-toastify";
-import { useOnProcessing, useCodificationMethod, useFinishedCodification } from '../../context'
-import { encode, decode } from '../../hooks/useCodification'
-import { CodificationMethod } from "../../enums/CodificationMethod";
-import { Codification } from '../../models/codification'
+import { useOnProcessing, useCodificationMethod, useFinishedCodification, useGoulombDivisor } from '../../../context'
+import { encode, decode } from '../../../hooks/useCodification'
+import { CodificationMethod } from "../../../enums/CodificationMethod";
+import { Codification } from '../../../models/codification'
 
 interface FileType {
   name?: string,
   path?: string
 }
 
-export const SideMenu = () => {
+export const Menu = () => {
   const [codingDecoding, setCodingDecoding] = useState(EncodingDecoding.NO_ONE);
-  const [codificationMethod, setCodificationMethod] = useCodificationMethod<Codification>(-1);
+  const [codificationMethod, setCodificationMethod] = useCodificationMethod<Codification>();
   const [file, setFile] = useState<FileType>({});
-  const [goulombDivisor, setGoulombDivisor] = useState(4);
+  const [goulombDivisor, setGoulombDivisor] = useGoulombDivisor();
 
   const inputRef = useRef(null);
 
@@ -63,15 +61,15 @@ export const SideMenu = () => {
 
     if (codingDecoding === EncodingDecoding.NO_ONE) {
       toast.warn("Selecione o modo");
-    } else if (codificationMethod === -1) {
+    } else if (!codificationMethod.codificationType) {
       toast.warn("Selecione um algoritmo");
-    } else if (!file) {
+    } else if (!file.path) {
       toast.warn("Selecione um arquivo");
     } else {
       setOnProcessing(true);
       setOnFinishedCodification(false);
       if (codingDecoding === EncodingDecoding.ENCODING) {
-        await encode(codificationMethod.urlName, file.path);
+        const data = await encode(codificationMethod.urlName, file.path, goulombDivisor);
       } else {
         await decode(codificationMethod.urlName, file.path);
       }
@@ -82,8 +80,16 @@ export const SideMenu = () => {
     inputRef.current.click();
   }
 
-  return (
-    <Container>
+  function getIndexOfFileRow() {
+    if (codingDecoding === EncodingDecoding.ENCODING) {
+      return codificationMethod.codificationType === CodificationMethod.GOULOMB ? 4 : 3
+    } else {
+      return 2;
+    }
+  }
+
+  function renderEncodingDecoding() {
+    return (
       <FormRow>
         <FormRowHeader>
           <span className="form-index">1</span>
@@ -108,19 +114,22 @@ export const SideMenu = () => {
               </Button.PRIMARY>
         </ButtonsRow>
       </FormRow>
+    )
+  }
 
-      {
-        codingDecoding === EncodingDecoding.ENCODING &&
+  function renderCodificationMethod() {
+    if (codingDecoding === EncodingDecoding.ENCODING) {
+      return (
         <FormRow>
           <FormRowHeader>
             <span className="form-index">2</span>
             <Typografy.EMPHASYS text="Selecione a codificação" />
           </FormRowHeader>
           <CodificationCards>
-            {codifications.map((codification) => {
+            {codifications.map((codification, index) => {
               return (
                 <Card
-                  key={codificationMethod.type}
+                  key={index}
                   onClick={() => handleCodificationMethod(codification)}
                   isSelected={codificationMethod.codificationType === codification.codificationType}
                 >
@@ -131,25 +140,33 @@ export const SideMenu = () => {
             })}
           </CodificationCards>
         </FormRow>
-      }
+      )
+    }
+  }
 
-      {
-        codificationMethod.index === CodificationMethod.GOULOMB &&
+  function renderGoulombOptions() {
+    if (codificationMethod.codificationType === CodificationMethod.GOULOMB) {
+      return (
         <FormRow>
           <FormRowHeader>
-            <span className="form-index">2</span>
-            <Typografy.EMPHASYS text="Selecione a codificação" />
+            <span className="form-index">3</span>
+            <Typografy.EMPHASYS text="Selecione o divisor Goulomb" />
           </FormRowHeader>
-          <input type="number" value={goulombDivisor} onChange={(e) => {
-            changeGoulombDividor(parseInt(e.target.value))
-          }} />
+          <InputRow>
+            <input type="number" value={goulombDivisor} onChange={(e) => {
+              changeGoulombDividor(parseInt(e.target.value))
+            }} />
+          </InputRow>
         </FormRow>
-      }
+      )
+    }
+  }
 
-
+  function renderInputFile() {
+    return (
       <FormRow>
         <FormRowHeader>
-          <span className="form-index">3</span>
+          <span className="form-index">{getIndexOfFileRow()}</span>
           <Typografy.EMPHASYS text="Selecione o arquivo" />
         </FormRowHeader>
         <InputRow>
@@ -162,18 +179,32 @@ export const SideMenu = () => {
           <Icon.Search color="#fff" size={20} />
         </InputRow>
       </FormRow>
+    )
+  }
 
+  function renderInitButton() {
+    return (
       <FormRow>
         <FormRowHeader>
-          <span className="form-index">4</span>
+          <span className="form-index">{getIndexOfFileRow() + 1}</span>
           <Typografy.EMPHASYS text="Faça a codificação" />
         </FormRowHeader>
         <ButtonsRow>
           <Button.CLICK onClick={inicialize}>
             Iniciar
-              </Button.CLICK>
+          </Button.CLICK>
         </ButtonsRow>
       </FormRow>
+    )
+  }
+
+  return (
+    <Container>
+      {renderEncodingDecoding()}
+      {renderCodificationMethod()}
+      {renderGoulombOptions()}
+      {renderInputFile()}
+      {renderInitButton()}
     </Container>
   );
 };

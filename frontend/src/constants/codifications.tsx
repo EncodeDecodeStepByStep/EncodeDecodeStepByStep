@@ -34,16 +34,16 @@ export default [
         "Hamming",
         "hamming",
         CodificationMethod.HAMMING,
-        <Icon.Unario size={40} color="#333" />
+        <Icon.Hamming size={40} color="#333" />
     ), new Codification(
         "Crc-8",
         "crc",
         CodificationMethod.CRC_8,
-        <Icon.Unario size={40} color="#333" />
+        <Icon.Crc8 size={40} color="#333" />
     ), new Codification(
         "Huffman",
         "huffman",
         CodificationMethod.HUFFMAN,
-        <Icon.Unario size={40} color="#333" />
+        <Icon.Huffman size={40} color="#333" />
     )
 ]

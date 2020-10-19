@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExecutionWindow, SideMenu, Header } from '../../components'
+import { ExecutionWindow, SidePanel, Header } from '../../components'
 import {Container, MainProgram} from './styles'
 
 export const Main = () => {
@@ -7,7 +7,7 @@ export const Main = () => {
     <Container>
         <Header/>
         <MainProgram>
-           <SideMenu/>
+           <SidePanel/>
            <ExecutionWindow/>
         </MainProgram>
     </Container>

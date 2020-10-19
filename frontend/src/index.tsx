@@ -11,20 +11,30 @@ import {
   ProcessingProvider,
   CodificationMethodProvider,
   FinishedCodificationProvider,
+  CodewordsProvider,
+  IndexProvider,
+  GoulombDivisorProvider
 } from "./context";
+
 
 ReactDOM.render(
   <React.StrictMode>
-      <FinishedCodificationProvider>
-        <CodificationMethodProvider>
-          <ProcessingProvider>
-            <HashRouter>
-              <Routes />
-              <ToastContainer />
-            </HashRouter>
-          </ProcessingProvider>
-        </CodificationMethodProvider>
-      </FinishedCodificationProvider>
+    <FinishedCodificationProvider>
+      <CodificationMethodProvider>
+        <ProcessingProvider>
+          <CodewordsProvider>
+            <IndexProvider>
+              <GoulombDivisorProvider>
+                <HashRouter>
+                  <Routes />
+                  <ToastContainer />
+                </HashRouter>
+              </GoulombDivisorProvider>             
+            </IndexProvider>
+          </CodewordsProvider>
+        </ProcessingProvider>
+      </CodificationMethodProvider>
+    </FinishedCodificationProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
