@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const UnaryCodewordRow = styled.div`
+export const DeltaCodewordRow = styled.div`
     display: flex;
     flex-direction: column;
     max-width: 100%;

@@ -1,18 +1,18 @@
 import React from "react";
 import { PRIMARY } from "../../../constants/colors";
 import { Icon } from "../../Icon";
-import { UnaryCodewordRow } from "./styles";
+import { DeltaCodewordRow } from "./styles";
 import { useCodewords, useIndex } from "../../../context";
 import { Codeword } from "../../../models/codeword";
 
-export const UnaryLayout = () => {
+export const DeltaLayout = () => {
   const [index, ] = useIndex();
   const [codewords,] = useCodewords();
 
   function renderCodeword(codeword: Codeword) {
     if (codeword) {
       return (
-        <UnaryCodewordRow>
+        <DeltaCodewordRow>
           <span className="codeword">{codeword.codeword}</span>
           <div>
             <span className="ascii">ASCII</span>
@@ -22,7 +22,7 @@ export const UnaryLayout = () => {
               {codeword.value}
             </span>
           </div>
-        </UnaryCodewordRow>
+        </DeltaCodewordRow>
       );
     }
   };

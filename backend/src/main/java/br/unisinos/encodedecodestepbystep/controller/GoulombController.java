@@ -1,6 +1,7 @@
 package br.unisinos.encodedecodestepbystep.controller;
 
 import br.unisinos.encodedecodestepbystep.controller.mapper.CodificationDTOMapper;
+import br.unisinos.encodedecodestepbystep.controller.request.EncodeRequest;
 import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
@@ -24,13 +25,13 @@ public class GoulombController {
     @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/encode")
     @ResponseStatus(HttpStatus.OK)
-    public void encode(@RequestBody String path, @RequestBody int divisor) {
-        goulombService.setDivisor(divisor);
+    public void encode(@RequestBody EncodeRequest encodeRequest) {
+        goulombService.setDivisor(encodeRequest.getDivisor());
         new Thread(() -> {
             try {
                 Codification.setProgressPercentage(new MutableDouble(0));
 
-                ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getEncodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
+                ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getEncodeReaderWriterWrapperNormal(encodeRequest.getPath(), Codification.getProgressPercentage());
                 goulombService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
             } catch (Exception e) {
                 e.printStackTrace();

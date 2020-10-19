@@ -1,5 +1,4 @@
 import createGlobalState from 'react-create-global-state';
-import { CodificationMethod } from "../enums/CodificationMethod";
-const [useCodificationMethod, CodificationMethodProvider] = createGlobalState(CodificationMethod.NO_ONE)
+const [useCodificationMethod, CodificationMethodProvider] = createGlobalState(-1)
 
 export { useCodificationMethod, CodificationMethodProvider }

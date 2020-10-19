@@ -5,25 +5,27 @@ import {
   useOnProcessing,
   useFinishedCodification,
   useCodificationMethod,
+  useCodewords,
+  useIndex,
 } from "../../context";
 import { Typografy, Button } from "../index";
 
 import { CodificationMethod } from "../../enums/CodificationMethod";
-import { UnaryLayout } from "../CodificationLayouts";
+import { DeltaLayout, EliasGammaLayout, FibonacciLayout, GoulombLayout, UnaryLayout } from "../CodificationLayouts";
 import { Icon } from "../Icon";
 import { progress, nextStep } from '../../hooks/useCodification'
 import { Line } from 'rc-progress';
-import CodewordEncodingResponse from "../../models/codewordEncodingResponse";
+import { Codeword } from "../../models/codeword";
 
 export const ExecutionWindow = () => {
   const [onProcessing, setOnProcessing] = useOnProcessing();
   const [onFinishedCodification, setOnFinishedCodification] = useFinishedCodification();
   const [codificationMethod] = useCodificationMethod();
-
+  const [codewords, setCodewords] = useCodewords();
+  
   const [actualPercentage, setActualPercentage] = useState(0)
 
-  const [index, setIndex] = useState(1);
-  const [codewords, setCodewords] = useState<CodewordEncodingResponse[]>([]);
+  const [index, setIndex] = useIndex();
   const [length, setLength] = useState(0);
 
   useEffect(() => {
@@ -48,16 +50,16 @@ export const ExecutionWindow = () => {
 
     async function getFirstCodeword() {
       const codeword = await nextStep(codificationMethod.urlName)
-
-      setLength(codeword.numberOfCharsTotal)
-      setCodewords([...codewords, new CodewordEncodingResponse(codeword.codeword)])
+      if(codeword){
+        setLength(codeword.numberOfCharsTotal)
+        setCodewords([new Codeword(codeword.characterBeforeCodification, codeword.codeword)])
+      }      
     }
   }, [onFinishedCodification]);
 
   async function next() {
     const codeword = await nextStep(codificationMethod.urlName)
-    setCodewords([...codewords, new CodewordEncodingResponse(codeword.codeword)])
-    console.log(codeword)
+    setCodewords([...codewords, new Codeword(codeword.characterBeforeCodification, codeword.codeword)])
     if (index < length - 1) {
       setIndex(index + 1);
     }
@@ -71,6 +73,21 @@ export const ExecutionWindow = () => {
 
   function finish() {
     setIndex(length - 1);
+  }
+
+  function renderCodificationLayout(){
+    switch(codificationMethod.codificationType){
+      case CodificationMethod.UNARIO:
+        return <UnaryLayout />
+      case CodificationMethod.ELIAS_GAMMA:
+        return <EliasGammaLayout />
+      case CodificationMethod.GOULOMB:
+        return <GoulombLayout />
+      case CodificationMethod.FIBONACCI:
+        return <FibonacciLayout />
+      case CodificationMethod.DELTA:
+        return <DeltaLayout />
+    }
   }
 
   return (
@@ -93,9 +110,8 @@ export const ExecutionWindow = () => {
               <span className="counter">{index}/{length - 1}</span>
             </header>
             <ScroolingList>
-              {codificationMethod === CodificationMethod.UNARIO && (
-                <UnaryLayout code={codewords} index={index} />
-              )}
+              {renderCodificationLayout()}
+              
             </ScroolingList>
           </StepsCanva>
           <Buttons>
