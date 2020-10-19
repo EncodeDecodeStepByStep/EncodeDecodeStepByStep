@@ -176,7 +176,8 @@ public class Reader implements ReaderInterface {
     @Override
     public String readNextStep() throws IOException {
         if(Codification.isEncodeCodification()){
-            this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17); // para ignorar o cabeçalho + a virgula
+            int cabecalhoExtra = "Delta".equals(Codification.getCodificationName()) ? 6 : 0;
+            this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17 + cabecalhoExtra); // para ignorar o cabeçalho + a virgula
         } else {
             this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded());
         }
