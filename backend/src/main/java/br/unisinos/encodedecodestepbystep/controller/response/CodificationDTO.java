@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Getter
 @Setter
 @Builder
@@ -16,4 +18,6 @@ public class CodificationDTO {
     private String stepMade; // Descrição da ação(passo) q foi feita para mostra
     private Double progressPercentage;
     private Boolean stepsFinished;
+    private Map<Character, String> huffmanTree;
+    private Map<Integer, Integer> huffmanCount;
 }

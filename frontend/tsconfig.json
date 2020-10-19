@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
     "module": "esnext",
     "strict": true,
     "esModuleInterop": true,

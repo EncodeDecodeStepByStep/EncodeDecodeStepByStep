@@ -14,6 +14,8 @@ public class CodificationDTOMapper {
                 .progressPercentage(Codification.getProgressPercentage().getValue())
                 .stepMade(Codification.getStepMade())
                 .stepsFinished(Codification.isStepsFinished())
+                .huffmanCount(Codification.getHuffmanSorted())
+                .huffmanTree(Codification.getHuffmanTree())
                 .build();
     }
 }

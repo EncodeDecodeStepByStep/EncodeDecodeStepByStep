@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class UnarioService implements Codification {
+public class UnarioService implements CodificationService {
     @Override
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));

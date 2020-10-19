@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class FibonacciService implements Codification {
+public class FibonacciService implements CodificationService {
     private int[] fibonacci_sequence;
 
     public FibonacciService() {

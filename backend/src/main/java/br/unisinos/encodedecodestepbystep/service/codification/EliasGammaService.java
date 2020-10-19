@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class EliasGammaService implements Codification {
+public class EliasGammaService implements CodificationService {
 
     private static final byte STOP_BIT = 1;
 
