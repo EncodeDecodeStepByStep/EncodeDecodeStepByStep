@@ -48,7 +48,7 @@ class DeltaControllerTest {
         deltaController.encode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt");
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
-        this.isCodewordEsperado.skip(17); // para skippar cabeçalho + virgula
+        this.isCodewordEsperado.skip(17+6); // para skippar cabeçalho + virgula
         CodificationDTO codificationDTORetornado = deltaController.nextStep();
         while (!codificationDTORetornado.getStepsFinished()) {
             while (codewordEsperado.length() != codificationDTORetornado.getCodeword().length()) {
