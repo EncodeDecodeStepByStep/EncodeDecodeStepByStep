@@ -24,7 +24,10 @@ public class Reader implements ReaderInterface {
 
     public Reader(File file, MutableDouble progressPercentage) throws FileNotFoundException {
         Codification.setNumberOfCharsTotal(file.length());
-        Codification.setFile(file);
+        Codification.setMustSaveInCodeword(true);
+        if(Codification.isEncodeCodification())
+            Codification.setFile(file);
+
 
         this.file = file;
         this.fileReader = new FileReader(file);
@@ -39,6 +42,8 @@ public class Reader implements ReaderInterface {
     }
 
     public Reader() throws FileNotFoundException {
+        Codification.setCharacterCodification("");
+
         this.file = Codification.getFile();
         this.fileReader = new FileReader(Codification.getFile());
         this.bufferedReader = new BufferedReader(fileReader);
@@ -127,9 +132,55 @@ public class Reader implements ReaderInterface {
         return this.file;
     }
 
+//    @Override
+//    public String readNextStep() throws IOException {
+//        if(Codification.isEncodeCodification()){
+//            this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17); // para ignorar o cabeçalho + a virgula
+//        } else {
+//            this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded());
+//        }
+//        this.bufferedReader.skip(Codification.getNumberOfCharsReaded());
+//        StringBuilder codeword = new StringBuilder("");
+//        while (true) {
+//            int charLido = this.bufferedReaderCodewordsSizeArray.read();
+//            Codification.setNumberOfCodewordsReaded(Codification.getNumberOfCodewordsReaded() + 1);
+//            if (-1 == charLido) {
+//                Codification.setStepsFinished(true);
+//                System.out.println("terminou");
+//                break;
+//            }
+//            if('-' == ((char) charLido)){
+//                charLido = this.bufferedReaderCodewordsSizeArray.read();
+//                Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded() + 1);
+//                Codification.setMustSaveInCodeword(false);
+//            }
+//            if (',' == ((char) charLido)) {
+//                if(Codification.isEncodeCodification()){
+//                    Codification.setBitsReadedOrCharacterBeforeCodification(String.valueOf((char) this.bufferedReader.read()));
+//                } else if(Codification.isMustSaveInCodeword()) {
+//                    continue;
+//                }
+//                Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded() + 1);
+//                Codification.setMustSaveInCodeword(true);
+//                break;
+//            }
+//            if(Codification.isMustSaveInCodeword()){
+//                codeword.append((char) charLido);
+//            } else {
+//                Codification.setBitsReadedOrCharacterBeforeCodification(Codification.getBitsReadedOrCharacterBeforeCodification().concat(String.valueOf((char) charLido)));
+//            }
+//        }
+//        return codeword.toString();
+//    }
+
     @Override
     public String readNextStep() throws IOException {
-        this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17); // para ignorar o cabeçalho + a virgula
+        if(Codification.isEncodeCodification()){
+            int cabecalhoExtra = "Delta".equals(Codification.getCodificationName()) ? 6 : 0;
+            this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17 + cabecalhoExtra); // para ignorar o cabeçalho + a virgula
+        } else {
+            this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded());
+        }
         this.bufferedReader.skip(Codification.getNumberOfCharsReaded());
         StringBuilder codeword = new StringBuilder("");
         while (true) {
@@ -141,7 +192,7 @@ public class Reader implements ReaderInterface {
                 break;
             }
             if (',' == ((char) charLido)) {
-                Codification.setCharacterBeforeCodification(String.valueOf((char) this.bufferedReader.read()));
+                Codification.setCharacterCodification(String.valueOf((char) this.bufferedReader.read()));
                 Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded() + 1);
                 break;
             }

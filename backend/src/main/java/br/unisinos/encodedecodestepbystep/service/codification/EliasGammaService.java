@@ -1,6 +1,7 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
@@ -17,10 +18,8 @@ public class EliasGammaService implements CodificationService {
 
     private static final byte STOP_BIT = 1;
 
-    public EliasGammaService() {
-    }
-
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Elias Gamma");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
 
         int character = 0;
@@ -46,6 +45,8 @@ public class EliasGammaService implements CodificationService {
     }
 
     public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Elias Gamma");
+        StringBuilder bitsReaded = new StringBuilder("");
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         boolean alreadyFoundStopBit = false;
@@ -53,6 +54,7 @@ public class EliasGammaService implements CodificationService {
         char character;
 
         while ((character = (char) reader.readNextChar()) != 65535) {
+            bitsReaded.append(character);
             if (!alreadyFoundStopBit && (character - '0') == STOP_BIT) {
                 alreadyFoundStopBit = true;
             } else {
@@ -64,12 +66,15 @@ public class EliasGammaService implements CodificationService {
                 String restInBinary = "";
                 restInBinary += character;
                 for (int i = 1; i < prefixLength; i++) {
-                    restInBinary += reader.readNextChar() - '0';
+                    int nextChar = reader.readNextChar();
+                    bitsReaded.append((char) nextChar);
+                    restInBinary += nextChar - '0';
                 }
 
                 int rest = Integer.parseInt(restInBinary, 2);
                 char finalNumber = (char) ((int) Math.pow(2, prefixLength) + rest);
-                writer.write(--finalNumber);
+                writer.write(--finalNumber, bitsReaded.toString());
+                bitsReaded = new StringBuilder("");
 
                 alreadyFoundStopBit = false;
                 prefixLength = 0;

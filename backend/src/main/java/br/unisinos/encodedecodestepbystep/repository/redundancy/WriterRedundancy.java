@@ -49,7 +49,7 @@ public class WriterRedundancy implements WriterInterface {
         return (byte) Integer.parseInt(bits, 2);
     }
 
-    public void write(char letter) throws IOException {
+    public void write(char letter, String bitsReaded) throws IOException {
         bufferedWriter.write(letter);
     }
 

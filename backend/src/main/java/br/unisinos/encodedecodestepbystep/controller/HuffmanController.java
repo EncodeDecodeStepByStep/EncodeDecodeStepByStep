@@ -1,6 +1,6 @@
 package br.unisinos.encodedecodestepbystep.controller;
 
-import br.unisinos.encodedecodestepbystep.controller.mapper.CodificationDTOMapper;
+import br.unisinos.encodedecodestepbystep.controller.mapper.EncodedDTOMapper;
 import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
@@ -42,7 +42,7 @@ public class HuffmanController {
     public CodificationDTO nextStep() throws IOException {
         Codification.setStepMade("Não faço ideia, pois não codei o algoritmo");
         Codification.setCodeword(new Reader().readNextStep());
-        return CodificationDTOMapper.getCodificationDTO();
+        return EncodedDTOMapper.getHuffmanEncodedDTO();
     }
 
     @CrossOrigin("http://localhost:3000")
@@ -50,7 +50,7 @@ public class HuffmanController {
     @ResponseStatus(HttpStatus.OK)
     public CodificationDTO hashes() throws IOException {
         Codification.setStepMade("Não faço ideia, pois não codei o algoritmo");
-        return CodificationDTOMapper.getCodificationDTO();
+        return EncodedDTOMapper.getHuffmanEncodedDTO();
     }
 
     @CrossOrigin("http://localhost:3000")
@@ -66,12 +66,5 @@ public class HuffmanController {
                 e.printStackTrace();
             }
         }).start();
-    }
-
-    @CrossOrigin("http://localhost:3000")
-    @GetMapping("/progressPercentage")
-    @ResponseStatus(HttpStatus.OK)
-    public Double getProgressPercentage() {
-        return Codification.getProgressPercentage().getValue();
     }
 }

@@ -1,21 +1,21 @@
 package br.unisinos.encodedecodestepbystep.controller.mapper;
 
-import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
+import br.unisinos.encodedecodestepbystep.controller.response.DecodedDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 
-public class CodificationDTOMapper {
+public class DecodedDTOMapper {
 
-    public static CodificationDTO getCodificationDTO() {
-        return CodificationDTO.builder()
-                .codeword(Codification.getCodeword())
+    public static DecodedDTO getDecodedDTO() {
+        return DecodedDTO.builder()
+                .codificationName(Codification.getCodificationName())
+                .encodeCodification(Codification.getEncodeCodification())
+                .characterDecoded(Codification.getCharacterCodification())
                 .numberOfCharsTotal(Codification.getNumberOfCharsTotal())
                 .numberOfCharsReaded(Codification.getNumberOfCharsReaded())
-                .characterBeforeCodification(Codification.getCharacterBeforeCodification())
+                .bitsBeforeDecode(Codification.getCodeword())
                 .progressPercentage(Codification.getProgressPercentage().getValue())
                 .stepMade(Codification.getStepMade())
                 .stepsFinished(Codification.isStepsFinished())
-                .huffmanCount(Codification.getHuffmanSorted())
-                .huffmanTree(Codification.getHuffmanTree())
                 .build();
     }
 }

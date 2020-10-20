@@ -1,5 +1,6 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
@@ -23,6 +24,7 @@ public class GoulombService implements CodificationService {
     }
 
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Goulomb");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
 
         int character = 0;
@@ -41,7 +43,9 @@ public class GoulombService implements CodificationService {
     }
 
     public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Goulomb");
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
+        StringBuilder bitsReaded = new StringBuilder("");
 
         boolean alreadyFoundStopBit = false;
 
@@ -50,6 +54,7 @@ public class GoulombService implements CodificationService {
         char character;
 
         while ((character = (char) reader.readNextChar()) != 65535) {
+            bitsReaded.append(character);
             if (!alreadyFoundStopBit) {
                 if ((character - '0') == STOP_BIT) {
                     alreadyFoundStopBit = true;
@@ -60,11 +65,14 @@ public class GoulombService implements CodificationService {
                 String restInBinary = "";
                 restInBinary += character;
                 for (int i = 1; i < digitsOnRest; i++) {
-                    restInBinary += reader.readNextChar() - '0';
+                    int nextChar = reader.readNextChar();
+                    bitsReaded.append((char)nextChar);
+                    restInBinary += nextChar - '0';
                 }
                 int rest = Integer.parseInt(restInBinary, 2);
                 char finalNumber = (char) ((quocient * this.divisor) + rest);
-                writer.write(finalNumber);
+                writer.write(finalNumber, bitsReaded.toString());
+                bitsReaded = new StringBuilder("");
                 quocient = 0;
                 alreadyFoundStopBit = false;
             }

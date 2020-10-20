@@ -18,6 +18,7 @@ public class HuffmanService implements CodificationService {
 
     @Override
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Huffman Estático");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         int character = 0;
@@ -76,6 +77,7 @@ public class HuffmanService implements CodificationService {
 
     @Override
     public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Huffman Estático");
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
 
         writer.close();
