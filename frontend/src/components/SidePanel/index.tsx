@@ -3,19 +3,23 @@ import { useOnProcessing, useFinishedCodification } from '../../context'
 import {Menu} from './Menu'
 import {Text} from './Text'
 
-export const SidePanel = () => {
+interface SidePanelProps{
+  onError:boolean;
+}
+
+export const SidePanel = (props:SidePanelProps) => {
 
   const [onProcessing, ] = useOnProcessing();
   const [onFinishedCodification, ] = useFinishedCodification();
 
   function renderText(){
-    if(onFinishedCodification){
+    if(!props.onError && onFinishedCodification){
       return <Text/>
     }
   }
 
   function renderMenuOption() {
-    if(!onProcessing && !onFinishedCodification){
+    if(!props.onError && !onProcessing && !onFinishedCodification){
       return <Menu/>
     }
   }

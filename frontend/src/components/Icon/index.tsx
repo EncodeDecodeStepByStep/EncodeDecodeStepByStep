@@ -4,7 +4,7 @@ import {FaUserAlt, FaArrowAltCircleRight} from 'react-icons/fa'
 import {MdArrowBack, MdArrowForward, MdClose} from 'react-icons/md'
 import {BsFillSkipEndFill, BsArrowDownShort} from 'react-icons/bs'
 import {CgShapeTriangle} from 'react-icons/cg'
-import { AiOutlineGoogle} from 'react-icons/ai'
+import { AiOutlineGoogle, AiFillLinkedin, AiFillGithub} from 'react-icons/ai'
 import {GiBowlSpiral, GiRadioactive} from 'react-icons/gi'
 import {RiStackshareLine, RiBubbleChartFill} from 'react-icons/ri'
 import { XOR } from './style';
@@ -111,6 +111,18 @@ export class Icon{
             <BsArrowDownShort size={props.size} color={props.color}/>
         )
     } 
+
+    static Linkedin = (props:IconProps)=>{
+        return (
+            <AiFillLinkedin size={props.size} color={props.color}/>
+        )
+    }
+
+    static Github = (props:IconProps)=>{
+        return (
+            <AiFillGithub size={props.size} color={props.color}/>
+        )
+    }
     
     
 }

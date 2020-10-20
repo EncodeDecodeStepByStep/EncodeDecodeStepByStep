@@ -16,7 +16,7 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true
     },
-    icon: __dirname + '/icon.jpg'
+    icon: __dirname + '/favicon.jpg'
   })
 
   win.on('close', (e) => {

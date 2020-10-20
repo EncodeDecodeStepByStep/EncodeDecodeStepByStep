@@ -22,6 +22,7 @@ interface FileType {
   path?: string
 }
 
+
 export const Menu = () => {
   const [codingDecoding, setCodingDecoding] = useState(EncodingDecoding.NO_ONE);
   const [codificationMethod, setCodificationMethod] = useCodificationMethod<Codification>();
