@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, OnProcessing, Steps, Buttons, StepsCanva, ScroolingList } from "./style";
+import { Container, OnProcessing, Steps, Buttons, StepsCanva, ScroolingList, OnError } from "./style";
 
 import {
   useOnProcessing,
@@ -11,13 +11,19 @@ import {
 import { Typografy, Button } from "../index";
 
 import { CodificationMethod } from "../../enums/CodificationMethod";
-import { DeltaLayout, EliasGammaLayout, FibonacciLayout, GoulombLayout, UnaryLayout } from "../CodificationLayouts";
+import { DeltaLayout, EliasGammaLayout, FibonacciLayout, GoulombLayout, UnaryLayout, HuffmanLayout } from "../CodificationLayouts";
 import { Icon } from "../Icon";
 import { progress, nextStep } from '../../hooks/useCodification'
 import { Line } from 'rc-progress';
 import { Codeword } from "../../models/codeword";
+import ErrorGif from '../../assets/error.gif'
 
-export const ExecutionWindow = () => {
+interface ExecutionWindowProps{
+  onError:boolean;
+  setOnError:Function;
+}
+
+export const ExecutionWindow = (props:ExecutionWindowProps) => {
   const [onProcessing, setOnProcessing] = useOnProcessing();
   const [onFinishedCodification, setOnFinishedCodification] = useFinishedCodification();
   const [codificationMethod] = useCodificationMethod();
@@ -28,16 +34,25 @@ export const ExecutionWindow = () => {
   const [index, setIndex] = useIndex();
   const [length, setLength] = useState(0);
 
+  function finishCodification(interval){
+    clearInterval(interval)
+    setOnFinishedCodification(true);
+    setOnProcessing(false)
+  }
+
   useEffect(() => {
     if (onProcessing) {
       let interval = setInterval(async () => {
-        const percentage = await progress('unary');
-        if (percentage < 100) {
-          setActualPercentage(percentage)
-        } else {
-          clearInterval(interval)
-          setOnFinishedCodification(true);
-          setOnProcessing(false)
+        try{
+          const percentage = await progress('unary');
+          if (percentage < 100) {
+            setActualPercentage(percentage)
+          } else {
+            finishCodification(interval)
+          }
+        }catch(e){
+          props.setOnError(true);
+         finishCodification(interval);
         }
       }, 1000);
     }
@@ -87,12 +102,24 @@ export const ExecutionWindow = () => {
         return <FibonacciLayout />
       case CodificationMethod.DELTA:
         return <DeltaLayout />
+      case CodificationMethod.HUFFMAN:
+        return <HuffmanLayout />
     }
   }
 
   return (
     <Container>
-      {onProcessing && (
+
+      {
+        props.onError && (
+          <OnError>
+              <img alt="error" src={ErrorGif}/>
+              <Typografy.SUBTITLE text="Ops, algo deu errado"/>
+              <p>Não foi possível se conectar ao servidor</p>
+          </OnError>
+        )
+      }
+      {!props.onError && onProcessing && (
         <OnProcessing>
           <Typografy.SUBTITLE text={`Processando ${codificationMethod.name}`}></Typografy.SUBTITLE>
 
@@ -102,7 +129,7 @@ export const ExecutionWindow = () => {
         </OnProcessing>
       )}
 
-      {onFinishedCodification && (
+      {!props.onError && onFinishedCodification && (
         <Steps>
           <StepsCanva>
             <header>
@@ -110,8 +137,7 @@ export const ExecutionWindow = () => {
               <span className="counter">{index}/{length - 1}</span>
             </header>
             <ScroolingList>
-              {renderCodificationLayout()}
-              
+              {renderCodificationLayout()}              
             </ScroolingList>
           </StepsCanva>
           <Buttons>
@@ -129,7 +155,6 @@ export const ExecutionWindow = () => {
           </Buttons>
         </Steps>
       )}
-
     </Container>
   );
 };

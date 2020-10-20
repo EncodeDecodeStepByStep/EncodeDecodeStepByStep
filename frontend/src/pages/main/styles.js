@@ -9,8 +9,8 @@ export const Container = styled.div`
 
 export const MainProgram = styled.main`
     width:100vw;
-    height:calc(100vh - 60px);
-    max-height:calc(100vh - 60px);
+    height:calc(100vh - 80px);
+    max-height:calc(100vh - 80px);
     display:flex;
     background-color:${GRAY};
     padding:20px;

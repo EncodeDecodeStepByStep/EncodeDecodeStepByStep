@@ -13,60 +13,77 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const OnError = styled.div`
+  img {
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 22px;
+    color: ${PRIMARY};
+  }
+
+  p {
+    color: white;
+  }
+`;
+
 export const OnProcessing = styled.section`
   h2 {
     color: rgb(73, 210, 128);
     margin-bottom: 20px;
   }
 
-  &>div{
+  & > div {
     display: flex;
     justify-content: center;
   }
 
-  .percentage-value{
+  .percentage-value {
     color: rgb(73, 210, 128);
-    font-weight:bold;
-    margin-top:10px;
+    font-weight: bold;
+    margin-top: 10px;
   }
 `;
 
 export const Steps = styled.section`
-  display:flex;
-  flex-direction:column;
-  width:100%;
-  height:100%;
-`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
 export const Buttons = styled.section`
-  display:flex;
-  align-self:center;
-  justify-content:center;
+  display: flex;
+  align-self: center;
+  justify-content: center;
 
-  button{
+  button {
     margin: 10px;
   }
-`
+`;
 
 export const StepsCanva = styled.div`
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
 
-  header{
+  header {
     display: flex;
     justify-content: space-between;
     margin: 15px 10px;
 
-    .counter{
-      color:${PRIMARY}
+    .counter {
+      color: ${PRIMARY};
     }
 
-    .codification-title{
-      color:white;
+    .codification-title {
+      color: white;
     }
   }
-`
+`;
 
 export const ScroolingList = styled.div`
-    overflow-y: auto;
-    max-height: calc(100% - 100px)
-`
+  overflow-y: auto;
+  max-height: calc(100% - 100px);
+`;

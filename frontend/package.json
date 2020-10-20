@@ -7,7 +7,7 @@
   "build": {
     "appId": "encode-decode-step-by-step.com",
     "win": {
-      "icon": "build/icon.jpg"
+      "icon": "build/favicon.jpg"
     }
   },
   "homepage": "./",
@@ -38,7 +38,7 @@
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "build": "yarn react-build && yarn electron-build",
-    "start":"concurrently \"cross-env BROWSER=none yarn react-start \"\"wait-on http://localhost:3000 && electron .\""
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": "react-app"
