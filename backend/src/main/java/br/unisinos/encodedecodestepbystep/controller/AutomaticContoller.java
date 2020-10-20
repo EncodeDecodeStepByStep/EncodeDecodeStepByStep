@@ -6,33 +6,35 @@ import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
-import br.unisinos.encodedecodestepbystep.service.codification.DeltaService;
+import br.unisinos.encodedecodestepbystep.service.codification.CodificationMapper;
+import br.unisinos.encodedecodestepbystep.service.codification.CodificationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.io.IOException;
 
 @RestController()
-@RequestMapping("/delta")
+@RequestMapping("/auto")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class DeltaController {
+public class AutomaticContoller {
 
-    private final DeltaService deltaService;
+    private final CodificationMapper codificationMapper;
 
     @CrossOrigin("http://localhost:3000")
-    @PostMapping("/normal/encode")
+    @PostMapping("/decode")
     @ResponseStatus(HttpStatus.OK)
-    public void encode(@RequestBody String path) {
-        Codification.setEncodeCodification(true);
+    public void decode(@RequestBody String path) {
+        Codification.setEncodeCodification(false);
         new Thread(() -> {
             try {
                 Codification.setProgressPercentage(new MutableDouble(0));
-
-                ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getEncodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
-                deltaService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
+                ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getDecodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
+                CodificationService service = codificationMapper.getCodificationByStringBits(new Reader(new File(path), null).readCabecalho());
+                service.decode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -49,18 +51,9 @@ public class DeltaController {
     }
 
     @CrossOrigin("http://localhost:3000")
-    @PostMapping("/normal/decode")
+    @GetMapping("/progressPercentage")
     @ResponseStatus(HttpStatus.OK)
-    public void decode(@RequestBody String path) {
-        Codification.setEncodeCodification(false);
-        new Thread(() -> {
-            try {
-                Codification.setProgressPercentage(new MutableDouble(0));
-                ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getDecodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
-                deltaService.decode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
+    public Double getProgressPercentage() {
+        return Codification.getProgressPercentage().getValue();
     }
 }

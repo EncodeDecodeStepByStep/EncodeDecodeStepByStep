@@ -1,5 +1,6 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
@@ -33,9 +34,11 @@ class GoulombServiceTest {
 
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {
+        Codification.setEncodeCodification(true);
         setUp(setUpEncodeAlice29());
         goulombService.encode(this.writer, this.reader);
 
+        Codification.setEncodeCodification(false);
         setUp(setUpDecodeAlice29());
         goulombService.decode(this.writer, this.reader);
 
@@ -44,9 +47,11 @@ class GoulombServiceTest {
 
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
+        Codification.setEncodeCodification(true);
         setUp(setUpEncodeSum());
         goulombService.encode(this.writer, this.reader);
 
+        Codification.setEncodeCodification(false);
         setUp(setUpDecodeSum());
         goulombService.decode(this.writer, this.reader);
 
