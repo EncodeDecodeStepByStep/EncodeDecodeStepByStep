@@ -44,7 +44,7 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
     if (onProcessing) {
       let interval = setInterval(async () => {
         try{
-          const percentage = await progress('unary');
+          const percentage = await progress();
           if (percentage < 100) {
             setActualPercentage(percentage)
           } else {
@@ -64,17 +64,17 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
     }
 
     async function getFirstCodeword() {
-      const codeword = await nextStep(codificationMethod.urlName)
+      const codeword = await nextStep()
       if(codeword){
         setLength(codeword.numberOfCharsTotal)
-        setCodewords([new Codeword(codeword.characterBeforeCodification, codeword.codeword)])
+        setCodewords([new Codeword(codeword.characterBeforeEncode, codeword.codeword)])
       }      
     }
   }, [onFinishedCodification]);
 
   async function next() {
-    const codeword = await nextStep(codificationMethod.urlName)
-    setCodewords([...codewords, new Codeword(codeword.characterBeforeCodification, codeword.codeword)])
+    const codeword = await nextStep()
+    setCodewords([...codewords, new Codeword(codeword.characterBeforeEncode, codeword.codeword)])
     if (index < length - 1) {
       setIndex(index + 1);
     }
@@ -87,7 +87,8 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
   }
 
   function finish() {
-    setIndex(length - 1);
+    setOnProcessing(false);
+    setOnFinishedCodification(false);
   }
 
   function renderCodificationLayout(){
@@ -150,8 +151,8 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
               icon={<Icon.Next size={18} color="#fff" />}
               onClick={next}>Avançar</Button.PRIMARY>
             <Button.PRIMARY
-              icon={<Icon.Finish size={18} color="#fff" />}
-              onClick={finish}>Finalizar</Button.PRIMARY>
+              icon={<Icon.Close size={18} color="#fff" />}
+              onClick={finish}>Sair</Button.PRIMARY>
           </Buttons>
         </Steps>
       )}
