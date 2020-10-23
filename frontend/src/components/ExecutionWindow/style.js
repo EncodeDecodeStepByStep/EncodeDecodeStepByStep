@@ -58,6 +58,8 @@ export const Buttons = styled.section`
   display: flex;
   align-self: center;
   justify-content: center;
+  position: fixed;
+  bottom: 30px;
 
   button {
     margin: 10px;
