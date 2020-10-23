@@ -28,10 +28,13 @@ public class HuffmanService implements CodificationService {
                 int lastValue = map.get(character);
                 map.put(character, lastValue+1);
             } else {
+                System.out.println("AQUI -   " + character);
+
                 map.put(character, 1);
             }
         }
         Map<Integer, Integer> sortedMap = this.sortByValue(map, true);
+        System.out.println(sortedMap.toString());
 
         Codification.setHuffmanSorted(sortedMap);
 

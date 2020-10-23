@@ -25,9 +25,9 @@ public class Reader implements ReaderInterface {
     public Reader(File file, MutableDouble progressPercentage) throws FileNotFoundException {
         Codification.setNumberOfCharsTotal(file.length());
         Codification.setMustSaveInCodeword(true);
-        if(Codification.isEncodeCodification())
+        if(Codification.isEncodeCodification()) {
             Codification.setFile(file);
-
+        }
 
         this.file = file;
         this.fileReader = new FileReader(file);
