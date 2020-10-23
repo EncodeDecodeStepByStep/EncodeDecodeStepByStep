@@ -40,8 +40,27 @@ public class HuffmanService implements CodificationService {
             }
         }
 
-        Map<Integer, Integer> sortedMap = this.sortByValue(map, true); 
+        Map<Integer, Integer> sortedMap = this.sortByValue(map, false);
         Codification.setHuffmanSorted(sortedMap);
+
+        System.out.println(sortedMap.toString());
+
+//        boolean newLine = false;
+//        int lengthEncode = 0;
+//        Map<Character, String> huffmanTree = new HashMap<Character, String>();
+//        for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
+//            int key = entry.getKey();
+//
+//            if (huffmanTree.isEmpty()) {
+//                huffmanTree.put((char) key, "1");
+//            } else if (huffmanTree.size() == 1) {
+//                huffmanTree.put((char) key, "0");
+//            } else {
+//                this.getCodification(sortedMap, probabilityMap);
+//                String codification = "";
+//                huffmanTree.put((char) key, codification);
+//            }
+//        }
 
         boolean newLine = false;
         int lengthEncode = 0;
@@ -67,6 +86,10 @@ public class HuffmanService implements CodificationService {
 
         writer.close();
         reader.close();
+    }
+
+    private void getCodification(Map<Integer, Integer> sortedMap, Map<Character, Double> probabilityMap) {
+
     }
 
     private Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap, final boolean order)
