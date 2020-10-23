@@ -27,7 +27,7 @@ public class HuffmanController {
         new Thread(() -> {
             try {
                 Codification.setProgressPercentage(new MutableDouble(0));
-
+                Codification.setEncodeCodification(true);
                 ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getEncodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
                 huffmanService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
             } catch (Exception e) {

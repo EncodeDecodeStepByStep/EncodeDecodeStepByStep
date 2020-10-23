@@ -2,6 +2,7 @@ package br.unisinos.encodedecodestepbystep.controller;
 
 import br.unisinos.encodedecodestepbystep.controller.mapper.DecodedDTOMapper;
 import br.unisinos.encodedecodestepbystep.controller.mapper.EncodedDTOMapper;
+import br.unisinos.encodedecodestepbystep.controller.request.EncodeRequest;
 import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
