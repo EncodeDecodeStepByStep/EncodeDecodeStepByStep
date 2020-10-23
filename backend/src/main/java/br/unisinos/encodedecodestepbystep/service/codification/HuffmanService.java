@@ -21,21 +21,26 @@ public class HuffmanService implements CodificationService {
         Codification.setCodificationName("Huffman Estático");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Map<Character, Double> probabilityMap = new HashMap<Character, Double>();
         int character = 0;
+        long lengthChar = reader.getFile().length();
 
         while ((character = reader.read()) != -1) {
-            if (map.containsKey(character)) {
-                int lastValue = map.get(character);
-                map.put(character, lastValue+1);
-            } else {
-                System.out.println("AQUI -   " + character);
+            double probability = 0;
 
+            if (map.containsKey(character)) {
+                int lastValue = map.get(character) + 1;
+                probability = lastValue / (double) lengthChar;
+                map.put(character, lastValue);
+                probabilityMap.put((char) character, probability);
+            } else {
                 map.put(character, 1);
+                probability = 1 / (double) lengthChar;
+                probabilityMap.put((char) character, probability);
             }
         }
-        Map<Integer, Integer> sortedMap = this.sortByValue(map, true);
-        System.out.println(sortedMap.toString());
 
+        Map<Integer, Integer> sortedMap = this.sortByValue(map, true); 
         Codification.setHuffmanSorted(sortedMap);
 
         boolean newLine = false;
