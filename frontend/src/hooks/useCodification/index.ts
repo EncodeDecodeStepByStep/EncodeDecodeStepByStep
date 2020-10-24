@@ -5,24 +5,23 @@ export async function encode(method:string, path:string, divisor:number){
     return await api.post(`/${method}/normal/encode`, data);
 }
 
-export async function decode(method:string, path:string){
-    const response = await api.post(`/${method}/normal/decode`, path);
+export async function decode(path:string){
+    const response = await api.post(`/auto/decode`, path);
     return response;
 }
 
 export async function nextStep(){
-    const response = await api.get(`http://localhost:8080/auto/nextStep`);
-    console.log(response)
+    const response = await api.get(`/auto/nextStep`);
     return response.data;
 }
 
 export async function progress(){
-    const response = await api.get(`http://localhost:8080/auto/progressPercentage`);
+    const response = await api.get(`/auto/progressPercentage`);
     return response.data;
 }
 
 export async function huffmanHashes(){
-    const response = await api.get(`http://localhost:8080/huffman/hashes`);
+    const response = await api.get(`/huffman/hashes`);
     return response.data;
 }
 

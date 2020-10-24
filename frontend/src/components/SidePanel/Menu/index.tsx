@@ -62,7 +62,7 @@ export const Menu = () => {
 
     if (codingDecoding === EncodingDecoding.NO_ONE) {
       toast.warn("Selecione o modo");
-    } else if (!codificationMethod.codificationType) {
+    } else if (codingDecoding!==EncodingDecoding.DECODING && !codificationMethod.codificationType) {
       toast.warn("Selecione um algoritmo");
     } else if (!file.path) {
       toast.warn("Selecione um arquivo");
@@ -70,15 +70,17 @@ export const Menu = () => {
       setOnProcessing(true);
       setOnFinishedCodification(false);
       if (codingDecoding === EncodingDecoding.ENCODING) {
-        const data = await encode(codificationMethod.urlName, file.path, goulombDivisor);
+        await encode(codificationMethod.urlName, file.path, goulombDivisor);
       } else {
-        await decode(codificationMethod.urlName, file.path);
+        await decode(file.path);
       }
     }
   }
 
   function clickOnLabel() {
+    
     inputRef.current.click();
+        
   }
 
   function getIndexOfFileRow() {

@@ -17,6 +17,7 @@ import { progress, nextStep } from '../../hooks/useCodification'
 import { Line } from 'rc-progress';
 import { Codeword } from "../../models/codeword";
 import ErrorGif from '../../assets/error.gif'
+import codifications from "../../constants/codifications";
 
 interface ExecutionWindowProps{
   onError:boolean;
@@ -26,7 +27,7 @@ interface ExecutionWindowProps{
 export const ExecutionWindow = (props:ExecutionWindowProps) => {
   const [onProcessing, setOnProcessing] = useOnProcessing();
   const [onFinishedCodification, setOnFinishedCodification] = useFinishedCodification();
-  const [codificationMethod] = useCodificationMethod();
+  const [codificationMethod, setCodificationMethod] = useCodificationMethod();
   const [codewords, setCodewords] = useCodewords();
   
   const [actualPercentage, setActualPercentage] = useState(0)
@@ -67,14 +68,24 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
       const codeword = await nextStep()
       if(codeword){
         setLength(codeword.numberOfCharsTotal)
-        setCodewords([new Codeword(codeword.characterBeforeEncode, codeword.codeword)])
+        if(codeword.characterBeforeEncode){
+          setCodewords([new Codeword(codeword.characterBeforeEncode, codeword.codeword)])
+        }else{
+          const codificationFinded = codifications.filter(codification => codification.name.includes(codeword.codificationName))
+          setCodificationMethod(codificationFinded[0])
+          setCodewords([new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode)])
+        }        
       }      
     }
   }, [onFinishedCodification]);
 
   async function next() {
     const codeword = await nextStep()
-    setCodewords([...codewords, new Codeword(codeword.characterBeforeEncode, codeword.codeword)])
+    if(codeword.characterBeforeEncode){
+      setCodewords([...codewords, new Codeword(codeword.characterBeforeEncode, codeword.codeword)])
+    }else{
+      setCodewords([...codewords, new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode)])
+    }
     if (index < length - 1) {
       setIndex(index + 1);
     }
@@ -89,6 +100,11 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
   function finish() {
     setOnProcessing(false);
     setOnFinishedCodification(false);
+    setCodificationMethod(-1)
+    setCodewords([])
+    setActualPercentage(0)
+    setLength(0);
+    setIndex(1);
   }
 
   function renderCodificationLayout(){
@@ -110,7 +126,6 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
 
   return (
     <Container>
-
       {
         props.onError && (
           <OnError>
@@ -138,7 +153,7 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
               <span className="counter">{index}/{length - 1}</span>
             </header>
             <ScroolingList>
-              {renderCodificationLayout()}              
+              { renderCodificationLayout()}              
             </ScroolingList>
           </StepsCanva>
           <Buttons>

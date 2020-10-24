@@ -89,21 +89,24 @@ export const EliasGammaLayout = () => {
     }
 
     function renderCodeword(codeword: Codeword) {
-        if (codeword) {
+        
             return (
                 <ElliasCodewordRow>
                     {renderCodewordSplitted(codeword.codeword)}
                     {renderExplanation(codeword)}
                 </ElliasCodewordRow>
             );
-        }
+    
     };
 
     function renderCodewords() {
         const layoutArray = [];
         for (let i = 0; i < index; i++) {
             let codeword = codewords[i];
-            layoutArray.push(renderCodeword(codeword));
+            if(codeword){
+                const codewordLayout = renderCodeword(codeword);
+                layoutArray.push(codewordLayout);
+            }            
         }
         return layoutArray;
     };
