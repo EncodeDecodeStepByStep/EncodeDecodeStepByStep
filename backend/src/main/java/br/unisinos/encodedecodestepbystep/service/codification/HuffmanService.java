@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class HuffmanService implements CodificationService {
-    private static final int QUANTITY_OF_DIGITS_SIZE = 5;
 
     @Override
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
@@ -42,8 +41,6 @@ public class HuffmanService implements CodificationService {
 
         Map<Integer, Integer> sortedMap = this.sortByValue(map, false);
         Codification.setHuffmanSorted(sortedMap);
-
-        System.out.println(sortedMap.toString());
 
 //        boolean newLine = false;
 //        int lengthEncode = 0;
@@ -88,10 +85,6 @@ public class HuffmanService implements CodificationService {
         reader.close();
     }
 
-    private void getCodification(Map<Integer, Integer> sortedMap, Map<Character, Double> probabilityMap) {
-
-    }
-
     private Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap, final boolean order)
     {
         List<Entry<Integer, Integer>> list = new LinkedList<>(unsortMap.entrySet());
@@ -110,6 +103,11 @@ public class HuffmanService implements CodificationService {
     public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         Codification.setCodificationName("Huffman Estático");
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
+        char character;
+
+        while ((character = (char) reader.readNextChar()) != 65535) {
+            System.out.println(character);
+        }
 
         writer.close();
         reader.close();
