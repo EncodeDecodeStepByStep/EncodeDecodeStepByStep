@@ -64,27 +64,27 @@ class HuffmanControllerTest {
         }
     }
 
-    @Test
-    void deveSerOsMesmosCodewordsGravadosNoDecodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeDecode() throws IOException, WrongFormatExpection, InterruptedException {
-        ReaderWriterWrapper readerWriterWrapper = setUpEncodeSum();
-        huffmanService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
-
-        StringBuilder codewordEsperado = new StringBuilder("");
-        huffmanController.decode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod");
-
-        TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
-        CodificationDTO codificationDTORetornado = huffmanController.nextStep();
-        while (!codificationDTORetornado.getStepsFinished()) {
-            while (codewordEsperado.length()+1 != codificationDTORetornado.getBitsBeforeDecode().length() + codificationDTORetornado.getCharacterDecoded().length()) {
-                codewordEsperado.append((char) this.isCodewordEsperado.read());
-            }
-            this.isCodewordEsperado.read(); // para jogar o caracter da virgula fora.
-
-            Assertions.assertEquals((char) this.isEsperadoBeforeCodification.read(), codificationDTORetornado.getCharacterDecoded().charAt(0));
-            Assertions.assertEquals(codewordEsperado.toString(), codificationDTORetornado.getBitsBeforeDecode());
-
-            codewordEsperado = new StringBuilder("");
-            codificationDTORetornado = huffmanController.nextStep();
-        }
-    }
+//    @Test
+//    void deveSerOsMesmosCodewordsGravadosNoDecodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeDecode() throws IOException, WrongFormatExpection, InterruptedException {
+//        ReaderWriterWrapper readerWriterWrapper = setUpEncodeSum();
+//        huffmanService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
+//
+//        StringBuilder codewordEsperado = new StringBuilder("");
+//        huffmanController.decode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod");
+//
+//        TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
+//        CodificationDTO codificationDTORetornado = huffmanController.nextStep();
+//        while (!codificationDTORetornado.getStepsFinished()) {
+//            while (codewordEsperado.length()+1 != codificationDTORetornado.getBitsBeforeDecode().length() + codificationDTORetornado.getCharacterDecoded().length()) {
+//                codewordEsperado.append((char) this.isCodewordEsperado.read());
+//            }
+//            this.isCodewordEsperado.read(); // para jogar o caracter da virgula fora.
+//
+//            Assertions.assertEquals((char) this.isEsperadoBeforeCodification.read(), codificationDTORetornado.getCharacterDecoded().charAt(0));
+//            Assertions.assertEquals(codewordEsperado.toString(), codificationDTORetornado.getBitsBeforeDecode());
+//
+//            codewordEsperado = new StringBuilder("");
+//            codificationDTORetornado = huffmanController.nextStep();
+//        }
+//    }
 }

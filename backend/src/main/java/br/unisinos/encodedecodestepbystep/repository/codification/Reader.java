@@ -58,9 +58,13 @@ public class Reader implements ReaderInterface {
     }
 
     public int read() throws IOException {
-        if (this.progressPercentage != null) {
+        if (this.progressPercentage != null && this.porcentageLida < 100) {
             this.porcentageLida = this.porcentageLida + (double) 100 / this.localizacaoByteProtocoloRemocao;
-            this.progressPercentage.setValue(porcentageLida);
+            if (this.porcentageLida >= 100) {
+                this.progressPercentage.setValue(100);
+            } else {
+                this.progressPercentage.setValue(porcentageLida);
+            }
         }
         return bufferedReader.read();
     }
@@ -74,9 +78,13 @@ public class Reader implements ReaderInterface {
         }
         char nextChar = this.binary.charAt(0);
         this.binary = this.binary.substring(1);
-        if (this.progressPercentage != null) {
+        if (this.progressPercentage != null && this.porcentageLida < 100) {
             this.porcentageLida = this.porcentageLida + (double) 100 / this.localizacaoByteProtocoloRemocao;
-            this.progressPercentage.setValue(porcentageLida);
+            if (this.porcentageLida >= 100) {
+                this.progressPercentage.setValue(100);
+            } else {
+                this.progressPercentage.setValue(porcentageLida);
+            }
         }
         return nextChar;
     }
