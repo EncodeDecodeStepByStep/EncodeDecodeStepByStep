@@ -14,26 +14,50 @@ import java.util.stream.Collectors;
 
 @Service
 public class HuffmanService implements CodificationService {
-    private static final int QUANTITY_OF_DIGITS_SIZE = 5;
 
     @Override
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         Codification.setCodificationName("Huffman Estático");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Map<Character, Double> probabilityMap = new HashMap<Character, Double>();
         int character = 0;
+        long lengthChar = reader.getFile().length();
 
         while ((character = reader.read()) != -1) {
+            double probability = 0;
+
             if (map.containsKey(character)) {
-                int lastValue = map.get(character);
-                map.put(character, lastValue+1);
+                int lastValue = map.get(character) + 1;
+                probability = lastValue / (double) lengthChar;
+                map.put(character, lastValue);
+                probabilityMap.put((char) character, probability);
             } else {
                 map.put(character, 1);
+                probability = 1 / (double) lengthChar;
+                probabilityMap.put((char) character, probability);
             }
         }
-        Map<Integer, Integer> sortedMap = this.sortByValue(map, true);
 
+        Map<Integer, Integer> sortedMap = this.sortByValue(map, false);
         Codification.setHuffmanSorted(sortedMap);
+
+//        boolean newLine = false;
+//        int lengthEncode = 0;
+//        Map<Character, String> huffmanTree = new HashMap<Character, String>();
+//        for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
+//            int key = entry.getKey();
+//
+//            if (huffmanTree.isEmpty()) {
+//                huffmanTree.put((char) key, "1");
+//            } else if (huffmanTree.size() == 1) {
+//                huffmanTree.put((char) key, "0");
+//            } else {
+//                this.getCodification(sortedMap, probabilityMap);
+//                String codification = "";
+//                huffmanTree.put((char) key, codification);
+//            }
+//        }
 
         boolean newLine = false;
         int lengthEncode = 0;
@@ -79,6 +103,11 @@ public class HuffmanService implements CodificationService {
     public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         Codification.setCodificationName("Huffman Estático");
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
+        char character;
+
+        while ((character = (char) reader.readNextChar()) != 65535) {
+            System.out.println(character);
+        }
 
         writer.close();
         reader.close();

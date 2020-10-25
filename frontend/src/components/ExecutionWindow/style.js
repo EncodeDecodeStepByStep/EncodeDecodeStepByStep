@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { PRIMARY } from "../../constants/colors";
 
 export const Container = styled.div`
@@ -102,6 +102,8 @@ export const StepsCanva = styled.div`
 `;
 
 export const ScroolingList = styled.div`
-  overflow-y: auto;
-  max-height: calc(100% - 100px);
+  ${props => props.scrool && css`
+    overflow-y: auto;
+    max-height: calc(100% - 100px);
+  `}
 `;

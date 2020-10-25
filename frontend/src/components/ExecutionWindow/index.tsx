@@ -91,6 +91,7 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
 
   async function next() {
     const codeword = await nextStep()
+    console.log(codeword)
     if(codeword.characterBeforeEncode){
       setCodewords([...codewords, new Codeword(codeword.characterBeforeEncode, codeword.codeword)])
     }else{
@@ -168,7 +169,7 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
               <Typografy.EMPHASYS className="codification-title" text={`Decodificando ${codificationMethod.name}`} />
               <span className="counter">{index}/{length - 1}</span>
             </header>
-            <ScroolingList>
+            <ScroolingList scrool={codificationMethod.codificationType !== CodificationMethod.HUFFMAN}>
               { renderCodificationLayout()}              
             </ScroolingList>
           </StepsCanva>
