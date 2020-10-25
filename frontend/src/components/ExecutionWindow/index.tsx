@@ -18,6 +18,7 @@ import { Line } from 'rc-progress';
 import { Codeword } from "../../models/codeword";
 import ErrorGif from '../../assets/error.gif'
 import codifications from "../../constants/codifications";
+import messages from './messages';
 
 interface ExecutionWindowProps{
   onError:boolean;
@@ -34,28 +35,37 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
 
   const [index, setIndex] = useIndex();
   const [length, setLength] = useState(0);
+  const [messageIndex, setMessageIndex] = useState(0)
 
-  function finishCodification(interval){
+  function finishCodification(interval, messageInterval){
     clearInterval(interval)
+    clearInterval(messageInterval)
     setOnFinishedCodification(true);
     setOnProcessing(false)
   }
 
   useEffect(() => {
     if (onProcessing) {
+
+      let messageInterval = setInterval(async () => {
+       setMessageIndex(m=> (m+1==messages.length) ? 0: m+1);
+      }, 8000);
+
       let interval = setInterval(async () => {
         try{
           const percentage = await progress();
           if (percentage < 100) {
             setActualPercentage(percentage)
           } else {
-            finishCodification(interval)
+            finishCodification(interval, messageInterval)
           }
         }catch(e){
           props.setOnError(true);
-         finishCodification(interval);
+         finishCodification(interval, messageInterval);
         }
       }, 1000);
+
+      
     }
   }, [onProcessing])
 
@@ -138,9 +148,15 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
       {!props.onError && onProcessing && (
         <OnProcessing>
           <Typografy.SUBTITLE text={`Processando ${codificationMethod.name}`}></Typografy.SUBTITLE>
-
-          <Line percent={actualPercentage} strokeWidth={5} strokeColor="#49d280" />
-          {actualPercentage && <div className="percentage-value">{actualPercentage.toFixed(2)} %</div>}
+ 
+          {actualPercentage>0 && 
+            <>
+            <Line percent={actualPercentage} strokeWidth={5} strokeColor="#49d280" />
+            <p>{messages[messageIndex]}</p>
+            <div className="percentage-value">{actualPercentage.toFixed(2)} %</div>
+            </>
+          
+          }
 
         </OnProcessing>
       )}

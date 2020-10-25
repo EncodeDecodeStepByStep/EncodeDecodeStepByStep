@@ -22,7 +22,6 @@ interface FileType {
   path?: string
 }
 
-
 export const Menu = () => {
   const [codingDecoding, setCodingDecoding] = useState(EncodingDecoding.NO_ONE);
   const [codificationMethod, setCodificationMethod] = useCodificationMethod<Codification>();
@@ -78,9 +77,7 @@ export const Menu = () => {
   }
 
   function clickOnLabel() {
-    
-    inputRef.current.click();
-        
+    inputRef.current.click();      
   }
 
   function getIndexOfFileRow() {
@@ -103,16 +100,14 @@ export const Menu = () => {
             isSelected={codingDecoding === EncodingDecoding.ENCODING}
             onClick={() => {
               handleCodificationMode(EncodingDecoding.ENCODING);
-            }}
-          >
+            }}>
             Codificar
-              </Button.PRIMARY>
+          </Button.PRIMARY>
           <Button.PRIMARY
             isSelected={codingDecoding === EncodingDecoding.DECODING}
             onClick={() => {
               handleCodificationMode(EncodingDecoding.DECODING);
-            }}
-          >
+            }}>
             Decodificar
               </Button.PRIMARY>
         </ButtonsRow>

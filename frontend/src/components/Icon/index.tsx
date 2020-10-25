@@ -18,13 +18,13 @@ type IconProps = {
 export class Icon{
     static Search= (props : IconProps)=>{
         return (
-            <MdSearch size={props.size} color={props.color}/>
+            <MdSearch className="custom-icon" size={props.size} color={props.color}/>
         )
     }
 
     static User = (props : IconProps)=>{
         return (
-            <FaUserAlt size={props.size} color={props.color}/>
+            <FaUserAlt className="custom-icon" size={props.size} color={props.color}/>
         )
     }
 
@@ -54,55 +54,55 @@ export class Icon{
 
     static Close = (props:IconProps)=>{
         return (
-            <MdClose size={props.size} color={props.color}/>
+            <MdClose className="custom-icon"  size={props.size} color={props.color}/>
         )
     }
 
     static Goulomb = (props:IconProps)=>{
         return (
-            <AiOutlineGoogle size={props.size} color={props.color}/>
+            <AiOutlineGoogle className="custom-icon" size={props.size} color={props.color}/>
         )
     }
 
     static EliasGamma = (props:IconProps)=>{
         return (
-            <GiRadioactive size={props.size} color={props.color}/>
+            <GiRadioactive className="custom-icon" size={props.size} color={props.color}/>
         )
     }
 
     static Fibonatti = (props:IconProps)=>{
         return (
-            <GiBowlSpiral size={props.size} color={props.color}/>
+            <GiBowlSpiral className="custom-icon" size={props.size} color={props.color}/>
         )
     }
 
     static Unario = (props:IconProps)=>{
         return (
-            <GoFileBinary size={props.size} color={props.color}/>
+            <GoFileBinary className="custom-icon" size={props.size} color={props.color}/>
         )
     }
 
     static Hamming = (props:IconProps)=>{
         return (
-            <RiBubbleChartFill size={props.size} color={props.color}/>
+            <RiBubbleChartFill className="custom-icon" size={props.size} color={props.color}/>
         )
     }
 
     static Delta = (props:IconProps)=>{
         return (
-            <CgShapeTriangle size={props.size} color={props.color}/>
+            <CgShapeTriangle className="custom-icon" size={props.size} color={props.color}/>
         )
     }
 
     static Huffman = (props:IconProps)=>{
         return (
-            <RiStackshareLine size={props.size} color={props.color}/>
+            <RiStackshareLine className="custom-icon" size={props.size} color={props.color}/>
         )
     }
 
     static Crc8 = (props:IconProps)=>{
         return (
-            <XOR color={props.color}>XOR</XOR>
+            <XOR className="custom-icon" color={props.color}>XOR</XOR>
         )
     } 
 
@@ -114,13 +114,13 @@ export class Icon{
 
     static Linkedin = (props:IconProps)=>{
         return (
-            <AiFillLinkedin size={props.size} color={props.color}/>
+            <AiFillLinkedin className="network-icon"  size={props.size} color={props.color}/>
         )
     }
 
     static Github = (props:IconProps)=>{
         return (
-            <AiFillGithub size={props.size} color={props.color}/>
+            <AiFillGithub className="network-icon"  size={props.size} color={props.color}/>
         )
     }
     

@@ -31,6 +31,22 @@ export const OnError = styled.div`
 `;
 
 export const OnProcessing = styled.section`
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p{
+    color:white;
+    font-weight:bold;
+    margin:15px 0;
+  }
+
+  svg{
+    width:fit-content;
+  }
+
   h2 {
     color: rgb(73, 210, 128);
     margin-bottom: 20px;

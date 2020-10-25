@@ -15,6 +15,8 @@ export const FormRow = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
+
+  animation: 0.5s surgir forwards ease-in-out;
 `;
 
 export const FormRowHeader = styled.header`

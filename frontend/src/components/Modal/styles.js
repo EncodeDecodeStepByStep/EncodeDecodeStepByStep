@@ -25,6 +25,7 @@ export const StyledModal = styled.div`
   margin: auto;
   border-radius: 8px;
   padding: 10px;
+  animation:0.5s surgir forwards ease-in-out;
 `;
 export const Header = styled.div`
   border-radius: 8px 8px 0 0;

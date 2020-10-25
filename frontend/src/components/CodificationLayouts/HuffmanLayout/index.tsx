@@ -14,6 +14,7 @@ export const HuffmanLayout = () => {
   useEffect(()=>{
     async function getHaches(){
       const a = await huffmanHashes();
+      console.log(a);
     }
 
     getHaches();
