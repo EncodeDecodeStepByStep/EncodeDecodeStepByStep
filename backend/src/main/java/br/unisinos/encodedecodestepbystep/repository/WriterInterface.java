@@ -11,6 +11,8 @@ public interface WriterInterface {
 
     void write(String bits) throws IOException, WrongFormatExpection;
 
+    void writeWithoutRepository(String bits) throws IOException, WrongFormatExpection;
+
     void writeSemHamming(String bits) throws IOException, WrongFormatExpection;
 
     void close() throws IOException;

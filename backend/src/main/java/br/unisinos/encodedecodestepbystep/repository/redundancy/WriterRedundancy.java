@@ -63,6 +63,10 @@ public class WriterRedundancy implements WriterInterface {
         }
     }
 
+    public void writeWithoutRepository(String bits) throws IOException, WrongFormatExpection {
+        return;
+    }
+
     public void writeSemHamming(String bits) throws IOException, WrongFormatExpection {
         write8bitsOrConcatZerosToComplete(bits, null);
     }

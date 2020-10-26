@@ -66,7 +66,7 @@ public class Reader implements ReaderInterface {
                 this.progressPercentage.setValue(porcentageLida);
             }
         }
-        return bufferedReader.read();
+        return is.read();
     }
 
     public int readNextChar() throws IOException {

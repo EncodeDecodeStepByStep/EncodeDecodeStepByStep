@@ -19,13 +19,17 @@ public class HuffmanService implements CodificationService {
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         Codification.setCodificationName("Huffman Estático");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
+
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         Map<Character, Double> probabilityMap = new HashMap<Character, Double>();
         int character = 0;
+        int i = 0;
         long lengthChar = reader.getFile().length();
+        int[] values = new int[(int) lengthChar];
 
         while ((character = reader.read()) != -1) {
             double probability = 0;
+            values[i++] = character;
 
             if (map.containsKey(character)) {
                 int lastValue = map.get(character) + 1;
@@ -42,23 +46,6 @@ public class HuffmanService implements CodificationService {
         Map<Integer, Integer> sortedMap = this.sortByValue(map, false);
         Codification.setHuffmanSorted(sortedMap);
 
-//        boolean newLine = false;
-//        int lengthEncode = 0;
-//        Map<Character, String> huffmanTree = new HashMap<Character, String>();
-//        for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
-//            int key = entry.getKey();
-//
-//            if (huffmanTree.isEmpty()) {
-//                huffmanTree.put((char) key, "1");
-//            } else if (huffmanTree.size() == 1) {
-//                huffmanTree.put((char) key, "0");
-//            } else {
-//                this.getCodification(sortedMap, probabilityMap);
-//                String codification = "";
-//                huffmanTree.put((char) key, codification);
-//            }
-//        }
-
         boolean newLine = false;
         int lengthEncode = 0;
         Map<Character, String> huffmanTree = new HashMap<Character, String>();
@@ -69,16 +56,41 @@ public class HuffmanService implements CodificationService {
                 huffmanTree.put((char) key, "0");
                 newLine = true;
             } else {
-                huffmanTree.put((char) key, "0"+StringUtils.createStreamWithOnes(lengthEncode));
+                if ((lengthEncode+1) == sortedMap.size()) {
+                    huffmanTree.put((char) key, StringUtils.createStreamWithOnes(lengthEncode));
+                } else {
+                    huffmanTree.put((char) key, StringUtils.createStreamWithOnes(lengthEncode) + "0");
+                }
             }
             lengthEncode++;
         }
 
         Codification.setHuffmanTree(huffmanTree);
 
+        char doisPontos = ':';
+        String doisPontosFinal = StringUtils.integerToStringBinary((int) doisPontos, 8);
+        char virgula = ',';
+        String virgulaFinal = StringUtils.integerToStringBinary((int) virgula, 8);
+        // Write the tree on file
         for (Map.Entry<Character, String> entry : huffmanTree.entrySet()) {
-            String codeword = entry.getValue();
-            writer.write(codeword);
+            char key = entry.getKey();
+            String keyFinal = StringUtils.integerToStringBinary((int) key, 8);
+
+            String valueFinal = "";
+            for (char c : entry.getValue().toCharArray()) {
+                valueFinal += StringUtils.integerToStringBinary((int) c, 8);
+            }
+
+            writer.writeWithoutRepository(keyFinal + doisPontosFinal + valueFinal + virgulaFinal);
+        }
+
+        char newLineVariable = '\n';
+        String newLineVariableFinal = StringUtils.integerToStringBinary((int) newLineVariable, 8);
+        writer.writeWithoutRepository(newLineVariableFinal);
+
+        for (i = 0; i < values.length; i++) {
+            int key = values[i];
+            writer.write(huffmanTree.get((char)key));
         }
 
         writer.close();
@@ -105,8 +117,41 @@ public class HuffmanService implements CodificationService {
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
         char character;
 
+        Map<String, Character> huffmanTree = new HashMap<String, Character>();
+
+        char key = '0';
+        String value = "";
+        boolean isKey = true;
+        while ((character = (char) reader.read()) != 65535) {
+            if (character == '\n') break;
+
+            if (isKey) {
+                if (character == ':') {
+                    isKey = false;
+                } else {
+                    key = character;
+                }
+            } else {
+                if (character == ',') {
+                    huffmanTree.put(value, key);
+                    isKey = true;
+                    value = "";
+                } else {
+                    value += character;
+                }
+            }
+        }
+
+        StringBuilder bitsReaded = new StringBuilder("");
         while ((character = (char) reader.readNextChar()) != 65535) {
-            System.out.println(character);
+            bitsReaded.append(character);
+            if (character == '0' || huffmanTree.containsKey(bitsReaded.toString())) {
+                if (huffmanTree.containsKey(bitsReaded.toString())) {
+                    char huffmanValue = huffmanTree.get(bitsReaded.toString());
+                    writer.write(huffmanValue, bitsReaded.toString());
+                }
+                bitsReaded = new StringBuilder("");
+            }
         }
 
         writer.close();
