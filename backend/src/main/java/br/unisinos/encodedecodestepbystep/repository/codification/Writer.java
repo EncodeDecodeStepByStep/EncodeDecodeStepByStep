@@ -58,6 +58,10 @@ public class Writer implements WriterInterface {
 
     public void write(String bits) throws IOException {
         writeCodewordsForStepsTempFile(bits);
+        writeWithoutRepository(bits);
+    }
+
+    public void writeWithoutRepository(String bits) throws IOException {
         this.bitsStringControle = bitsStringControle.concat(bits);
 
         while (bitsStringControle.length() >= 8) {
