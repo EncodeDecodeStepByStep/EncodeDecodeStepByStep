@@ -5,7 +5,8 @@ import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
-import br.unisinos.encodedecodestepbystep.service.codification.HuffmanService;
+import br.unisinos.encodedecodestepbystep.service.codification.HuffmanNodeService;
+//import br.unisinos.encodedecodestepbystep.service.codification.HuffmanService;
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import java.io.IOException;
 public class HuffmanController {
 
     @Autowired
-    private HuffmanService huffmanService;
+    private HuffmanNodeService huffmanService;
 
     @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/encode")
