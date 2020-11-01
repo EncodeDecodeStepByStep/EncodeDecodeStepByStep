@@ -1,8 +1,9 @@
-import styled from "styled-components";
-import { PRIMARY } from "../../../constants/colors";
+import styled,{css} from "styled-components";
+import { LIGHT_GRAY, PRIMARY } from "../../../constants/colors";
 
 export const Container = styled.div`
   background-color: rgb(44, 49, 68);
+
   border-radius: 10px;
   padding: 16px;
   display: flex;
@@ -15,7 +16,6 @@ export const FormRow = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
-
   animation: 0.5s surgir forwards ease-in-out;
 `;
 

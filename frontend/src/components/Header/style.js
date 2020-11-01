@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARKEST } from "../../constants/colors";
+import { DARKEST, GRAY, PRIMARY } from "../../constants/colors";
 
 export const Container = styled.header`
   background-color: ${DARKEST};
@@ -13,6 +13,18 @@ export const Container = styled.header`
 
   img{
     height:65px;
+  }
+
+  .react-toggle--checked .react-toggle-track {
+    background-color: ${PRIMARY};
+  }
+
+  .react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track{
+    background-color: ${PRIMARY} !important;
+  }
+
+  .react-toggle-track{
+    background-color:${GRAY}
   }
 
   .user-icon-container {

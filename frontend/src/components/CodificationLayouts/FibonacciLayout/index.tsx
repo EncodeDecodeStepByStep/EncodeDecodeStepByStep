@@ -55,17 +55,16 @@ export const FibonacciLayout = () => {
         );
       }
     }
-    console.log(sum);
 
     return (
       <div className="fibonacci-arrangment">
         <div className="first-row">
           <div className="fibonacci-column">
-            <span>Codeword</span>
+            <span>Fibonacci</span>
             <span>
               <Icon.Down size={15} color={GRAY} />
             </span>
-            <span>Fibonacci</span>
+            <span>Codeword</span>
           </div>
           {[...arrangements]}
         </div>

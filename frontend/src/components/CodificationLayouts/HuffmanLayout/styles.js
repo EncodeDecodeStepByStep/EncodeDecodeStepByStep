@@ -1,11 +1,12 @@
 import styled from 'styled-components'
-import { DARKEST, PRIMARY } from '../../../constants/colors'
+import { GRAY, PRIMARY, DARKEST } from '../../../constants/colors'
 
 export const Count = styled.div`
     color:white;
     background-color:${DARKEST};
     padding:10px;
     border-radius:10px;
+    animation:surgir 1s forwards ease-in-out;
 
     .line{
         margin:8px auto;
@@ -17,9 +18,15 @@ export const Count = styled.div`
             margin:0 10px;
         }
     }
+    
+    .selected-row{
+        background-color:${GRAY};
+        border-radius:5px;
+    }
 `
 
 export const TreeContainer = styled.div`
+    animation:surgir 1s forwards ease-in-out;
     background-color:${DARKEST};
     padding:10px;
     border-radius:10px;
@@ -96,7 +103,7 @@ export const Container = styled.div`
 `
 
 export const HuffmanCodewordRow = styled.div`
-
+    animation:surgir 0.5s forwards ease-in-out;
     align-items:center;
     font-size: 0.9rem;
     display: flex;

@@ -10,6 +10,8 @@ export const Container = styled.div`
     width: 30%;
     overflow-y: auto;
 
+  
+
     .text-title{
         color:${PRIMARY};
         text-align:center;

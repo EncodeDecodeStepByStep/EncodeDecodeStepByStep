@@ -26,6 +26,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-toastify": "^6.0.8",
+    "react-toggle": "^4.1.1",
     "react-tree-graph": "^5.1.0",
     "styled-components": "^5.2.0",
     "tree-kill": "1.2.2"

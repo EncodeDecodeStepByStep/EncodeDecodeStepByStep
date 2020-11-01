@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import { PRIMARY } from "../../constants/colors";
 
 export const Container = styled.div`
@@ -31,20 +31,13 @@ export const OnError = styled.div`
 `;
 
 export const OnProcessing = styled.section`
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  p{
-    color:white;
-    font-weight:bold;
-    margin:15px 0;
-  }
-
-  svg{
-    width:fit-content;
+  svg {
+    width: fit-content;
   }
 
   h2 {
@@ -57,11 +50,29 @@ export const OnProcessing = styled.section`
     justify-content: center;
   }
 
-  .percentage-value {
-    color: rgb(73, 210, 128);
-    font-weight: bold;
-    margin-top: 10px;
+  button {
+    margin-top: 15px;
   }
+
+  .percentage-value {
+    margin-top: 10px;
+    display: flex;
+    align-items:center;
+
+    span {
+      color: rgb(73, 210, 128);
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    
+  }
+
+  p {
+      color: white;
+      font-weight: bold;
+      margin: 15px 0;
+    }
 `;
 
 export const Steps = styled.section`
@@ -102,8 +113,10 @@ export const StepsCanva = styled.div`
 `;
 
 export const ScroolingList = styled.div`
-  ${props => props.scrool && css`
-    overflow-y: auto;
-    max-height: calc(100% - 100px);
-  `}
+  ${(props) =>
+    props.scrool &&
+    css`
+      overflow-y: auto;
+      max-height: calc(100% - 100px);
+    `}
 `;

@@ -14,7 +14,7 @@ export const HuffmanLayout = () => {
   const [codewords] = useCodewords();
 
   const [huffmanCount, setHuffmanCount] = useState([]);
-  const [huffmanTree, setHuffmanTree] = useState({});
+  const [huffmanTree, setHuffmanTree] = useState([]);
   const [orderedHuffmanCount, setOrderedHuffmanCount] = useState([]);
 
   function orderHuffman(huffmanCount) {
@@ -71,11 +71,22 @@ export const HuffmanLayout = () => {
   }
 
   function renderList(list, withCharCode) {
+
+    function isSelected(value){
+      const lastCodeword = codewords[index-1];
+
+      if(lastCodeword && value  && !withCharCode && lastCodeword.codeword == value){     
+        return true;
+      }else{
+        return false;
+      }
+    }
+
    return list.length?    
       <div>
         {list.map((line, index) => {
           return (
-            <div className="line" key={index}>
+            <div className={isSelected(line[1])? 'line selected-row' :'line'}key={index}>
               <span>{
                 withCharCode ? String.fromCharCode(line[0]) : line[0]}
               </span>
@@ -184,7 +195,7 @@ export const HuffmanLayout = () => {
           <Count>
             <Typografy.EMPHASYS text="Codewords" />
             
-            {renderList(huffmanTree, false)}
+            {renderList(huffmanTree.slice(0).reverse(), false)}
           </Count>
         </div>
 

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Container, OnProcessing, Steps, Buttons, StepsCanva, ScroolingList, OnError } from "./style";
+import {
+  Container,
+  OnProcessing,
+  Steps,
+  Buttons,
+  StepsCanva,
+  ScroolingList,
+  OnError,
+} from "./style";
 
 import {
   useOnProcessing,
@@ -11,91 +19,112 @@ import {
 import { Typografy, Button } from "../index";
 
 import { CodificationMethod } from "../../enums/CodificationMethod";
-import { DeltaLayout, EliasGammaLayout, FibonacciLayout, GoulombLayout, UnaryLayout, HuffmanLayout } from "../CodificationLayouts";
+import {
+  DeltaLayout,
+  EliasGammaLayout,
+  FibonacciLayout,
+  GoulombLayout,
+  UnaryLayout,
+  HuffmanLayout,
+} from "../CodificationLayouts";
 import { Icon } from "../Icon";
-import { progress, nextStep } from '../../hooks/useCodification'
-import { Line } from 'rc-progress';
+import { progress, nextStep } from "../../hooks/useCodification";
+import { Line } from "rc-progress";
 import { Codeword } from "../../models/codeword";
-import ErrorGif from '../../assets/error.gif'
+import ErrorGif from "../../assets/error.gif";
 import codifications from "../../constants/codifications";
-import messages from './messages';
+import messages from "./messages";
 
-interface ExecutionWindowProps{
-  onError:boolean;
-  setOnError:Function;
+interface ExecutionWindowProps {
+  onError: boolean;
+  setOnError: Function;
 }
 
-export const ExecutionWindow = (props:ExecutionWindowProps) => {
+export const ExecutionWindow = (props: ExecutionWindowProps) => {
   const [onProcessing, setOnProcessing] = useOnProcessing();
-  const [onFinishedCodification, setOnFinishedCodification] = useFinishedCodification();
+  const [
+    onFinishedCodification,
+    setOnFinishedCodification,
+  ] = useFinishedCodification();
   const [codificationMethod, setCodificationMethod] = useCodificationMethod();
   const [codewords, setCodewords] = useCodewords();
-  
-  const [actualPercentage, setActualPercentage] = useState(0)
+
+  const [actualPercentage, setActualPercentage] = useState(0);
 
   const [index, setIndex] = useIndex();
   const [length, setLength] = useState(0);
-  const [messageIndex, setMessageIndex] = useState(0)
+  const [messageIndex, setMessageIndex] = useState(0);
 
-  function finishCodification(interval, messageInterval){
-    clearInterval(interval)
-    clearInterval(messageInterval)
+  let messageInterval, interval;
+
+  function finishCodification() {
+    clearInterval(interval);
+    clearInterval(messageInterval);
     setOnFinishedCodification(true);
-    setOnProcessing(false)
+    setOnProcessing(false);
   }
 
   useEffect(() => {
     if (onProcessing) {
-
-      let messageInterval = setInterval(async () => {
-       setMessageIndex(m=> (m+1==messages.length) ? 0: m+1);
+      messageInterval = setInterval(async () => {
+        setMessageIndex((m) => (m + 1 == messages.length ? 0 : m + 1));
       }, 8000);
 
-      let interval = setInterval(async () => {
-        try{
+      interval = setInterval(async () => {
+        try {
           const percentage = await progress();
           if (percentage < 100) {
-            setActualPercentage(percentage)
+            setActualPercentage(percentage);
           } else {
-            finishCodification(interval, messageInterval)
+            finishCodification();
           }
-        }catch(e){
+        } catch (e) {
           props.setOnError(true);
-         finishCodification(interval, messageInterval);
+          finishCodification();
         }
       }, 1000);
-
-      
     }
-  }, [onProcessing])
+  }, [onProcessing]);
 
   useEffect(() => {
     if (onFinishedCodification) {
-      getFirstCodeword()
+      getFirstCodeword();
     }
 
     async function getFirstCodeword() {
-      const codeword = await nextStep()
-      if(codeword){
-        setLength(codeword.numberOfCharsTotal)
-        if(codeword.characterBeforeEncode){
-          setCodewords([new Codeword(codeword.characterBeforeEncode, codeword.codeword)])
-        }else{
-          const codificationFinded = codifications.filter(codification => codification.name.includes(codeword.codificationName))
-          setCodificationMethod(codificationFinded[0])
-          setCodewords([new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode)])
-        }        
-      }      
+      const codeword = await nextStep();
+      if (codeword) {
+        setLength(codeword.numberOfCharsTotal);
+        if (codeword.characterBeforeEncode) {
+          setCodewords([
+            new Codeword(codeword.characterBeforeEncode, codeword.codeword),
+          ]);
+        } else {
+          const codificationFinded = codifications.filter((codification) =>
+            codification.name.includes(codeword.codificationName)
+          );
+          setCodificationMethod(codificationFinded[0]);
+          setCodewords([
+            new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode),
+          ]);
+        }
+      }
     }
   }, [onFinishedCodification]);
 
   async function next() {
-    const codeword = await nextStep()
-    console.log(codeword)
-    if(codeword.characterBeforeEncode){
-      setCodewords([...codewords, new Codeword(codeword.characterBeforeEncode, codeword.codeword)])
-    }else{
-      setCodewords([...codewords, new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode)])
+    const codeword = await nextStep();
+    console.log(codeword);
+    if (codeword.characterBeforeEncode) {
+      setCodewords([
+        ...codewords,
+        new Codeword(codeword.characterBeforeEncode, codeword.codeword),
+      ]);
+    } else {
+      setCodewords([
+        ...codewords,
+        new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode),
+      ]);
     }
     if (index < length - 1) {
       setIndex(index + 1);
@@ -111,54 +140,66 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
   function finish() {
     setOnProcessing(false);
     setOnFinishedCodification(false);
-    setCodificationMethod(-1)
-    setCodewords([])
-    setActualPercentage(0)
+    setCodificationMethod(-1);
+    setCodewords([]);
+    setActualPercentage(0);
     setLength(0);
     setIndex(1);
   }
 
-  function renderCodificationLayout(){
-    switch(codificationMethod.codificationType){
+  function cancelProcessing() {
+    finishCodification();
+    finish();
+  }
+
+  function renderCodificationLayout() {
+    switch (codificationMethod.codificationType) {
       case CodificationMethod.UNARIO:
-        return <UnaryLayout />
+        return <UnaryLayout />;
       case CodificationMethod.ELIAS_GAMMA:
-        return <EliasGammaLayout />
+        return <EliasGammaLayout />;
       case CodificationMethod.GOULOMB:
-        return <GoulombLayout />
+        return <GoulombLayout />;
       case CodificationMethod.FIBONACCI:
-        return <FibonacciLayout />
+        return <FibonacciLayout />;
       case CodificationMethod.DELTA:
-        return <DeltaLayout />
+        return <DeltaLayout />;
       case CodificationMethod.HUFFMAN:
-        return <HuffmanLayout />
+        return <HuffmanLayout />;
     }
   }
 
   return (
     <Container>
-      {
-        props.onError && (
-          <OnError>
-              <img alt="error" src={ErrorGif}/>
-              <Typografy.SUBTITLE text="Ops, algo deu errado"/>
-              <p>Não foi possível se conectar ao servidor</p>
-          </OnError>
-        )
-      }
+      {props.onError && (
+        <OnError>
+          <img alt="error" src={ErrorGif} />
+          <Typografy.SUBTITLE text="Ops, algo deu errado" />
+          <p>Não foi possível se conectar ao servidor</p>
+        </OnError>
+      )}
       {!props.onError && onProcessing && (
         <OnProcessing>
-          <Typografy.SUBTITLE text={`Processando ${codificationMethod.name}`}></Typografy.SUBTITLE>
- 
-          {actualPercentage>0 && 
-            <>
-            <Line percent={actualPercentage} strokeWidth={5} strokeColor="#49d280" />
-            <p>{messages[messageIndex]}</p>
-            <div className="percentage-value">{actualPercentage.toFixed(2)} %</div>
-            </>
-          
-          }
+          <Typografy.SUBTITLE
+            text={`Processando ${codificationMethod.name}`}
+          ></Typografy.SUBTITLE>
 
+          {actualPercentage > 0 && (
+            <>
+              <div className="percentage-value">
+                <span> {actualPercentage.toFixed(2)} %</span>
+                <Line
+                  percent={actualPercentage}
+                  strokeWidth={5}
+                  strokeColor="#49d280"
+                />
+              </div>
+              <p>{messages[messageIndex]}</p>
+              <Button.PRIMARY onClick={cancelProcessing}>
+                Cancelar
+              </Button.PRIMARY>
+            </>
+          )}
         </OnProcessing>
       )}
 
@@ -166,25 +207,44 @@ export const ExecutionWindow = (props:ExecutionWindowProps) => {
         <Steps>
           <StepsCanva>
             <header>
-              <Typografy.EMPHASYS className="codification-title" text={`Decodificando ${codificationMethod.name}`} />
-              <span className="counter">{index}/{length - 1}</span>
+              <Typografy.EMPHASYS
+                className="codification-title"
+                text={`Decodificando ${codificationMethod.name}`}
+              />
+              <span className="counter">
+                {index}/{length - 1}
+              </span>
             </header>
-            <ScroolingList scrool={codificationMethod.codificationType !== CodificationMethod.HUFFMAN}>
-              { renderCodificationLayout()}              
+            <ScroolingList
+              scrool={
+                codificationMethod.codificationType !==
+                CodificationMethod.HUFFMAN
+              }
+            >
+              {renderCodificationLayout()}
             </ScroolingList>
           </StepsCanva>
           <Buttons>
             <Button.PRIMARY
               disabled={index === 1}
               icon={<Icon.Back size={18} color="#fff" />}
-              onClick={back}>Retroceder</Button.PRIMARY>
+              onClick={back}
+            >
+              Retroceder
+            </Button.PRIMARY>
             <Button.PRIMARY
               disabled={index === length - 1}
               icon={<Icon.Next size={18} color="#fff" />}
-              onClick={next}>Avançar</Button.PRIMARY>
+              onClick={next}
+            >
+              Avançar
+            </Button.PRIMARY>
             <Button.PRIMARY
               icon={<Icon.Close size={18} color="#fff" />}
-              onClick={finish}>Sair</Button.PRIMARY>
+              onClick={finish}
+            >
+              Sair
+            </Button.PRIMARY>
           </Buttons>
         </Steps>
       )}

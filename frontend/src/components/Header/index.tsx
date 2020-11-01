@@ -4,10 +4,13 @@ import { Icon, Modal} from '../index';
 import {Container, ModalContent} from './style';
 import Programmer from '../../assets/programmer.mp4';
 import Logo from '../../assets/logo.png';
+import Toggle from 'react-toggle'
+import {useTheme} from '../../context';
 
 export const Header = () => {
   
   const {isShown, toggle} = useModal();
+  const [theme, setTheme] = useTheme();
 
   function openModal(){
     toggle()
@@ -68,7 +71,15 @@ export const Header = () => {
   
   return (
     <Container>
-        <img alt="logo" src={Logo}/>
+      <a href="https://fernandofranzini.files.wordpress.com/2012/07/pog1.jpg" target="_blanck">
+        <img alt="logo" src={Logo} />
+      </a>
+
+      <Toggle
+      defaultChecked={false}
+      icons={false}
+      onChange={()=>{setTheme(!theme)}} />
+        
         <div onClick={openModal} className="user-icon-container">
           <Icon.User color="#fff" size={22}/>
         </div>

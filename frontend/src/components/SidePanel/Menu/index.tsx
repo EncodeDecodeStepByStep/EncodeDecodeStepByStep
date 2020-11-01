@@ -16,6 +16,7 @@ import { useOnProcessing, useCodificationMethod, useFinishedCodification, useGou
 import { encode, decode } from '../../../hooks/useCodification'
 import { CodificationMethod } from "../../../enums/CodificationMethod";
 import { Codification } from '../../../models/codification'
+import {useTheme} from '../../../context'
 
 interface FileType {
   name?: string,
@@ -29,6 +30,8 @@ export const Menu = () => {
   const [goulombDivisor, setGoulombDivisor] = useGoulombDivisor();
 
   const inputRef = useRef(null);
+  const [theme,] = useTheme();
+  console.log(theme)
 
   const [, setOnProcessing] = useOnProcessing();
   const [, setOnFinishedCodification] = useFinishedCodification();
@@ -183,7 +186,7 @@ export const Menu = () => {
   function renderInitButton() {
     return (
       <FormRow>
-        <FormRowHeader>
+        <FormRowHeader theme={theme}>
           <span className="form-index">{getIndexOfFileRow() + 1}</span>
           <Typografy.EMPHASYS text="Faça a codificação" />
         </FormRowHeader>
@@ -197,7 +200,7 @@ export const Menu = () => {
   }
 
   return (
-    <Container>
+    <Container theme={theme}>
       {renderEncodingDecoding()}
       {renderCodificationMethod()}
       {renderGoulombOptions()}
