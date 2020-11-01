@@ -36,7 +36,7 @@ public class HuffmanNodeService implements CodificationService{
     // recursive function to print the
     // huffman-code through the tree traversal.
     // Here s is the huffman - code generated.
-    public static void printCode(HuffmanNode root, String s)
+    public static void printCode(HuffmanNode root, String s, Map<Character, String> huffmanTree)
     {
 
         // base case; if the left and right are null
@@ -49,6 +49,7 @@ public class HuffmanNodeService implements CodificationService{
                 && Character.isLetter(root.c)) {
 
             // c is the character in the node
+            huffmanTree.put(root.c, s);
             System.out.println(root.c + ":" + s);
 
             return;
@@ -59,8 +60,8 @@ public class HuffmanNodeService implements CodificationService{
 
         // recursive calls for left and
         // right sub-tree of the generated tree.
-        printCode(root.left, s + "0");
-        printCode(root.right, s + "1");
+        printCode(root.left, s + "0", huffmanTree);
+        printCode(root.right, s + "1", huffmanTree);
     }
 
     @Override
@@ -70,7 +71,11 @@ public class HuffmanNodeService implements CodificationService{
 
         int character = 0;
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        int i = 0;
+        long lengthChar = reader.getFile().length();
+        int[] values = new int[(int) lengthChar];
         while ((character = reader.read()) != -1) {
+            values[i++] = character;
             if (map.containsKey(character)) {
                 int lastValue = map.get(character) + 1;
                 map.put(character, lastValue);
@@ -96,7 +101,7 @@ public class HuffmanNodeService implements CodificationService{
         PriorityQueue<HuffmanNode> q
                 = new PriorityQueue<HuffmanNode>(n, new MyComparator());
 
-        for (int i = 0; i < n; i++) {
+        for (i = 0; i < n; i++) {
 
             // creating a Huffman node object
             // and add it to the priority queue.
@@ -151,8 +156,16 @@ public class HuffmanNodeService implements CodificationService{
             q.add(f);
         }
 
+        Map<Character, String> huffmanTree = new HashMap<Character, String>();
+
         // print the codes by traversing the tree
-        printCode(root, "");
+        printCode(root, "", huffmanTree);
+        Codification.setHuffmanTree(huffmanTree);
+
+        for (i = 0; i < values.length; i++) {
+            int key = values[i];
+            writer.write(huffmanTree.get((char)key));
+        }
     }
 
     @Override
