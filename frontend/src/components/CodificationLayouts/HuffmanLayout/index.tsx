@@ -30,22 +30,23 @@ export const HuffmanLayout = () => {
   useEffect(() => {
     async function getHaches() {
       const huffman = await huffmanHashes();
-      console.log(huffman);
-      /*if (huffman.huffmanCount) {
-        const huffmanCountArray = Object.entries(huffman.huffmanCount);
+      console.log(codewords)
+    
+      //if (huffman.huffmanCount) {
+        //const huffmanCountArray = Object.entries(huffman.huffmanCount);
 
-        setHuffmanCount(huffmanCountArray);
-        setOrderedHuffmanCount(orderHuffman(huffmanCountArray));
+        //setHuffmanCount(huffmanCountArray);
+        //setOrderedHuffmanCount(orderHuffman(huffmanCountArray));
 
         const tree = Object.entries(huffman.huffmanTree);
         tree.sort((a, b) => {
           const codewordA = a[1];
           const codewordB = b[1];
-          return codewordA.length > codewordB.length ? -1 : 1;
+          return codewordA.length > codewordB.length ? 1 : (codewordA < codewordB)?-1:1;
         });
         setHuffmanTree(tree);
-        console.log(treee);
-      }*/
+        console.log(tree);
+      //}
     }
     getHaches();
   }, []);
@@ -101,90 +102,63 @@ export const HuffmanLayout = () => {
     : <></>*/
   }
 
-  function insertDataLine(list, data) {
-    if (list.length <=1) {
-      return {
-        name: "Raiz",
-        textProps: { x: -25, y: 15 },
-        children: [
-          data,
-          {
-            name: `${list[0][1]} (${list[0][0]})`,
-            pathProps: {className: verifyPath(list[0][1], true)},
-            textProps: { x: -25, y: 15 },
-          },         
-        ],
-      };
-    } else {
-      return insertDataLine(list.slice(1),{
-        name: "",
-        textProps: { x: -25, y: 15 },
-        pathProps: {className: verifyPath([list[0][1]], false)},
-        children: [
-          data,
-          {
-            name: `${list[0][1]} (${list[0][0]})`,
-            pathProps: {className: verifyPath(list[0][1], true)},
-            textProps: { x: -25, y: 15 },
-          },
-        ],
-      });
-    }
-  }
-
-  function verifyPath(value, isLeaf){
+  function verifyPath(value){
    
     const lastCodeword = codewords[index-1];
-
-    if(lastCodeword && value){      
-      if(isLeaf){
-        return lastCodeword.codeword == value ?'write-path':'normal-path'
-      }else{
-        if(value.length==2){
-          const firstCondition = lastCodeword.codeword.startsWith(value[0]);
-          const secondCondition = lastCodeword.codeword.startsWith(value[1])
-          return firstCondition || secondCondition?'write-path':'normal-path'
-        }
-        return lastCodeword.codeword.startsWith(value[0])?'write-path':'normal-path'        
-      }      
+  
+    if(lastCodeword){     
+      return lastCodeword.codeword.startsWith(value) ?'write-path':'normal-path'
     }else{
       return ''
     }
-    
   }
 
   function extractData(list) {        
-    /*
-    if(list.length>2){
       const data = {
         name: "",
-        textProps: { x: -25, y: 15 },
-        pathProps: {className: verifyPath([list[0][1],list[1][1]], false)},
-        children: [
-          {
-            name: `${list[0][1]} (${list[0][0]})`,
-            pathProps: {className: verifyPath(list[0][1], true)},
-            textProps: { x: -25, y: 15 },
-          },
-          {
-            name: `${list[1][1]} (${list[1][0]})`,
-            pathProps: {className: verifyPath(list[1][1], true)},
-            textProps: { x: -25, y: 15 },
-          },
-        ],
+        children: []
       };
-    
-      return  insertDataLine(list.slice(2), data);
-    }else{
-      return {}
-    }*/
-  
+
+      for(let i =0; i<list.length;i++){
+        const treeCell = list[i];
+        const symbol = treeCell[0];
+        const codewordSimbol = treeCell[1];
+
+        let atualChildren= data.children;
+        for(let j =1; j <= codewordSimbol.length;j++){
+            const codewordLetter = codewordSimbol.substring(0,j);
+            if(atualChildren.length==0){
+              atualChildren.push({
+                pathProps: {className: verifyPath(codewordLetter)},
+                name: codewordLetter==codewordSimbol? codewordLetter+"["+symbol+"]":codewordLetter,
+                textProps: { x: -25, y: 15 },
+                children: []
+              })
+              atualChildren = atualChildren[0].children;
+            }else{
+              const existThisCodeword = atualChildren.filter(children => children.name==codewordLetter)
+              
+              if(existThisCodeword.length){
+                atualChildren = existThisCodeword[0].children;
+              }else{
+                atualChildren.push({
+                  pathProps: {className: verifyPath(codewordLetter)},
+                  name: codewordLetter==codewordSimbol? codewordLetter+"["+symbol+"]":codewordLetter,
+                  textProps: { x: -25, y: 15 },
+                  children: []
+                })
+                atualChildren = atualChildren[atualChildren.length-1].children;
+              }
+            }
+        }
+      }
+      return data;
   }
 
   return (
-    <Container>
-        {/*
+    <Container>       
       <div className="first-column">
+         {/*
         <div className="counters">
           
 
@@ -205,7 +179,7 @@ export const HuffmanLayout = () => {
           </Count>
         </div>
 
-
+         */}
         <TreeContainer>
           <Typografy.EMPHASYS text="Arvore" />
           <Tree
@@ -216,13 +190,12 @@ export const HuffmanLayout = () => {
             width={600}
           />
         </TreeContainer>
- 
       </div>
-       */
-}
+       
+
       <div className="second-column">
         <Typografy.EMPHASYS text="Codificacão" />
-        {/*renderCodewords()*/}
+        {renderCodewords()}
       </div>
     </Container>
   );

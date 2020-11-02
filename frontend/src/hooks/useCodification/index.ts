@@ -15,7 +15,6 @@ export async function nextStep(){
      console.log(response)
     if(!response.data.codeword){
         response = await api.get(`/auto/nextStep`);
-        console.log(response)
     }
     return response.data;
 }
@@ -27,7 +26,9 @@ export async function progress(){
 
 export async function huffmanHashes(){
     const response = await api.get(`/huffman/hashes`);
+    console.log("huffmanTree")
     console.log(response.data)
+    console.log("-huffmanTree")
     return response.data;
 }
 
