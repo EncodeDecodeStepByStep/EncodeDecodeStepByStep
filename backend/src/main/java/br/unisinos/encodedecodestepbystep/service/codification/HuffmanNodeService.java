@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 // node class is the basic structure
 // of each node present in the Huffman - tree.
@@ -45,8 +46,7 @@ public class HuffmanNodeService implements CodificationService{
         if (root.left
                 == null
                 && root.right
-                == null
-                && Character.isLetter(root.c)) {
+                == null) {
 
             // c is the character in the node
             huffmanTree.put(root.c, s);
@@ -83,6 +83,9 @@ public class HuffmanNodeService implements CodificationService{
                 map.put(character, 1);
             }
         }
+
+        Map<Integer, Integer> sortedMap = this.sortByValue(map, false);
+        Codification.setHuffmanSorted(sortedMap);
 
         int n = map.size();
         char[] charArray =  new char[n];
@@ -178,6 +181,20 @@ public class HuffmanNodeService implements CodificationService{
         String firstByte = "00111111"; //identificaçãoAlgoritmo
         String secondByte = "00000000"; // informação extra goloumb
         return firstByte + secondByte;
+    }
+
+    private Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap, final boolean order)
+    {
+        List<Map.Entry<Integer, Integer>> list = new LinkedList<>(unsortMap.entrySet());
+
+        // Sorting the list based on values
+        list.sort((o1, o2) -> order ? o1.getValue().compareTo(o2.getValue()) == 0
+                ? o1.getKey().compareTo(o2.getKey())
+                : o1.getValue().compareTo(o2.getValue()) : o2.getValue().compareTo(o1.getValue()) == 0
+                ? o2.getKey().compareTo(o1.getKey())
+                : o2.getValue().compareTo(o1.getValue()));
+        return list.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, LinkedHashMap::new));
+
     }
 }
 
