@@ -30,7 +30,8 @@ export const HuffmanLayout = () => {
   useEffect(() => {
     async function getHaches() {
       const huffman = await huffmanHashes();
-      if (huffman.huffmanCount) {
+      console.log(huffman);
+      /*if (huffman.huffmanCount) {
         const huffmanCountArray = Object.entries(huffman.huffmanCount);
 
         setHuffmanCount(huffmanCountArray);
@@ -43,7 +44,8 @@ export const HuffmanLayout = () => {
           return codewordA.length > codewordB.length ? -1 : 1;
         });
         setHuffmanTree(tree);
-      }
+        console.log(treee);
+      }*/
     }
     getHaches();
   }, []);
@@ -71,7 +73,7 @@ export const HuffmanLayout = () => {
   }
 
   function renderList(list, withCharCode) {
-
+/*
     function isSelected(value){
       const lastCodeword = codewords[index-1];
 
@@ -96,7 +98,7 @@ export const HuffmanLayout = () => {
           );
         })}
       </div>
-    : <></>
+    : <></>*/
   }
 
   function insertDataLine(list, data) {
@@ -152,6 +154,7 @@ export const HuffmanLayout = () => {
   }
 
   function extractData(list) {        
+    /*
     if(list.length>2){
       const data = {
         name: "",
@@ -174,14 +177,17 @@ export const HuffmanLayout = () => {
       return  insertDataLine(list.slice(2), data);
     }else{
       return {}
-    }
+    }*/
   
   }
 
   return (
     <Container>
+        {/*
       <div className="first-column">
         <div className="counters">
+          
+
           <Count>
             <Typografy.EMPHASYS text="Contagem" />
             {renderList(huffmanCount, true)}
@@ -199,6 +205,7 @@ export const HuffmanLayout = () => {
           </Count>
         </div>
 
+
         <TreeContainer>
           <Typografy.EMPHASYS text="Arvore" />
           <Tree
@@ -209,10 +216,13 @@ export const HuffmanLayout = () => {
             width={600}
           />
         </TreeContainer>
+ 
       </div>
+       */
+}
       <div className="second-column">
         <Typografy.EMPHASYS text="Codificacão" />
-        {renderCodewords()}
+        {/*renderCodewords()*/}
       </div>
     </Container>
   );

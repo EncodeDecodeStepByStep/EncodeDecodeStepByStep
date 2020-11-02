@@ -15,69 +15,58 @@ import java.util.stream.Collectors;
 @Service
 public class HuffmanService implements CodificationService {
 
-
     @Override
     public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         Codification.setCodificationName("Huffman Estático");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
-        int i =0;
-        int lengthChar = (int) reader.getFile().length();
-        int[] values = new int[ lengthChar];
 
-        Map<Integer, Integer> map = setUpCountMap(reader, values, i);
-        Map<Integer, Integer> sortedMap = this.sortByValue(map, false);
-        Codification.setHuffmanSorted(sortedMap);
-
-        Map<Character, String> huffmanTree = setUpHuffmanTree(sortedMap);
-
-        //writeTreeOnFile(writer, huffmanTree);
-        //encodeWithHuffmanTree(writer, huffmanTree, values, i);
-
-        writer.close();
-        reader.close();
-    }
-
-    private Map<Character, String> setUpHuffmanTree(Map<Integer, Integer> sortedMap){
-        Map<Character, String> huffmanTree = new HashMap<Character, String>();
-
-        System.out.println(sortedMap.toString());
-
-        for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
-
-        }
-        Codification.setHuffmanTree(huffmanTree);
-        return huffmanTree;
-    }
-
-    private Map<Integer, Integer> setUpCountMap(ReaderInterface reader, int[] values, int i )throws IOException {
-        int character = 0;
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Map<Character, Double> probabilityMap = new HashMap<Character, Double>();
+        int character = 0;
+        int i = 0;
+        long lengthChar = reader.getFile().length();
+        int[] values = new int[(int) lengthChar];
 
         while ((character = reader.read()) != -1) {
+            double probability = 0;
             values[i++] = character;
 
             if (map.containsKey(character)) {
                 int lastValue = map.get(character) + 1;
+                probability = lastValue / (double) lengthChar;
                 map.put(character, lastValue);
+                probabilityMap.put((char) character, probability);
             } else {
                 map.put(character, 1);
+                probability = 1 / (double) lengthChar;
+                probabilityMap.put((char) character, probability);
             }
         }
-        return map;
-    }
 
-    private void encodeWithHuffmanTree(WriterInterface writer, Map<Character, String> huffmanTree, int[] values, int i) throws IOException, WrongFormatExpection{
-        char newLineVariable = '\n';
-        String newLineVariableFinal = StringUtils.integerToStringBinary((int) newLineVariable, 8);
-        writer.writeWithoutRepository(newLineVariableFinal);
+        Map<Integer, Integer> sortedMap = this.sortByValue(map, false);
+        Codification.setHuffmanSorted(sortedMap);
 
-        for (i = 0; i < values.length; i++) {
-            int key = values[i];
-            writer.write(huffmanTree.get((char)key));
+        boolean newLine = false;
+        int lengthEncode = 0;
+        Map<Character, String> huffmanTree = new HashMap<Character, String>();
+        for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
+            int key = entry.getKey();
+
+            if (!newLine) {
+                huffmanTree.put((char) key, "0");
+                newLine = true;
+            } else {
+                if ((lengthEncode+1) == sortedMap.size()) {
+                    huffmanTree.put((char) key, StringUtils.createStreamWithOnes(lengthEncode));
+                } else {
+                    huffmanTree.put((char) key, StringUtils.createStreamWithOnes(lengthEncode) + "0");
+                }
+            }
+            lengthEncode++;
         }
-    }
 
-    private void writeTreeOnFile(WriterInterface writer, Map<Character, String> huffmanTree) throws IOException, WrongFormatExpection {
+        Codification.setHuffmanTree(huffmanTree);
+
         char doisPontos = ':';
         String doisPontosFinal = StringUtils.integerToStringBinary((int) doisPontos, 8);
         char virgula = ',';
@@ -94,9 +83,22 @@ public class HuffmanService implements CodificationService {
 
             writer.writeWithoutRepository(keyFinal + doisPontosFinal + valueFinal + virgulaFinal);
         }
+
+        char newLineVariable = '\n';
+        String newLineVariableFinal = StringUtils.integerToStringBinary((int) newLineVariable, 8);
+        writer.writeWithoutRepository(newLineVariableFinal);
+
+        for (i = 0; i < values.length; i++) {
+            int key = values[i];
+            writer.write(huffmanTree.get((char)key));
+        }
+
+        writer.close();
+        reader.close();
     }
 
-    private Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap, final boolean order) {
+    private Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap, final boolean order)
+    {
         List<Entry<Integer, Integer>> list = new LinkedList<>(unsortMap.entrySet());
 
         // Sorting the list based on values

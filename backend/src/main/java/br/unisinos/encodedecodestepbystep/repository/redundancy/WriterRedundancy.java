@@ -2,7 +2,7 @@ package br.unisinos.encodedecodestepbystep.repository.redundancy;
 
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
-import br.unisinos.encodedecodestepbystep.service.redundancy.HammingService;
+import br.unisinos.encodedecodestepbystep.service.codification.HammingService;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 import lombok.NoArgsConstructor;

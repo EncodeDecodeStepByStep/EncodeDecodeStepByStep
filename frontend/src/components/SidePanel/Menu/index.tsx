@@ -31,7 +31,6 @@ export const Menu = () => {
 
   const inputRef = useRef(null);
   const [theme,] = useTheme();
-  console.log(theme)
 
   const [, setOnProcessing] = useOnProcessing();
   const [, setOnFinishedCodification] = useFinishedCodification();

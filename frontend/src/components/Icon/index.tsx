@@ -4,10 +4,9 @@ import {FaUserAlt, FaArrowAltCircleRight} from 'react-icons/fa'
 import {MdArrowBack, MdArrowForward, MdClose} from 'react-icons/md'
 import {BsFillSkipEndFill, BsArrowDownShort} from 'react-icons/bs'
 import {CgShapeTriangle} from 'react-icons/cg'
-import { AiOutlineGoogle, AiFillLinkedin, AiFillGithub} from 'react-icons/ai'
+import { AiOutlineGoogle, AiFillLinkedin, AiFillGithub, AiFillMinusCircle, AiFillPlusCircle} from 'react-icons/ai'
 import {GiBowlSpiral, GiRadioactive} from 'react-icons/gi'
-import {RiStackshareLine, RiBubbleChartFill} from 'react-icons/ri'
-import { XOR } from './style';
+import {RiStackshareLine, RiBubbleChartFill, RiExchangeFill} from 'react-icons/ri'
 import {GoFileBinary} from 'react-icons/go'
 
 type IconProps = {
@@ -100,12 +99,6 @@ export class Icon{
         )
     }
 
-    static Crc8 = (props:IconProps)=>{
-        return (
-            <XOR className="custom-icon" color={props.color}>XOR</XOR>
-        )
-    } 
-
     static Down = (props:IconProps)=>{
         return (
             <BsArrowDownShort size={props.size} color={props.color}/>
@@ -121,6 +114,24 @@ export class Icon{
     static Github = (props:IconProps)=>{
         return (
             <AiFillGithub className="network-icon"  size={props.size} color={props.color}/>
+        )
+    }
+
+    static Plus = (props:IconProps)=>{
+        return (
+            <AiFillPlusCircle  className="custom-icon"  size={props.size} color={props.color}/>
+        )
+    }
+
+    static Minus = (props:IconProps)=>{
+        return (
+            <AiFillMinusCircle className="custom-icon"  size={props.size} color={props.color}/>
+        )
+    }
+
+    static Changed = (props:IconProps)=>{
+        return (
+            <RiExchangeFill className="custom-icon"  size={props.size} color={props.color}/>
         )
     }
     

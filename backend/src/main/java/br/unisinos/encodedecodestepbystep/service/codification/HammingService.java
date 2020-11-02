@@ -1,12 +1,21 @@
-package br.unisinos.encodedecodestepbystep.service.redundancy;
+package br.unisinos.encodedecodestepbystep.service.codification;
 
 
+import br.unisinos.encodedecodestepbystep.domain.Codification;
+import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
+import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
+import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
+import br.unisinos.encodedecodestepbystep.service.redundancy.CRCService;
 import br.unisinos.encodedecodestepbystep.utils.ErrorWriter;
+import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
+import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashMap;
 
-public class HammingService implements Redunduncy {
+@Service
+public class HammingService implements CodificationService {
 
     private static final int OUT_LENGTH = 7;
     private static final int IN_LENGTH = 4;
@@ -24,7 +33,6 @@ public class HammingService implements Redunduncy {
         }
     };
 
-    //    @Override
     public static String introduceRedunduncy(String bytes) throws WrongFormatExpection {
         if (bytes.length() != IN_LENGTH) {
             return bytes;
@@ -46,14 +54,6 @@ public class HammingService implements Redunduncy {
         return bytes + fifthBit + sixthBit + seventhBit;
     }
 
-    private static boolean verifyBits(char... args) {
-        for (char bit : args)
-            if (bit != '0' && bit != '1')
-                return true;
-        return false;
-    }
-
-    //    @Override
     public static String getValue(String bytes) throws WrongFormatExpection {
         if (bytes.length() != OUT_LENGTH) {
             return bytes;
@@ -106,4 +106,55 @@ public class HammingService implements Redunduncy {
         return value;
     }
 
+    private static boolean verifyBits(char... args) {
+        for (char bit : args)
+            if (bit != '0' && bit != '1')
+                return true;
+        return false;
+    }
+
+    @Override
+    public void encode(WriterInterface writer, ReaderInterface reader)throws IOException, WrongFormatExpection  {
+        Codification.setCodificationName("Hamming");
+        writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
+
+        int character = 0;
+
+        String word = "";
+        while (character != -1) {
+            if(word.length()<IN_LENGTH){
+                character = reader.read();
+                String newWord =  StringUtils.integerToStringBinary(character,8);
+                word+=newWord;
+            }
+            String wordFourBits = word.substring(0,IN_LENGTH);
+            word = word.substring(IN_LENGTH);
+            String codeword = introduceRedunduncy(wordFourBits);
+            System.out.println(codeword);
+            writer.write(codeword);
+
+        }
+        writer.write(word);
+
+        reader.close();
+        writer.close();
+    }
+
+
+    @Override
+    public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+
+    }
+
+    @Override
+    public String getBitsIdentificacaoAlgoritmo(WriterInterface writer) {
+        String firstByte = "00011111"; //identificaçãoAlgoritmo
+        String secondByte = "00000000"; // informação extra goloumb
+        if (writer instanceof WriterRedundancy) {
+            CRCService crcService = new CRCService();
+            String encodedCRC = crcService.calculateCRC8(firstByte, secondByte);
+            return firstByte + secondByte + encodedCRC;
+        }
+        return firstByte + secondByte;
+    }
 }

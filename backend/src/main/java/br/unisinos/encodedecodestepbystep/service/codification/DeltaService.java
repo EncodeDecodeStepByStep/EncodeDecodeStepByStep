@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class DeltaService implements CodificationService {
     private static final int QUANTITY_OF_DIGITS_SIZE = 5;
-    private static final int FIRST_BINARY_SIZE = 16;
+    private static final int FIRST_BINARY_SIZE = 8;
     private static final String CHANGED = "1";
     private static final String NO_CHANGES = "0";
     private static final char NEGATIVE = '1';

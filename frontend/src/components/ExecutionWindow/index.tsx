@@ -26,6 +26,7 @@ import {
   GoulombLayout,
   UnaryLayout,
   HuffmanLayout,
+  HammingLayout,
 } from "../CodificationLayouts";
 import { Icon } from "../Icon";
 import { progress, nextStep } from "../../hooks/useCodification";
@@ -114,7 +115,9 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
 
   async function next() {
     const codeword = await nextStep();
-    console.log(codeword);
+    if(!codeword.codeword){
+      return;
+    }
     if (codeword.characterBeforeEncode) {
       setCodewords([
         ...codewords,
@@ -126,7 +129,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
         new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode),
       ]);
     }
-    if (index < length - 1) {
+    if (index < length) {
       setIndex(index + 1);
     }
   }
@@ -166,6 +169,8 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
         return <DeltaLayout />;
       case CodificationMethod.HUFFMAN:
         return <HuffmanLayout />;
+      case CodificationMethod.HAMMING:
+        return <HammingLayout />;
     }
   }
 
@@ -203,7 +208,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
         </OnProcessing>
       )}
 
-      {!props.onError && onFinishedCodification && (
+      {!props.onError && onFinishedCodification && codificationMethod && (
         <Steps>
           <StepsCanva>
             <header>
@@ -212,7 +217,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
                 text={`Decodificando ${codificationMethod.name}`}
               />
               <span className="counter">
-                {index}/{length - 1}
+                {index}/{length}
               </span>
             </header>
             <ScroolingList
@@ -233,7 +238,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
               Retroceder
             </Button.PRIMARY>
             <Button.PRIMARY
-              disabled={index === length - 1}
+              disabled={index >= length}
               icon={<Icon.Next size={18} color="#fff" />}
               onClick={next}
             >

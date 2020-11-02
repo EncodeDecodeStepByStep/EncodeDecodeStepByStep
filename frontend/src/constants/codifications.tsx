@@ -36,11 +36,6 @@ export default [
         CodificationMethod.HAMMING,
         <Icon.Hamming size={40} color="#333" />
     ), new Codification(
-        "Crc-8",
-        "crc",
-        CodificationMethod.CRC_8,
-        <Icon.Crc8 size={40} color="#333" />
-    ), new Codification(
         "Huffman",
         "huffman",
         CodificationMethod.HUFFMAN,
