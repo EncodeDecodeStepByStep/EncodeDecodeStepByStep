@@ -1,5 +1,5 @@
 import React from "react";
-import {useIndex, useCodewords} from '../../../context'
+import {useIndex, useCodewords, useTheme} from '../../../context'
 import { Typografy } from "../../Typografy";
 import { Container} from './style';
 
@@ -7,6 +7,7 @@ export const Text = () => {
 
   const [index,] = useIndex();
   const [codewords,] = useCodewords();
+  const [theme] = useTheme()
 
 
   function renderText(){
@@ -21,7 +22,7 @@ export const Text = () => {
     }    
   }
   return (
-    <Container>
+    <Container isDark={theme}>
       <Typografy.SUBTITLE className="text-title" text="Texto"/>
       {renderText()}
     </Container>

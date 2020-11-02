@@ -9,6 +9,7 @@ type ButtonProps = {
     icon?: Icon,
     isSelected?:boolean;
     disabled?:boolean;
+    isDark?:boolean;
 }
 
 function handleClick(e:any, disabled:boolean, onClick:Function){
@@ -19,11 +20,9 @@ function handleClick(e:any, disabled:boolean, onClick:Function){
 
 export class Button{
 
-   
-
   static PRIMARY  = (props:ButtonProps) =>(
     
-      <Primary onClick={(e)=>handleClick(e, props.disabled, props.onClick)} isSelected={props.isSelected} disabled={props.disabled}>
+      <Primary isDark={props.isDark} onClick={(e)=>handleClick(e, props.disabled, props.onClick)} isSelected={props.isSelected} disabled={props.disabled}>
           {props.icon}
           {props.children}
       </Primary>

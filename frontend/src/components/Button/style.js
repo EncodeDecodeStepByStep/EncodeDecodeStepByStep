@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { GRAY, PRIMARY } from '../../constants/colors';
+import { GRAY, LIGHT_GRAY, PRIMARY } from '../../constants/colors';
 
 
 const Button = styled.button`
@@ -27,7 +27,7 @@ const Button = styled.button`
 `
 
 export const Primary = styled(Button)`
-    background-color:${props => props.isSelected? PRIMARY:GRAY };
+    background-color:${props => props.isSelected? PRIMARY: props.isDark?GRAY:LIGHT_GRAY };
     
 `
 

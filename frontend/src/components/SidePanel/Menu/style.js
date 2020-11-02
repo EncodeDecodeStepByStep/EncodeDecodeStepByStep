@@ -1,9 +1,8 @@
-import styled,{css} from "styled-components";
-import { LIGHT_GRAY, PRIMARY } from "../../../constants/colors";
+import styled from "styled-components";
+import { GRAY, PRIMARY, BLUE_GRAY, BLUEISH, WHITE, LIGHT_GRAY } from "../../../constants/colors";
 
 export const Container = styled.div`
-  background-color: rgb(44, 49, 68);
-
+  background-color: ${props => props.isDark ? BLUE_GRAY: WHITE};
   border-radius: 10px;
   padding: 16px;
   display: flex;
@@ -13,6 +12,7 @@ export const Container = styled.div`
 `;
 
 export const FormRow = styled.div`
+ 
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
@@ -20,9 +20,9 @@ export const FormRow = styled.div`
 `;
 
 export const FormRowHeader = styled.header`
+  color:${props => props.isDark ? 'white': 'black'};
   display: flex;
   justify-content: space-space-between;
-  color: white;
   align-items: center;
   margin-bottom:15px;
 
@@ -42,7 +42,8 @@ export const FormRowHeader = styled.header`
 `;
 
 export const InputRow = styled.div`
-  background-color: rgb(39, 44, 60);
+  background-color:${props => props.isDark ? GRAY: LIGHT_GRAY};
+  
   padding: 10px 15px;
   border-radius: 5px;
   display: flex;
@@ -93,12 +94,16 @@ export const Card = styled.div`
   .card-image {
     border-radius: 10px;
     background-color: ${(props) =>
-      props.isSelected ? PRIMARY : "rgb(93,103,134)"};
+      props.isSelected ? PRIMARY : props.isDark?BLUEISH:LIGHT_GRAY};
     width: 60px;
     height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    svg{
+      color: ${props=>!props.isDark && 'white !important'}
+    }
 
     &:hover {
       opacity: 0.8;
@@ -106,7 +111,7 @@ export const Card = styled.div`
   }
 
   .card-name {
-    color: rgb(93, 103, 134);
+    color: ${BLUEISH};
     font-size: 0.8rem;
     text-align: center;
     margin: 10px 0 5px 0;

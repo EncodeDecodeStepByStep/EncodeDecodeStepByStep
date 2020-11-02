@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PRIMARY } from "../../../constants/colors";
 import { Icon } from "../../Icon";
 import { GoulombCodewordRow, Header, Explanation } from "./styles";
-import { useCodewords, useIndex, useGoulombDivisor } from "../../../context";
+import { useCodewords, useIndex, useGoulombDivisor, useTheme } from "../../../context";
 import { Codeword } from "../../../models/codeword";
 
 export const GoulombLayout = () => {
@@ -11,6 +11,7 @@ export const GoulombLayout = () => {
   const [goulombDivisor] = useGoulombDivisor();
 
   const [stopBitPosition, setStopBitPosition] = useState(-1);
+  const [theme] = useTheme();
 
   useEffect(() => {
     if (stopBitPosition == -1 && codewords.length) {
@@ -35,7 +36,7 @@ export const GoulombLayout = () => {
     const finalResult = integerPart + binaryRest;
 
     return (
-      <Explanation>
+      <Explanation isDark={theme}>
         <div className="first-line">
           <span className="prefix">
             <strong>{quantityOfZeros}</strong>
@@ -81,7 +82,7 @@ export const GoulombLayout = () => {
 
   function renderCodeword(codeword: Codeword, index: number) {
     return (
-      <GoulombCodewordRow key={index}>
+      <GoulombCodewordRow isDark={theme} key={index}>
         {renderCodewordSplitted(codeword.codeword)}
         {renderExplanation(codeword)}
       </GoulombCodewordRow>
@@ -101,7 +102,7 @@ export const GoulombLayout = () => {
 
   return (
     <>
-      <Header>
+      <Header isDark={theme}>
         <span className="unaryPart">Prefixo</span>
         <span className="stopbit">Stop Bit</span>
         <span className="rest">Sufixo</span>

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { DARKEST, PRIMARY } from '../../../constants/colors'
+import { BLUEISH, DARKEST, LIGHTEST_GRAY, LIGHT_GRAY, PRIMARY } from '../../../constants/colors'
 
 export const Header = styled.header`
     display:flex;
@@ -11,11 +11,11 @@ export const Header = styled.header`
     }
 
     .stopbit{
-        color:${PRIMARY};
+        color:${props=> props.isDark?PRIMARY:'black'};
     }   
 
     .rest, .unaryPart{
-        color:white;
+        color:${props=> props.isDark?'white':'black'};
     }
 `
 
@@ -33,12 +33,12 @@ export const Explanation = styled.div`
         align-items: center;
 
         strong {
-            color: ${PRIMARY};
+            color:${props=> props.isDark?PRIMARY:'black'};
             font-size: 0.9rem;
         }
 
         span {
-            color:white;
+            color:${props=> props.isDark?'white':'black'};
             font-size: 0.8rem;
             font-style: italic;
         }
@@ -60,14 +60,14 @@ export const Explanation = styled.div`
         justify-content: center;
         .ascii{
             font-weight: bold;
-            color: aliceblue;
+            color:${props=> props.isDark?'aliceblue':'black'};
             margin-right: 20px;
         }
 
         .codevalue{
             margin-left:10px;
             font-weight: bold;
-            color: ${PRIMARY};
+            color:${props=> props.isDark?PRIMARY:'black'};
         }
     }        
 `
@@ -78,7 +78,7 @@ export const GoulombCodewordRow = styled.div`
     max-width: 100%;
     align-items:center;
     padding:10px;
-    background-color: ${DARKEST};
+    background-color:${props=> props.isDark?DARKEST:LIGHTEST_GRAY};
     border-radius: 10px;
     margin: 10px;
 
@@ -91,12 +91,12 @@ export const GoulombCodewordRow = styled.div`
             margin: 0 4px;
             border-radius: 4px;
             padding: 6px;
-            background-color: rgb(93,103,134);
+            background-color:${props=> props.isDark?BLUEISH:LIGHT_GRAY};
         }
 
         .stopbit{
             font-size:1.2rem;
-            color:${PRIMARY};
+            color:${props=> props.isDark?PRIMARY:'black'};
             font-weight:bold;
         }     
     }

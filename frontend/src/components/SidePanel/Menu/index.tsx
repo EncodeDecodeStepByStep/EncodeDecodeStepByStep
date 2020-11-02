@@ -93,12 +93,13 @@ export const Menu = () => {
   function renderEncodingDecoding() {
     return (
       <FormRow>
-        <FormRowHeader>
+        <FormRowHeader isDark={theme}>
           <span className="form-index">1</span>
           <Typografy.EMPHASYS text="Modo" />
         </FormRowHeader>
         <ButtonsRow>
           <Button.PRIMARY
+            isDark={theme}
             isSelected={codingDecoding === EncodingDecoding.ENCODING}
             onClick={() => {
               handleCodificationMode(EncodingDecoding.ENCODING);
@@ -106,6 +107,7 @@ export const Menu = () => {
             Codificar
           </Button.PRIMARY>
           <Button.PRIMARY
+          isDark={theme}
             isSelected={codingDecoding === EncodingDecoding.DECODING}
             onClick={() => {
               handleCodificationMode(EncodingDecoding.DECODING);
@@ -121,7 +123,7 @@ export const Menu = () => {
     if (codingDecoding === EncodingDecoding.ENCODING) {
       return (
         <FormRow>
-          <FormRowHeader>
+          <FormRowHeader isDark={theme}>
             <span className="form-index">2</span>
             <Typografy.EMPHASYS text="Selecione a codificação" />
           </FormRowHeader>
@@ -129,6 +131,7 @@ export const Menu = () => {
             {codifications.map((codification, index) => {
               return (
                 <Card
+                  isDark={theme}
                   key={index}
                   onClick={() => handleCodificationMethod(codification)}
                   isSelected={codificationMethod.codificationType === codification.codificationType}
@@ -148,11 +151,11 @@ export const Menu = () => {
     if (codificationMethod.codificationType === CodificationMethod.GOULOMB) {
       return (
         <FormRow>
-          <FormRowHeader>
+          <FormRowHeader isDark={theme}>
             <span className="form-index">3</span>
             <Typografy.EMPHASYS text="Selecione o divisor Goulomb" />
           </FormRowHeader>
-          <InputRow>
+          <InputRow isDark={theme}>
             <input type="number" value={goulombDivisor} onChange={(e) => {
               changeGoulombDividor(parseInt(e.target.value))
             }} />
@@ -165,11 +168,11 @@ export const Menu = () => {
   function renderInputFile() {
     return (
       <FormRow>
-        <FormRowHeader>
+        <FormRowHeader isDark={theme}>
           <span className="form-index">{getIndexOfFileRow()}</span>
           <Typografy.EMPHASYS text="Selecione o arquivo" />
         </FormRowHeader>
-        <InputRow>
+        <InputRow isDark={theme}>
           <input
             ref={inputRef}
             type="file"
@@ -185,7 +188,7 @@ export const Menu = () => {
   function renderInitButton() {
     return (
       <FormRow>
-        <FormRowHeader theme={theme}>
+        <FormRowHeader isDark={theme}>
           <span className="form-index">{getIndexOfFileRow() + 1}</span>
           <Typografy.EMPHASYS text="Faça a codificação" />
         </FormRowHeader>
@@ -199,7 +202,7 @@ export const Menu = () => {
   }
 
   return (
-    <Container theme={theme}>
+    <Container isDark={theme}>
       {renderEncodingDecoding()}
       {renderCodificationMethod()}
       {renderGoulombOptions()}

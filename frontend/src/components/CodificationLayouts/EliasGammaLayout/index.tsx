@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PRIMARY } from "../../../constants/colors";
 import { Icon } from "../../Icon";
 import { ElliasCodewordRow, Header, Explanation } from "./styles";
-import { useCodewords, useIndex } from "../../../context";
+import { useCodewords, useIndex, useTheme } from "../../../context";
 import { Codeword } from "../../../models/codeword";
 
 export const EliasGammaLayout = () => {
@@ -10,6 +10,7 @@ export const EliasGammaLayout = () => {
     const [index, ] = useIndex();
 
     const [stopBitPosition, setStopBitPosition] = useState(-1);
+    const [theme] = useTheme();
 
     useEffect(() => {
         if (stopBitPosition == -1 && codewords.length) {
@@ -33,7 +34,7 @@ export const EliasGammaLayout = () => {
         const finalResult = integerPart + binaryRest;
 
         return (
-            <Explanation>
+            <Explanation isDark={theme}>
                 <div className="first-line">
                     <span className="prefix">
                         <strong>
@@ -91,7 +92,7 @@ export const EliasGammaLayout = () => {
     function renderCodeword(codeword: Codeword) {
         
             return (
-                <ElliasCodewordRow>
+                <ElliasCodewordRow isDark={theme}>
                     {renderCodewordSplitted(codeword.codeword)}
                     {renderExplanation(codeword)}
                 </ElliasCodewordRow>
@@ -112,7 +113,7 @@ export const EliasGammaLayout = () => {
     };
 
     return <>
-        <Header>
+        <Header isDark={theme}>
             <span className="unaryPart">Prefixo</span>
             <span className="stopbit">Stop Bit</span>
             <span className="rest">Sufixo</span>

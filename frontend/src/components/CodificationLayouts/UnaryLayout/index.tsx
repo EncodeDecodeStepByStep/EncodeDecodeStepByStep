@@ -2,17 +2,18 @@ import React from "react";
 import { PRIMARY } from "../../../constants/colors";
 import { Icon } from "../../Icon";
 import { UnaryCodewordRow } from "./styles";
-import { useCodewords, useIndex } from "../../../context";
+import { useCodewords, useIndex, useTheme } from "../../../context";
 import { Codeword } from "../../../models/codeword";
 
 export const UnaryLayout = () => {
   const [index, ] = useIndex();
   const [codewords,] = useCodewords();
+  const [theme] = useTheme();
 
   function renderCodeword(codeword: Codeword) {
     if (codeword) {
       return (
-        <UnaryCodewordRow>
+        <UnaryCodewordRow isDark={theme}>
           <span className="codeword">{codeword.codeword}</span>
           <div>
             <span className="ascii">ASCII</span>

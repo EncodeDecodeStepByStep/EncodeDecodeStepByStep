@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DARKEST, PRIMARY } from "../../../constants/colors";
+import { BLUEISH, DARKEST, LIGHTEST_GRAY, LIGHT_GRAY, PRIMARY } from "../../../constants/colors";
 
 export const FibonacciCodewordRow = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const FibonacciCodewordRow = styled.div`
 
   .fibonacci-arrangment {
     display: flex;
-    background-color: ${DARKEST};
+    background-color:${props=> props.isDark?DARKEST:LIGHTEST_GRAY};
     padding: 20px 10px 10px 10px;
     border-radius: 10px;
     margin: 10px 0;
@@ -21,7 +21,7 @@ export const FibonacciCodewordRow = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: rgb(93, 103, 134);
+      background-color:${props=> props.isDark?BLUEISH:LIGHT_GRAY};
       border-radius: 8px;
       padding: 5px 10px;
       margin: 0 5px;
@@ -38,19 +38,17 @@ export const FibonacciCodewordRow = styled.div`
         background-color: ${PRIMARY};
         color: black;
       }
-
-      .stop-bit {
-      }
     }
 
     .second-row {
       display: flex;
       justify-content: center;
       margin: 10px;
-      color:white;
+      color:${props=> props.isDark?'white':'black'};
+
       .count strong {
         font-weight: bold;
-        color: ${PRIMARY};
+        color:${props=> props.isDark?PRIMARY:'black'};
       }
     }
   }
@@ -73,19 +71,19 @@ export const FibonacciCodewordRow = styled.div`
 
   .ascii {
     font-weight: bold;
-    color: aliceblue;
+    color:${props=> props.isDark?'white':'black'};
     margin-right: 5px;
   }
 
   .code {
     font-weight: bold;
-    color: rgb(73, 210, 128);
+    color:${props=> props.isDark?PRIMARY:'black'};
     margin-right: 10px;
   }
 
   .codevalue {
     margin-left: 10px;
     font-weight: bold;
-    color: rgb(73, 210, 128);
+    color:${props=> props.isDark?PRIMARY:'black'};
   }
 `;

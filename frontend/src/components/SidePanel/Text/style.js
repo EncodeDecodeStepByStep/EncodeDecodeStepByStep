@@ -1,16 +1,14 @@
 import styled from 'styled-components'
-import { PRIMARY } from '../../../constants/colors'
+import { BLUE_GRAY, PRIMARY, WHITE } from '../../../constants/colors'
 
 export const Container = styled.div`
-    background-color: rgb(44, 49, 68);
+    background-color: ${props=>props.isDark?BLUE_GRAY:WHITE};
     border-radius: 10px;
     padding: 16px;
     display: flex;
     flex-direction: column;
     width: 30%;
     overflow-y: auto;
-
-  
 
     .text-title{
         color:${PRIMARY};
@@ -20,6 +18,7 @@ export const Container = styled.div`
     p{
         margin-top: 10px;
         text-align: center;
-        color:white;
+        background-color:transparent;
+        color: ${props=>props.isDark?'white':'dark'};
     }
 `

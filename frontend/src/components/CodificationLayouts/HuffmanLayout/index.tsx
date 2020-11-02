@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { PRIMARY } from "../../../constants/colors";
 import { Icon } from "../../Icon";
 import { HuffmanCodewordRow, Count, TreeContainer, Container } from "./styles";
-import { useCodewords, useIndex } from "../../../context";
+import { useCodewords, useIndex, useTheme } from "../../../context";
 import { Codeword } from "../../../models/codeword";
 import { huffmanHashes } from "../../../hooks";
 import { Typografy } from "../../Typografy";
@@ -16,6 +16,7 @@ export const HuffmanLayout = () => {
   const [huffmanCount, setHuffmanCount] = useState([]);
   const [huffmanTree, setHuffmanTree] = useState([]);
   const [orderedHuffmanCount, setOrderedHuffmanCount] = useState([]);
+  const [theme] = useTheme();
 
   function orderHuffman(huffmanCount) {
     const copyArray = huffmanCount.slice(0);
@@ -53,7 +54,7 @@ export const HuffmanLayout = () => {
 
   function renderCodeword(codeword: Codeword, index: number) {
     return (
-      <HuffmanCodewordRow key={index}>
+      <HuffmanCodewordRow isDark={theme} key={index}>
           <span className="codeword">{codeword.codeword}</span>
           <Icon.TransformTo size={15} color={PRIMARY} />
           <span className="codevalue">{codeword.value}</span>
@@ -156,23 +157,23 @@ export const HuffmanLayout = () => {
   }
 
   return (
-    <Container>       
+    <Container isDark={theme}>       
       <div className="first-column">
          {/*
         <div className="counters">
           
 
-          <Count>
+          <Count isDark={theme}>
             <Typografy.EMPHASYS text="Contagem" />
             {renderList(huffmanCount, true)}
           </Count>
 
-          <Count>
+          <Count isDark={theme}>
             <Typografy.EMPHASYS text="Contagem Ordenada" />
             {renderList(orderedHuffmanCount, true)}
           </Count>
 
-          <Count>
+          <Count isDark={theme}>
             <Typografy.EMPHASYS text="Codewords" />
             
             {renderList(huffmanTree.slice(0).reverse(), false)}
@@ -180,7 +181,7 @@ export const HuffmanLayout = () => {
         </div>
 
          */}
-        <TreeContainer>
+        <TreeContainer isDark={theme}>
           <Typografy.EMPHASYS text="Arvore" />
           <Tree
             data={extractData(huffmanTree)}

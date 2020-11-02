@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
-import { PRIMARY } from "../../constants/colors";
+import { BLUE_GRAY, PRIMARY, WHITE } from "../../constants/colors";
 
 export const Container = styled.div`
-  background-color: rgb(44, 49, 68);
+  background-color: ${(props) => (props.isDark ? BLUE_GRAY : WHITE)};
   margin-left: 20px;
   border-radius: 10px;
   padding: 16px;
@@ -26,7 +26,7 @@ export const OnError = styled.div`
   }
 
   p {
-    color: white;
+    color: ${(props) => (props.isDark ? "white" : "black")};
   }
 `;
 
@@ -41,7 +41,7 @@ export const OnProcessing = styled.section`
   }
 
   h2 {
-    color: rgb(73, 210, 128);
+    color: ${PRIMARY};
     margin-bottom: 20px;
   }
 
@@ -57,22 +57,20 @@ export const OnProcessing = styled.section`
   .percentage-value {
     margin-top: 10px;
     display: flex;
-    align-items:center;
+    align-items: center;
 
     span {
-      color: rgb(73, 210, 128);
+      color: ${PRIMARY};
       font-weight: bold;
       margin-right: 10px;
     }
-
-    
   }
 
   p {
-      color: white;
-      font-weight: bold;
-      margin: 15px 0;
-    }
+    color: ${(props) => (props.isDark ? "white" : "black")};
+    font-weight: bold;
+    margin: 15px 0;
+  }
 `;
 
 export const Steps = styled.section`
@@ -107,7 +105,7 @@ export const StepsCanva = styled.div`
     }
 
     .codification-title {
-      color: white;
+      color: ${(props) => (props.isDark ? "white" : "black")};
     }
   }
 `;

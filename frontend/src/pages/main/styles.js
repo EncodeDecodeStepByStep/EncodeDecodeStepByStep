@@ -1,5 +1,5 @@
 import styled from 'styled-components' 
-import { GRAY } from '../../constants/colors'
+import { GRAY , LIGHTEST_GRAY} from '../../constants/colors'
 
 export const Container = styled.div`
     height: 100vh;
@@ -13,6 +13,7 @@ export const MainProgram = styled.main`
     max-height:calc(100vh - 80px);
     display:flex;
     background-color:${GRAY};
+    background-color: ${props => props.isDark ? GRAY: LIGHTEST_GRAY};
     padding:20px;
 `
 

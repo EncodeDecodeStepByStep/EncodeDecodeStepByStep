@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { GRAY, PRIMARY, DARKEST } from '../../../constants/colors'
+import { GRAY, PRIMARY, DARKEST, BLUEISH, LIGHT_GRAY, LIGHTEST_GRAY } from '../../../constants/colors'
 
 export const Count = styled.div`
     color:white;
-    background-color:${DARKEST};
+    background-color:${props=> props.isDark?DARKEST:LIGHTEST_GRAY};
     padding:10px;
     border-radius:10px;
     animation:surgir 1s forwards ease-in-out;
@@ -20,14 +20,14 @@ export const Count = styled.div`
     }
     
     .selected-row{
-        background-color:${GRAY};
+        background-color:${props=> props.isDark?GRAY:LIGHT_GRAY};
         border-radius:5px;
     }
 `
 
 export const TreeContainer = styled.div`
     animation:surgir 1s forwards ease-in-out;
-    background-color:${DARKEST};
+    background-color:${props=> props.isDark?DARKEST:LIGHTEST_GRAY};
     padding:10px;
     border-radius:10px;
     margin:8px;
@@ -36,13 +36,6 @@ export const TreeContainer = styled.div`
         fill: transparent;
         stroke:black;
 	    stroke-width: 1px;
-    }
-
-
-    .red-path{
-        fill: transparent;
-        stroke:red;
-	    stroke-width: 3px;
     }
 
     .write-path{
@@ -60,7 +53,7 @@ export const TreeContainer = styled.div`
         font-size: 11px;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         background-color: black;
-        fill: white;
+        fill: ${props=> props.isDark?'white':'black'};
     }
 
 `
@@ -69,7 +62,7 @@ export const Container = styled.div`
     display:flex;
 
     h3{
-        color:white;
+        color:${props=> props.isDark?'white':'black'};
         text-align:center;
         margin-bottom:10px;
     }
@@ -97,7 +90,7 @@ export const Container = styled.div`
         max-height: calc(100vh - 250px);
         margin-left: 8px;
         border-radius: 10px;
-        background-color: #1b202c;
+        background-color:${props=> props.isDark?DARKEST:LIGHTEST_GRAY};
         flex: 1;
     }
 `
@@ -113,7 +106,7 @@ export const HuffmanCodewordRow = styled.div`
 
     .codeword{
         font-size: 0.9rem;
-        background-color: rgb(93,103,134);
+        background-color:${props=> props.isDark?BLUEISH:LIGHT_GRAY};
         padding: 6px;
         border-radius: 4px;
         margin-right: 10px;
@@ -122,6 +115,6 @@ export const HuffmanCodewordRow = styled.div`
     .codevalue{
         margin-left:10px;
         font-weight: bold;
-        color: rgb(73,210,128);
+        color:${props=> props.isDark?PRIMARY:'black'};
     }
 ` 

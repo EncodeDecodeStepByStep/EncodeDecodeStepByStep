@@ -2,12 +2,13 @@ import React from "react";
 import { GRAY, PRIMARY } from "../../../constants/colors";
 import { Icon } from "../../Icon";
 import { FibonacciCodewordRow } from "./styles";
-import { useCodewords, useIndex } from "../../../context";
+import { useCodewords, useIndex, useTheme } from "../../../context";
 import { Codeword } from "../../../models/codeword";
 
 export const FibonacciLayout = () => {
   const [index] = useIndex();
   const [codewords] = useCodewords();
+  const [theme] = useTheme();
 
   function generateFibonacciSequence(quantity: number) {
     let fib = Array<number>();
@@ -105,7 +106,7 @@ export const FibonacciLayout = () => {
   function renderCodeword(codeword: Codeword) {
     if (codeword) {
       return (
-        <FibonacciCodewordRow>
+        <FibonacciCodewordRow isDark={theme}>
           {fibonacciArrangement(codeword)}
         </FibonacciCodewordRow>
       );

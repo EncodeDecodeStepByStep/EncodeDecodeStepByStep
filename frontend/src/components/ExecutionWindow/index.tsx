@@ -15,6 +15,7 @@ import {
   useCodificationMethod,
   useCodewords,
   useIndex,
+  useTheme,
 } from "../../context";
 import { Typografy, Button } from "../index";
 
@@ -55,6 +56,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   const [index, setIndex] = useIndex();
   const [length, setLength] = useState(0);
   const [messageIndex, setMessageIndex] = useState(0);
+  const [theme] = useTheme();
 
   let messageInterval, interval;
 
@@ -175,7 +177,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   }
 
   return (
-    <Container>
+    <Container isDark={theme}>
       {props.onError && (
         <OnError>
           <img alt="error" src={ErrorGif} />
@@ -231,6 +233,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
           </StepsCanva>
           <Buttons>
             <Button.PRIMARY
+              isDark={theme}
               disabled={index === 1}
               icon={<Icon.Back size={18} color="#fff" />}
               onClick={back}
@@ -238,6 +241,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
               Retroceder
             </Button.PRIMARY>
             <Button.PRIMARY
+              isDark={theme}
               disabled={index >= length}
               icon={<Icon.Next size={18} color="#fff" />}
               onClick={next}
@@ -245,6 +249,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
               Avançar
             </Button.PRIMARY>
             <Button.PRIMARY
+              isDark={theme}
               icon={<Icon.Close size={18} color="#fff" />}
               onClick={finish}
             >

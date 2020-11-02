@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { BLUEISH, LIGHTEST_GRAY, PRIMARY } from '../../../constants/colors'
 
 export const UnaryCodewordRow = styled.div`
     display: flex;
@@ -9,7 +10,7 @@ export const UnaryCodewordRow = styled.div`
 
     .codeword{
         font-size: 0.9rem;
-        background-color: rgb(93,103,134);
+        background-color:${props=> props.isDark?BLUEISH:LIGHTEST_GRAY};
         padding: 6px;
         border-radius: 4px;
         overflow-x: auto;
@@ -24,20 +25,20 @@ export const UnaryCodewordRow = styled.div`
 
         .ascii{
             font-weight: bold;
-            color: aliceblue;
+            color:${props=> props.isDark?'aliceblue':'black'};
             margin-right: 20px;
         }
 
         .code{
             font-weight: bold;
-            color: rgb(73,210,128);
+            color:${props=> props.isDark?PRIMARY:'black'};
             margin-right:10px;
         }
 
         .codevalue{
             margin-left:10px;
             font-weight: bold;
-            color: rgb(73,210,128);
+            color:${props=> props.isDark?PRIMARY:'black'};
         }
     }
 ` 
