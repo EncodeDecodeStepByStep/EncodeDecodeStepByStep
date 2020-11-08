@@ -5,7 +5,7 @@ import { HashRouter } from "react-router-dom";
 import { Routes } from "./routes/routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "react-toggle/style.css"
+import "react-toggle/style.css";
 
 import * as serviceWorker from "./serviceWorker";
 import {
@@ -16,28 +16,30 @@ import {
   IndexProvider,
   GoulombDivisorProvider,
   ThemeProvider,
+  CodingDecodingProvider,
 } from "./context";
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider>
-    <FinishedCodificationProvider>
-      <CodificationMethodProvider>
-        <ProcessingProvider>
-          <CodewordsProvider>
-            <IndexProvider>
-              <GoulombDivisorProvider>
-                
-                  <HashRouter>
-                    <Routes />
-                    <ToastContainer />
-                  </HashRouter>
-              </GoulombDivisorProvider>
-            </IndexProvider>
-          </CodewordsProvider>
-        </ProcessingProvider>
-      </CodificationMethodProvider>
-    </FinishedCodificationProvider>
+      <FinishedCodificationProvider>
+        <CodificationMethodProvider>
+          <ProcessingProvider>
+            <CodewordsProvider>
+              <IndexProvider>
+                <GoulombDivisorProvider>
+                  <CodingDecodingProvider>
+                    <HashRouter>
+                      <Routes />
+                      <ToastContainer />
+                    </HashRouter>
+                  </CodingDecodingProvider>
+                </GoulombDivisorProvider>
+              </IndexProvider>
+            </CodewordsProvider>
+          </ProcessingProvider>
+        </CodificationMethodProvider>
+      </FinishedCodificationProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")

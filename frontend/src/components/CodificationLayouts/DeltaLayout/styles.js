@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { GRAY, DARKEST, PRIMARY, BLUE_GRAY, LIGHTEST_GRAY, LIGHT_GRAY } from '../../../constants/colors'
+import { GRAY, PRIMARY, BLUE_GRAY, LIGHTEST_GRAY, LIGHT_GRAY } from '../../../constants/colors'
 
 
 export const CodewordCount = styled.div`

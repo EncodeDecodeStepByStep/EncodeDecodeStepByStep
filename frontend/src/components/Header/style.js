@@ -1,4 +1,4 @@
-import styled,{css} from "styled-components";
+import styled from "styled-components";
 import { DARKEST, GRAY, LIGHT_GRAY, PRIMARY } from "../../constants/colors";
 
 export const Container = styled.header`

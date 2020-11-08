@@ -40,5 +40,9 @@ export const UnaryCodewordRow = styled.div`
             font-weight: bold;
             color:${props=> props.isDark?PRIMARY:'black'};
         }
+
+        .icon-container{
+            margin: 0 10px;
+        }
     }
 ` 

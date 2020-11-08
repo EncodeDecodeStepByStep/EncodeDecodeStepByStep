@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useModal } from "../../hooks";
 import { Icon, Modal } from "../index";
 import { Container, ModalContent } from "./style";
@@ -26,13 +26,18 @@ export const Header = () => {
               <div className="devname">Bruno Camboim</div>
               <div className="social-media">
                 <a
+                  rel="noopener noreferrer"
                   target="_blank"
                   href="https://www.linkedin.com/in/bruno-camboim3b6/"
                 >
                   <Icon.Linkedin size={24} color="black" />
                 </a>
 
-                <a target="_blank" href="https://github.com/brunocamboim">
+                <a
+                  target="_blank"
+                  href="https://github.com/brunocamboim"
+                  rel="noopener noreferrer"
+                >
                   <Icon.Github size={24} color="black" />
                 </a>
               </div>
@@ -41,13 +46,18 @@ export const Header = () => {
               <div className="devname">Bruno Pagliarini Pozzebon</div>
               <div className="social-media">
                 <a
+                  rel="noopener noreferrer"
                   target="_blank"
                   href="https://www.linkedin.com/in/bruno-pozzebon44/"
                 >
                   <Icon.Linkedin size={24} color="black" />
                 </a>
 
-                <a target="_blank" href="https://github.com/brunopozzebon">
+                <a
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href="https://github.com/brunopozzebon"
+                >
                   <Icon.Github size={24} color="black" />
                 </a>
               </div>
@@ -56,13 +66,18 @@ export const Header = () => {
               <div className="devname">Gustavo Steinmetz</div>
               <div className="social-media">
                 <a
+                  rel="noopener noreferrer"
                   target="_blank"
                   href="https://www.linkedin.com/in/stzgustavo/"
                 >
                   <Icon.Linkedin size={24} color="black" />
                 </a>
 
-                <a target="_blank" href="https://github.com/GustavoSTZ">
+                <a
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href="https://github.com/GustavoSTZ"
+                >
                   <Icon.Github size={24} color="black" />
                 </a>
               </div>
@@ -76,7 +91,8 @@ export const Header = () => {
   return (
     <Container isDark={theme}>
       <a
-        href="https://fernandofranzini.files.wordpress.com/2012/07/pog1.jpg"
+        rel="noopener noreferrer"
+        href="https://toggl.com/blog/wp-content/uploads/2018/08/toggl-if-the-world-was-created-by-a-programmer.jpg"
         target="_blanck"
       >
         <img alt="logo" src={theme ? Logo : LogoDark} />

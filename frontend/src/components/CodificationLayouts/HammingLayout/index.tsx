@@ -1,6 +1,4 @@
 import React from "react";
-import { PRIMARY } from "../../../constants/colors";
-import { Icon } from "../../Icon";
 import { UnaryCodewordRow } from "./styles";
 import { useCodewords, useIndex } from "../../../context";
 import { Codeword } from "../../../models/codeword";
