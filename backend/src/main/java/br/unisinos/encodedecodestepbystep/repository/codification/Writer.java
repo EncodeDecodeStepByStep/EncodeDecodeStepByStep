@@ -34,7 +34,7 @@ public class Writer implements WriterInterface {
         this.bufferedWriter = new BufferedWriter(fileWriter);
         this.os = new FileOutputStream(output);
         this.bitsStringControle = "";
-        this.fileWriterCodewordsSizeArray = new FileWriter(new File("src/main/resources/database/CodewordsSizesArray.repository"));
+        this.fileWriterCodewordsSizeArray = new FileWriter(new File(System.getProperty("user.dir")+ "\\database\\CodewordsSizesArray.repository"));
     }
 
     public static byte[] toByteArray(String input) {
