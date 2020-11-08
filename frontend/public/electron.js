@@ -6,8 +6,9 @@ const path = require('path');
 
 function createWindow () {
 
-  var opsys = process.platform;
+  const opsys = process.platform;
   if (opsys == "darwin") {
+    console.log("MAC")
     childProcess.exec("lsof -i tcp:10022", ((error, stdout) => {
       const logPortUsed = stdout.split(" ");
       if(logPortUsed.length > 1) {
@@ -15,6 +16,8 @@ function createWindow () {
       }
     }))
   } else if (opsys == "win32" || opsys == "win64") {
+    console.log("Windows")
+
     childProcess.exec("netstat -ano | findstr :10022", ((error, stdout) => {
       const logPortUsed = stdout.split(" ");
       if(logPortUsed.length > 1) {
@@ -22,6 +25,7 @@ function createWindow () {
       }
     }))
   } else if (opsys == "linux") {
+    console.log("Linux")
     childProcess.exec("lsof -i:10022 -t", ((error, stdout) => {
       const logPortUsed = stdout.split(" ");
     }))
