@@ -34,7 +34,7 @@ class GoulombControllerTest {
     @BeforeEach
     void setUp() throws FileNotFoundException {
         this.isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/alice29.txt"));
-        this.isCodewordEsperado = new FileInputStream(new File("src/main/resources/database/CodewordsSizesArray.repository"));
+        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir")+ "\\database\\CodewordsSizesArray.repository"));
     }
 
     @AfterEach

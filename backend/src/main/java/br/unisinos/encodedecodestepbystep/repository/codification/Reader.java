@@ -38,7 +38,7 @@ public class Reader implements ReaderInterface {
         this.binary = "";
         this.porcentageLida = 0;
         this.progressPercentage = progressPercentage;
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File("src/main/resources/database/CodewordsSizesArray.repository")));
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\database\\CodewordsSizesArray.repository")));
     }
 
     public Reader() throws FileNotFoundException {
@@ -54,7 +54,7 @@ public class Reader implements ReaderInterface {
         this.binary = "";
         this.porcentageLida = 0;
         this.progressPercentage = new MutableDouble(0);
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File("src/main/resources/database/CodewordsSizesArray.repository")));
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\database\\CodewordsSizesArray.repository")));
     }
 
     public int read() throws IOException {
