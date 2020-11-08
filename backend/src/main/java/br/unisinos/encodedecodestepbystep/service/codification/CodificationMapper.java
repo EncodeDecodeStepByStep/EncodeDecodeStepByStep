@@ -1,20 +1,8 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
-
-import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
-import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
-import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
-import br.unisinos.encodedecodestepbystep.repository.codification.Writer;
-import br.unisinos.encodedecodestepbystep.repository.redundancy.ReaderRedundancy;
-import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
-import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +19,7 @@ public class CodificationMapper {
 
     private UnarioService unarioService;
 
-    private UnarioService huffmanService;
+    private HuffmanNodeService huffmanService;
 
     private Map<String, CodificationService> namesCodificationMap = new HashMap<>();
     private Map<String, CodificationService> bitsCodificationMap = new HashMap<>();
@@ -41,12 +29,14 @@ public class CodificationMapper {
                               EliasGammaService eliasGammaService,
                               FibonacciService fibonacciService,
                               GoulombService goulombService,
-                              UnarioService unarioService) {
+                              UnarioService unarioService,
+                              HuffmanNodeService huffmanService) {
         this.deltaService = deltaService;
         this.eliasGammaService = eliasGammaService;
         this.fibonacciService = fibonacciService;
         this.goulombService = goulombService;
         this.unarioService = unarioService;
+        this.huffmanService = huffmanService;
 
         namesCodificationMap.put("Delta", deltaService);
         namesCodificationMap.put("Elias Gamma", eliasGammaService);

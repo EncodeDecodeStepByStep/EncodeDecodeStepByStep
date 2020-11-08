@@ -59,7 +59,6 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
  
   const [length, setLength] = useState(0);
   const [theme] = useTheme();
-
   
   function finishCodification() {
     setOnFinishedCodification(true);
@@ -98,6 +97,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
 
     async function getFirstCodeword() {
       const codeword = await nextStep();
+      
       if (codeword) {
         setLength(codeword.numberOfCharsTotal);
         if (codeword.characterBeforeEncode) {
@@ -123,9 +123,15 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
       setIndex(index + 1);
     }else{
       const codeword = await nextStep();
+
+      console.log("Aqui")
+      console.log(codeword)
+      
       if (!codeword.codeword && !codeword.characterDecoded) {
         return;
       }
+
+      
       if (codeword.characterBeforeEncode) {
         setCodewords([
           ...codewords,
@@ -217,6 +223,8 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
           <Button.PRIMARY onClick={cancelProcessing}>Cancelar</Button.PRIMARY>
         </OnProcessing>
       )}
+
+      
 
       {!props.onError && onFinishedCodification && codificationMethod && (
         <Steps>

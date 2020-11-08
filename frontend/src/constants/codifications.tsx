@@ -36,7 +36,7 @@ export default [
         CodificationMethod.HAMMING,
         <Icon.Hamming size={40} color="#333" />
     ), new Codification(
-        "Huffman",
+        "Huffman Estático",
         "huffman",
         CodificationMethod.HUFFMAN,
         <Icon.Huffman size={40} color="#333" />

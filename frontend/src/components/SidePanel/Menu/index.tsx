@@ -40,6 +40,8 @@ export const Menu = () => {
     if (codificationMode === EncodingDecoding.DECODING) {
       setCodificationMethod(-1)
     }
+    console.log("Troquei codificacao")
+    console.log(codificationMode)
     setCodingDecoding(codificationMode);
   }
 
@@ -74,8 +76,10 @@ export const Menu = () => {
       setOnProcessing(true);
       setOnFinishedCodification(false);
       if (codingDecoding === EncodingDecoding.ENCODING) {
+        console.log("Encoding")
         await encode(codificationMethod.urlName, file.path, goulombDivisor);
       } else {
+        console.log("Decoding")
         await decode(file.path);
       }
     }
