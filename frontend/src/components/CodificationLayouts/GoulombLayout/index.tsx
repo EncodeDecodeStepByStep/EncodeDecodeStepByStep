@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { PRIMARY } from "../../../constants/colors";
 import { Icon } from "../../Icon";
-import { GoulombCodewordRow, Header, Explanation } from "./styles";
-import { useCodewords, useIndex, useGoulombDivisor, useTheme } from "../../../context";
+import { GoulombCodewordRow, Explanation } from "./styles";
+import {
+  useCodewords,
+  useIndex,
+  useGoulombDivisor,
+  useTheme,
+  useCodingDecoding,
+} from "../../../context";
 import { Codeword } from "../../../models/codeword";
+import { EncodingDecoding } from "../../../enums/EncodingDecoding";
 
 export const GoulombLayout = () => {
   const [index] = useIndex();
   const [codewords] = useCodewords();
   const [goulombDivisor] = useGoulombDivisor();
+  const [codingDecoding] = useCodingDecoding();
 
   const [stopBitPosition, setStopBitPosition] = useState(-1);
   const [theme] = useTheme();
@@ -37,34 +45,103 @@ export const GoulombLayout = () => {
 
     return (
       <Explanation isDark={theme}>
+        {codingDecoding === EncodingDecoding.ENCODING &&
+          renderAsciiEquality(finalResult, codeword.value)}
+
         <div className="first-line">
-          <span className="prefix">
-            <strong>{quantityOfZeros}</strong>
-            &nbsp;[0`s]
-          </span>
-          &amp;
-          <span className="sufix">
-            {rest}
-            &nbsp; [<strong>{binaryRest}</strong> em binário]
-          </span>
-          =
-          <span className="result">
-            {goulombDivisor}
-            <sup>[K]</sup> * &nbsp;
-            <strong>{quantityOfZeros}</strong>
-            &nbsp; + &nbsp;
-            <strong>{binaryRest}</strong>
-            &nbsp; = &nbsp;
-            <strong>{finalResult}</strong>
-          </span>
+          {codingDecoding === EncodingDecoding.DECODING ? (
+            <>
+              {renderCountResume(quantityOfZeros, rest, binaryRest)}
+              <div className="icon-container">
+                <Icon.TransformTo size={15} color={PRIMARY} />
+              </div>
+              {renderResult(
+                goulombDivisor,
+                quantityOfZeros,
+                binaryRest,
+                finalResult
+              )}
+            </>
+          ) : (
+            <>
+              {renderResult(
+                goulombDivisor,
+                quantityOfZeros,
+                binaryRest,
+                finalResult
+              )}
+
+              <div className="icon-container">
+                <Icon.TransformTo size={15} color={PRIMARY} />
+              </div>
+              {renderCountResume(quantityOfZeros, rest, binaryRest)}
+            </>
+          )}
         </div>
 
-        <div className="second-line">
-          <span className="ascii">ASCII {finalResult}</span>
-          <Icon.TransformTo size={15} color={PRIMARY} />
-          <span className="codevalue">{codeword.value}</span>
-        </div>
+        {codingDecoding === EncodingDecoding.DECODING &&
+          renderAsciiEquality(finalResult, codeword.value)}
       </Explanation>
+    );
+  }
+
+  function renderAsciiEquality(finalResult, value) {
+    return (
+      <div className="second-line">
+        {codingDecoding === EncodingDecoding.DECODING ? (
+          <>
+            <span className="ascii">ASCII {finalResult}</span>
+            <div className="icon-container">
+              <Icon.TransformTo size={15} color={PRIMARY} />
+            </div>
+
+            <span className="codevalue">{value}</span>
+          </>
+        ) : (
+          <>
+            <span className="codevalue">{value}</span>
+            <div className="icon-container">
+              <Icon.TransformTo size={15} color={PRIMARY} />
+            </div>
+            <span className="ascii">{finalResult}(Ascii)</span>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  function renderResult(
+    goulombDivisor,
+    quantityOfZeros,
+    binaryRest,
+    finalResult
+  ) {
+    return (
+      <span className="result">
+        {goulombDivisor}
+        [K] * &nbsp;
+        <strong>{quantityOfZeros}</strong>
+        &nbsp; + &nbsp;
+        <strong>{binaryRest}</strong>
+        &nbsp; = &nbsp;
+        <strong>{finalResult}</strong>
+      </span>
+    );
+  }
+
+  function renderCountResume(quantityOfZeros, rest, binaryRest) {
+    return (
+      <>
+        <span className="prefix">
+          <strong>{quantityOfZeros}</strong>
+          &nbsp;[0`s]
+        </span>
+        &amp;
+        <span className="sufix">
+          {rest}
+          &nbsp; [<strong>{binaryRest}</strong> em binário]
+        </span>
+      </>
     );
   }
 
@@ -83,8 +160,17 @@ export const GoulombLayout = () => {
   function renderCodeword(codeword: Codeword, index: number) {
     return (
       <GoulombCodewordRow isDark={theme} key={index}>
-        {renderCodewordSplitted(codeword.codeword)}
-        {renderExplanation(codeword)}
+        {codingDecoding === EncodingDecoding.DECODING ? (
+          <>
+            {renderCodewordSplitted(codeword.codeword)}
+            {renderExplanation(codeword)}
+          </>
+        ) : (
+          <>
+            {renderExplanation(codeword)}
+            {renderCodewordSplitted(codeword.codeword)}
+          </>
+        )}
       </GoulombCodewordRow>
     );
   }
@@ -100,14 +186,5 @@ export const GoulombLayout = () => {
     return layoutArray;
   }
 
-  return (
-    <>
-      <Header isDark={theme}>
-        <span className="unaryPart">Prefixo</span>
-        <span className="stopbit">Stop Bit</span>
-        <span className="rest">Sufixo</span>
-      </Header>
-      {renderCodewords()}
-    </>
-  );
+  return <>{renderCodewords()}</>;
 };

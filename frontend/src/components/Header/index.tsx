@@ -76,7 +76,7 @@ export const Header = () => {
   return (
     <Container isDark={theme}>
       <a
-        href="https://fernandofranzini.files.wordpress.com/2012/07/pog1.jpg"
+        href="https://toggl.com/blog/wp-content/uploads/2018/08/toggl-if-the-world-was-created-by-a-programmer.jpg"
         target="_blanck"
       >
         <img alt="logo" src={theme ? Logo : LogoDark} />

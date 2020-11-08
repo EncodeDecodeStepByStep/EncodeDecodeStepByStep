@@ -1,30 +1,16 @@
 import styled from 'styled-components'
 import { BLUEISH, DARKEST, LIGHTEST_GRAY, LIGHT_GRAY, PRIMARY } from '../../../constants/colors'
 
-export const Header = styled.header`
-    display:flex;
-    justify-content:center !important;
-
-    span{
-        margin:0 8px;        
-        font-weight:bold;
-    }
-
-    .stopbit{
-        color:${props=> props.isDark?PRIMARY:'black'};
-    }   
-
-    .rest, .unaryPart{
-        color:${props=> props.isDark?'white':'black'};
-    }
-`
-
 export const Explanation = styled.div`
     display:flex;
     flex-direction: column;
 
     .first-line, .second-line{
         display:flex;
+    }
+
+    .icon-container{
+        margin: 0 10px;
     }
 
     .first-line{

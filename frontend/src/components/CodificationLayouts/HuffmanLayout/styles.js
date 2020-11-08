@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { GRAY, PRIMARY, DARKEST, BLUEISH, LIGHT_GRAY, LIGHTEST_GRAY } from '../../../constants/colors'
 
 export const Count = styled.div`
-    color:white;
+    color:${props=> props.isDark?'white':'black'};;
     background-color:${props=> props.isDark?DARKEST:LIGHTEST_GRAY};
     padding:10px;
     border-radius:10px;

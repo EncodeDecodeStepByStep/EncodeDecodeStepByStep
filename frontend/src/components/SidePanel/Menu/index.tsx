@@ -13,7 +13,7 @@ import {
 import codifications from "../../../constants/codifications";
 import { EncodingDecoding } from "../../../enums/EncodingDecoding";
 import { toast } from "react-toastify";
-import { useOnProcessing, useCodificationMethod, useFinishedCodification, useGoulombDivisor } from '../../../context'
+import { useOnProcessing, useCodificationMethod, useFinishedCodification, useGoulombDivisor, useCodingDecoding } from '../../../context'
 import { encode, decode } from '../../../hooks/useCodification'
 import { CodificationMethod } from "../../../enums/CodificationMethod";
 import { Codification } from '../../../models/codification'
@@ -25,7 +25,7 @@ interface FileType {
 }
 
 export const Menu = () => {
-  const [codingDecoding, setCodingDecoding] = useState(EncodingDecoding.NO_ONE);
+  const [codingDecoding, setCodingDecoding] = useCodingDecoding();
   const [codificationMethod, setCodificationMethod] = useCodificationMethod<Codification>();
   const [file, setFile] = useState<FileType>({});
   const [goulombDivisor, setGoulombDivisor] = useGoulombDivisor();

@@ -16,6 +16,7 @@ import {
   useCodewords,
   useIndex,
   useTheme,
+  useCodingDecoding,
 } from "../../context";
 import { Typografy, Button } from "../index";
 
@@ -36,6 +37,7 @@ import { Codeword } from "../../models/codeword";
 import ErrorGif from "../../assets/error.gif";
 import codifications from "../../constants/codifications";
 import messages from "./messages";
+import { EncodingDecoding } from "../../enums/EncodingDecoding";
 
 interface ExecutionWindowProps {
   onError: boolean;
@@ -50,7 +52,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   ] = useFinishedCodification();
   const [codificationMethod, setCodificationMethod] = useCodificationMethod();
   const [codewords, setCodewords] = useCodewords();
-
+ 
   const [actualPercentage, setActualPercentage] = useState(0);
 
   const [index, setIndex] = useIndex();
@@ -160,7 +162,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   function renderCodificationLayout() {
     switch (codificationMethod.codificationType) {
       case CodificationMethod.UNARIO:
-        return <UnaryLayout />;
+        return <UnaryLayout /> ;
       case CodificationMethod.ELIAS_GAMMA:
         return <EliasGammaLayout />;
       case CodificationMethod.GOULOMB:
@@ -202,11 +204,12 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
                 />
               </div>
               <p>{messages[messageIndex]}</p>
-              <Button.PRIMARY onClick={cancelProcessing}>
-                Cancelar
-              </Button.PRIMARY>
+              
             </>
           )}
+          <Button.PRIMARY onClick={cancelProcessing}>
+                Cancelar
+              </Button.PRIMARY>
         </OnProcessing>
       )}
 
