@@ -24,9 +24,9 @@ export const DeltaLayout = () => {
 
   const [codingDecoding] = useCodingDecoding();
 
-  function renderDeltaDontChange(codeword: Codeword) {
+  function renderDeltaDontChange(codeword: Codeword, index:number) {
     return (
-      <DeltaCodewordRow isDark={theme}>
+      <DeltaCodewordRow key={index} isDark={theme}>
         <Typografy.EMPHASYS
           className="delta-codeword-title"
           text="Mesmo simbolo que o anterior"
@@ -94,7 +94,7 @@ export const DeltaLayout = () => {
     const difference = codeword.substring(2);
     const asciiAnterior = codewords[actualIndex - 1].value.charCodeAt(0);
     return (
-      <DeltaCodewordRow isDark={theme}>
+      <DeltaCodewordRow key={actualIndex} isDark={theme}>
         <Typografy.EMPHASYS
           className="delta-codeword-title"
           text="Trocou o simbolo"
@@ -114,10 +114,10 @@ export const DeltaLayout = () => {
     );
   }
 
-  function renderFirstCodeword(codewordObject: Codeword) {
+  function renderFirstCodeword(codewordObject: Codeword, index:number) {
     const { codeword, value } = codewordObject;
     return (
-      <DeltaCodewordRow isDark={theme}>
+      <DeltaCodewordRow key={index} isDark={theme}>
         <div>
           <Typografy.EMPHASYS
             className="delta-codeword-title"
@@ -148,17 +148,17 @@ export const DeltaLayout = () => {
   }
 
   function renderCodewords() {
-    const layoutArray = Array();
+    const layoutArray = [];
     for (let i = 0; i < index; i++) {
       let codeword = codewords[i];
       if (codeword) {
         let layout;
-        if (i == 0) {
-          layout = renderFirstCodeword(codeword);
+        if (i === 0) {
+          layout = renderFirstCodeword(codeword, i);
         } else {
           layout =
-            codeword.codeword.length == 1
-              ? renderDeltaDontChange(codeword)
+            codeword.codeword.length === 1
+              ? renderDeltaDontChange(codeword, i)
               : renderDeltaChange(codeword, i);
         }
 

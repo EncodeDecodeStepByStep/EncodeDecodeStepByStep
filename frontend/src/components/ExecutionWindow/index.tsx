@@ -36,7 +36,6 @@ import { Line } from "rc-progress";
 import { Codeword } from "../../models/codeword";
 import ErrorGif from "../../assets/error.gif";
 import codifications from "../../constants/codifications";
-import messages from "./messages";
 import { EncodingDecoding } from "../../enums/EncodingDecoding";
 
 interface ExecutionWindowProps {
@@ -52,28 +51,25 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   ] = useFinishedCodification();
   const [codificationMethod, setCodificationMethod] = useCodificationMethod();
   const [codewords, setCodewords] = useCodewords();
- 
+  const [codingDecoding] = useCodingDecoding();
+
   const [actualPercentage, setActualPercentage] = useState(0);
 
   const [index, setIndex] = useIndex();
+ 
   const [length, setLength] = useState(0);
-  const [messageIndex, setMessageIndex] = useState(0);
   const [theme] = useTheme();
 
-  let messageInterval, interval;
-
+  
   function finishCodification() {
-    clearInterval(interval);
-    clearInterval(messageInterval);
     setOnFinishedCodification(true);
     setOnProcessing(false);
   }
 
   useEffect(() => {
+    let interval;
+
     if (onProcessing) {
-      messageInterval = setInterval(async () => {
-        setMessageIndex((m) => (m + 1 == messages.length ? 0 : m + 1));
-      }, 8000);
 
       interval = setInterval(async () => {
         try {
@@ -88,6 +84,10 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
           finishCodification();
         }
       }, 1000);
+    }
+
+    return ()=>{
+      clearInterval(interval);
     }
   }, [onProcessing]);
 
@@ -118,22 +118,26 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   }, [onFinishedCodification]);
 
   async function next() {
-    const codeword = await nextStep();
-    if(!codeword.codeword && !codeword.characterDecoded){
-      return;
-    }
-    if (codeword.characterBeforeEncode) {
-      setCodewords([
-        ...codewords,
-        new Codeword(codeword.characterBeforeEncode, codeword.codeword),
-      ]);
-    } else {
-      setCodewords([
-        ...codewords,
-        new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode),
-      ]);
-    }
-    if (index < length) {
+  
+    if(index<codewords.length){
+      setIndex(index + 1);
+    }else{
+      const codeword = await nextStep();
+      if (!codeword.codeword && !codeword.characterDecoded) {
+        return;
+      }
+      if (codeword.characterBeforeEncode) {
+        setCodewords([
+          ...codewords,
+          new Codeword(codeword.characterBeforeEncode, codeword.codeword),
+        ]);
+      } else {
+        setCodewords([
+          ...codewords,
+          new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode),
+        ]);
+      }
+     
       setIndex(index + 1);
     }
   }
@@ -162,7 +166,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   function renderCodificationLayout() {
     switch (codificationMethod.codificationType) {
       case CodificationMethod.UNARIO:
-        return <UnaryLayout /> ;
+        return <UnaryLayout />;
       case CodificationMethod.ELIAS_GAMMA:
         return <EliasGammaLayout />;
       case CodificationMethod.GOULOMB:
@@ -190,7 +194,11 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
       {!props.onError && onProcessing && (
         <OnProcessing>
           <Typografy.SUBTITLE
-            text={codificationMethod.name? `Processando ${codificationMethod.name}` : 'Decodificando'}
+            text={
+              codificationMethod.name
+                ? `Processando ${codificationMethod.name}`
+                : "Decodificando"
+            }
           ></Typografy.SUBTITLE>
 
           {actualPercentage > 0 && (
@@ -203,13 +211,10 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
                   strokeColor="#49d280"
                 />
               </div>
-              <p>{messages[messageIndex]}</p>
-              
+              <p className="waiting-message">Colocando codificação em segundo plano</p>
             </>
           )}
-          <Button.PRIMARY onClick={cancelProcessing}>
-                Cancelar
-              </Button.PRIMARY>
+          <Button.PRIMARY onClick={cancelProcessing}>Cancelar</Button.PRIMARY>
         </OnProcessing>
       )}
 
@@ -221,9 +226,11 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
                 className="codification-title"
                 text={`Decodificando ${codificationMethod.name}`}
               />
-              <span className="counter">
-                {index}/{length}
-              </span>
+              {codingDecoding === EncodingDecoding.ENCODING && (
+                <span className="counter">
+                  {index}/{length}
+                </span>
+              )}
             </header>
             <ScroolingList
               scrool={

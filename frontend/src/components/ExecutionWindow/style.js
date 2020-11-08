@@ -11,6 +11,12 @@ export const Container = styled.div`
   flex: 1;
   justify-content: center;
   align-items: center;
+
+  .waiting-message{
+    font-size:12px;
+    color: ${(props) => (props.isDark ? "white" : "black")};
+  }
+  
 `;
 
 export const OnError = styled.div`
@@ -53,6 +59,8 @@ export const OnProcessing = styled.section`
   button {
     margin-top: 15px;
   }
+
+ 
 
   .percentage-value {
     margin-top: 10px;

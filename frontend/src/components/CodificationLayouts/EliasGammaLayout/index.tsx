@@ -20,7 +20,7 @@ export const EliasGammaLayout = () => {
   const [theme] = useTheme();
 
   useEffect(() => {
-    if (stopBitPosition == -1 && codewords.length) {
+    if (stopBitPosition === -1 && codewords.length) {
       const firstCodeword = codewords[0].codeword.toString();
       for (let i = 0; i < firstCodeword.length; i++) {
         if (firstCodeword.charAt(i) === "1") {
@@ -29,7 +29,7 @@ export const EliasGammaLayout = () => {
         }
       }
     }
-  }, [codewords]);
+  }, [codewords, stopBitPosition]);
 
   function renderExplanation(codeword: Codeword) {
     const quantityOfZeros = codeword.codeword.substring(0, stopBitPosition)
@@ -157,9 +157,9 @@ export const EliasGammaLayout = () => {
     );
   }
 
-  function renderCodeword(codeword: Codeword) {
+  function renderCodeword(codeword: Codeword, index:number) {
     return (
-      <ElliasCodewordRow isDark={theme}>
+      <ElliasCodewordRow isDark={theme} key={index}>
         {codingDecoding === EncodingDecoding.DECODING ? (
           <>
             {renderCodewordSplitted(codeword.codeword)}
@@ -180,7 +180,7 @@ export const EliasGammaLayout = () => {
     for (let i = 0; i < index; i++) {
       let codeword = codewords[i];
       if (codeword) {
-        const codewordLayout = renderCodeword(codeword);
+        const codewordLayout = renderCodeword(codeword, i);
         layoutArray.push(codewordLayout);
       }
     }

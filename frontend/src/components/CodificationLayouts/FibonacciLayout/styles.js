@@ -54,8 +54,8 @@ export const FibonacciCodewordRow = styled.div`
       align-items: center;
       color: ${(props) => (props.isDark ? "white" : "black")};
 
-      .equality{
-        display:flex;
+      .equality {
+        display: flex;
 
         .ascii {
           color: ${(props) => (props.isDark ? "white" : "black")};
@@ -73,9 +73,12 @@ export const FibonacciCodewordRow = styled.div`
           font-weight: bold;
           color: ${(props) => (props.isDark ? PRIMARY : "black")};
         }
-
       }
       .count {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
         strong {
           font-weight: bold;
           color: ${(props) => (props.isDark ? PRIMARY : "black")};

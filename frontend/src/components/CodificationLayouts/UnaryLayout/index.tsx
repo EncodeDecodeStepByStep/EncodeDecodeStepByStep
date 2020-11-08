@@ -12,11 +12,11 @@ export const UnaryLayout = () => {
   const [theme] = useTheme();
   const [codingDecoding] = useCodingDecoding();
 
-  function renderCodeword(codeword: Codeword) {
+  function renderCodeword(codeword: Codeword, index:number) {
     if (codeword) {
       return (
-        <UnaryCodewordRow isDark={theme}>
-          {codingDecoding == EncodingDecoding.DECODING ? (
+        <UnaryCodewordRow isDark={theme} key={index}>
+          {codingDecoding === EncodingDecoding.DECODING ? (
             <>
               <span className="codeword">{codeword.codeword}</span>
               <div>
@@ -55,7 +55,7 @@ export const UnaryLayout = () => {
     const layoutArray = [];
     for (let i = 0; i < index; i++) {
       let codeword = codewords[i];
-      layoutArray.push(renderCodeword(codeword));
+      layoutArray.push(renderCodeword(codeword, i));
     }
     return layoutArray;
   }

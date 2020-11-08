@@ -22,7 +22,7 @@ export const GoulombLayout = () => {
   const [theme] = useTheme();
 
   useEffect(() => {
-    if (stopBitPosition == -1 && codewords.length) {
+    if (stopBitPosition === -1 && codewords.length) {
       const firstCodeword = codewords[0].codeword.toString();
       for (let i = 0; i < firstCodeword.length; i++) {
         if (firstCodeword.charAt(i) === "1") {
@@ -31,7 +31,7 @@ export const GoulombLayout = () => {
         }
       }
     }
-  }, [codewords]);
+  }, [codewords, stopBitPosition]);
 
   function renderExplanation(codeword: Codeword) {
     const quantityOfZeros = codeword.codeword.substring(0, stopBitPosition)

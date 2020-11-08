@@ -2,6 +2,7 @@ import api from './baseApi'
 
 export async function encode(method:string, path:string, divisor:number){
     const data = (method==='goulomb') ? {path:path, divisor:divisor} : path;
+    
     return await api.post(`/${method}/normal/encode`, data);
 }
 
@@ -10,7 +11,7 @@ export async function decode(path:string){
 }
 
 export async function nextStep(){
-    let response = await api.get(`/auto/nextStep`);   
+    let response = await api.get(`/auto/nextStep`);  
     //Back estava com um problema, que tinha que receber 2 requisições, em algumas situacoes para funcionar 
     if(!response.data.codeword && !response.data.characterDecoded){
         response = await api.get(`/auto/nextStep`);

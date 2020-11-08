@@ -32,8 +32,8 @@ export const FibonacciLayout = () => {
 
   function fibonacciArrangement(cw: Codeword) {
     const { codeword, value } = cw;
-    const arrangements = Array();
-    const sumArray = new Array();
+    const arrangements = [];
+    const sumArray = [];
     const fibonacciSequence = generateFibonacciSequence(codeword.length);
 
     let sum = 0;
@@ -47,9 +47,9 @@ export const FibonacciLayout = () => {
           sumArray.push(fibonacciSequence[i]);
         }
         arrangements.push(
-          <div className={`fibonacci-column ${mark && "mark"}`}>
+          <div key={i} className={`fibonacci-column ${mark && "mark"}`}>
             <span className="fibonacci-sequence-letter">
-              {i + 1 == codeword.length ? (
+              {i + 1 === codeword.length ? (
                 <span className="stop-bit">SB</span>
               ) : (
                 fibonacciSequence[i]
@@ -135,12 +135,12 @@ export const FibonacciLayout = () => {
       <div className="count">
         {sumArray.map((num, index) => {
           return (
-            <>
+            <div key={index}>
               <span>
                 <strong>{num}</strong>
               </span>
               &nbsp;{index === sumArray.length - 1 ? "=" : "+"}&nbsp;
-            </>
+            </div>
           );
         })}
         {sum} &nbsp;
@@ -152,10 +152,10 @@ export const FibonacciLayout = () => {
     );
   }
 
-  function renderCodeword(codeword: Codeword) {
+  function renderCodeword(codeword: Codeword, index:number) {
     if (codeword) {
       return (
-        <FibonacciCodewordRow isDark={theme}>
+        <FibonacciCodewordRow isDark={theme} key={index}>
           {fibonacciArrangement(codeword)}
         </FibonacciCodewordRow>
       );
@@ -167,7 +167,7 @@ export const FibonacciLayout = () => {
     for (let i = 0; i < index; i++) {
       let codeword = codewords[i];
 
-      layoutArray.push(renderCodeword(codeword));
+      layoutArray.push(renderCodeword(codeword, i));
     }
     return layoutArray;
   }
