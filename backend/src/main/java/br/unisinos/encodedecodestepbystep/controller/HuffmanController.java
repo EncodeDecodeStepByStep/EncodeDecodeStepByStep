@@ -7,6 +7,7 @@ import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
 import br.unisinos.encodedecodestepbystep.service.codification.HuffmanNodeService;
 //import br.unisinos.encodedecodestepbystep.service.codification.HuffmanService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.mutable.MutableDouble;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,19 +17,20 @@ import java.io.IOException;
 
 @RestController()
 @RequestMapping("/huffman")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HuffmanController {
 
-    @Autowired
-    private HuffmanNodeService huffmanService;
+    private final HuffmanNodeService huffmanService;
 
     @CrossOrigin("http://localhost:3000")
     @PostMapping("/normal/encode")
     @ResponseStatus(HttpStatus.OK)
     public void encode(@RequestBody String path) {
+        Codification.setStepsFinished(false);
+        Codification.setEncodeCodification(true);
         new Thread(() -> {
             try {
                 Codification.setProgressPercentage(new MutableDouble(0));
-                Codification.setEncodeCodification(true);
                 ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getEncodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
                 huffmanService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
             } catch (Exception e) {
@@ -60,10 +62,11 @@ public class HuffmanController {
     @PostMapping("/normal/decode")
     @ResponseStatus(HttpStatus.OK)
     public void decode(@RequestBody String path) {
+        Codification.setStepsFinished(false);
+        Codification.setEncodeCodification(false);
         new Thread(() -> {
             try {
                 Codification.setProgressPercentage(new MutableDouble(0));
-                Codification.setEncodeCodification(false);
                 ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getDecodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
                 huffmanService.decode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
             } catch (Exception e) {

@@ -62,6 +62,7 @@ class EliasGammaControllerTest {
             codewordEsperado = new StringBuilder("");
             codificationDTORetornado = eliasGammaController.nextStep();
         }
+        Assertions.assertEquals(codificationDTORetornado.getNumberOfCharsTotal(), codificationDTORetornado.getNumberOfCharsReaded());
     }
 
     @Test

@@ -28,6 +28,7 @@ public class AutomaticContoller {
     @PostMapping("/decode")
     @ResponseStatus(HttpStatus.OK)
     public void decode(@RequestBody String path) {
+        Codification.setStepsFinished(false);
         Codification.setEncodeCodification(false);
         new Thread(() -> {
             try {

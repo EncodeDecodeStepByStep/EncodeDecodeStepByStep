@@ -62,6 +62,7 @@ class FibonacciControllerTest {
             codewordEsperado = new StringBuilder("");
             codificationDTORetornado = fibonacciController.nextStep();
         }
+        Assertions.assertEquals(codificationDTORetornado.getNumberOfCharsTotal(), codificationDTORetornado.getNumberOfCharsReaded());
     }
 
     @Test
