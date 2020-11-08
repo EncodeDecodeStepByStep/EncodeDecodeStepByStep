@@ -7,7 +7,8 @@ import {
   FormRow,
   FormRowHeader,
   InputRow,
-  Container
+  Container,
+  DevCodification
 } from "./style";
 import codifications from "../../../constants/codifications";
 import { EncodingDecoding } from "../../../enums/EncodingDecoding";
@@ -43,6 +44,7 @@ export const Menu = () => {
   }
 
   function handleCodificationMethod(codificMethod: Codification) {
+    
     setCodificationMethod(codificMethod);
   }
 
@@ -54,7 +56,8 @@ export const Menu = () => {
 
   function handleInput(e: any) {
     const files = e.target.files;
-    if (files) {
+  
+    if (files && files.length) {
       setFile(files[0]);
     }
   }
@@ -172,13 +175,13 @@ export const Menu = () => {
           <span className="form-index">{getIndexOfFileRow()}</span>
           <Typografy.EMPHASYS text="Selecione o arquivo" />
         </FormRowHeader>
-        <InputRow isDark={theme}>
+        <InputRow isDark={theme} onClick={clickOnLabel}>
           <input
             ref={inputRef}
             type="file"
             onChange={handleInput}
           />
-          <label onClick={clickOnLabel}>{file.name ? file.name : "Nenhum arquivo selecionado"}</label>
+          <label>{file.name ? file.name : "Nenhum arquivo selecionado"}</label>
           <Icon.Search color="#fff" size={20} />
         </InputRow>
       </FormRow>
@@ -201,13 +204,27 @@ export const Menu = () => {
     )
   }
 
+  function renderDevelopMode(){
+    return (
+      <DevCodification isDark={theme}>
+        <Icon.Alert color={theme?'white':'black'} size={24}/>
+        <p>Essa codificaçao está atualmente em desenvolvimento</p>
+      </DevCodification>
+    )
+  }
+
   return (
     <Container isDark={theme}>
       {renderEncodingDecoding()}
       {renderCodificationMethod()}
       {renderGoulombOptions()}
       {renderInputFile()}
-      {renderInitButton()}
+      {codificationMethod.codificationType === CodificationMethod.HAMMING ? 
+      renderDevelopMode()
+      :
+      renderInitButton()
+      }
+     
     </Container>
   );
 };

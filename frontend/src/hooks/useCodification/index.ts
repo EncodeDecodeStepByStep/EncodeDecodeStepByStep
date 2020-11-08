@@ -7,15 +7,18 @@ export async function encode(method:string, path:string, divisor:number){
 
 export async function decode(path:string){
     const response = await api.post(`/auto/decode`, path);
+   
     return response;
 }
 
 export async function nextStep(){
     let response = await api.get(`/auto/nextStep`);
-     console.log(response)
-    if(!response.data.codeword){
+    console.log(response)
+   
+    if(!response.data.codeword && !response.data.characterDecoded){
         response = await api.get(`/auto/nextStep`);
     }
+
     return response.data;
 }
 
@@ -26,9 +29,7 @@ export async function progress(){
 
 export async function huffmanHashes(){
     const response = await api.get(`/huffman/hashes`);
-    console.log("huffmanTree")
-    console.log(response.data)
-    console.log("-huffmanTree")
+    console.log(response);
     return response.data;
 }
 

@@ -31,13 +31,12 @@ export const HuffmanLayout = () => {
   useEffect(() => {
     async function getHaches() {
       const huffman = await huffmanHashes();
-      console.log(codewords)
     
-      //if (huffman.huffmanCount) {
-        //const huffmanCountArray = Object.entries(huffman.huffmanCount);
+      if (huffman.huffmanCount) {
+        const huffmanCountArray = Object.entries(huffman.huffmanCount);
 
-        //setHuffmanCount(huffmanCountArray);
-        //setOrderedHuffmanCount(orderHuffman(huffmanCountArray));
+        setHuffmanCount(huffmanCountArray);
+        setOrderedHuffmanCount(orderHuffman(huffmanCountArray));
 
         const tree = Object.entries(huffman.huffmanTree);
         tree.sort((a, b) => {
@@ -46,8 +45,7 @@ export const HuffmanLayout = () => {
           return codewordA.length > codewordB.length ? 1 : (codewordA < codewordB)?-1:1;
         });
         setHuffmanTree(tree);
-        console.log(tree);
-      //}
+      }
     }
     getHaches();
   }, []);
@@ -75,7 +73,7 @@ export const HuffmanLayout = () => {
   }
 
   function renderList(list, withCharCode) {
-/*
+
     function isSelected(value){
       const lastCodeword = codewords[index-1];
 
@@ -100,7 +98,7 @@ export const HuffmanLayout = () => {
           );
         })}
       </div>
-    : <></>*/
+    : <></>
   }
 
   function verifyPath(value){
@@ -159,7 +157,7 @@ export const HuffmanLayout = () => {
   return (
     <Container isDark={theme}>       
       <div className="first-column">
-         {/*
+         
         <div className="counters">
           
 
@@ -180,7 +178,7 @@ export const HuffmanLayout = () => {
           </Count>
         </div>
 
-         */}
+         
         <TreeContainer isDark={theme}>
           <Typografy.EMPHASYS text="Arvore" />
           <Tree
