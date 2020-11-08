@@ -62,6 +62,7 @@ class DeltaControllerTest {
             codewordEsperado = new StringBuilder("");
             codificationDTORetornado = deltaController.nextStep();
         }
+        Assertions.assertEquals(codificationDTORetornado.getNumberOfCharsTotal(), codificationDTORetornado.getNumberOfCharsReaded());
     }
 
     @Test

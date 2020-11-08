@@ -26,6 +26,7 @@ public class UnarioController {
     @PostMapping("/normal/encode")
     @ResponseStatus(HttpStatus.OK)
     public void encode(@RequestBody String path) {
+        Codification.setStepsFinished(false);
         Codification.setEncodeCodification(true);
         new Thread(() -> {
             try {
@@ -52,6 +53,7 @@ public class UnarioController {
     @PostMapping("/normal/decode")
     @ResponseStatus(HttpStatus.OK)
     public void decode(@RequestBody String path) {
+        Codification.setStepsFinished(false);
         Codification.setEncodeCodification(false);
         new Thread(() -> {
             try {

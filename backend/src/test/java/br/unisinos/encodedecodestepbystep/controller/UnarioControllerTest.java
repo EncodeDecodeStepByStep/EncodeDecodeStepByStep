@@ -62,6 +62,7 @@ class UnarioControllerTest {
             codewordEsperado = new StringBuilder("");
             codificationDTORetornado = unarioController.nextStep();
         }
+        Assertions.assertEquals(codificationDTORetornado.getNumberOfCharsTotal(), codificationDTORetornado.getNumberOfCharsReaded());
     }
 
     @Test

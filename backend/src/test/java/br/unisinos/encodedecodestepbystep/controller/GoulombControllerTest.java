@@ -63,6 +63,7 @@ class GoulombControllerTest {
             codewordEsperado = new StringBuilder("");
             codificationDTORetornado = goulombController.nextStep();
         }
+        Assertions.assertEquals(codificationDTORetornado.getNumberOfCharsTotal(), codificationDTORetornado.getNumberOfCharsReaded());
     }
 
     @Test

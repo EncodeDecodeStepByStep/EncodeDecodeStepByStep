@@ -62,6 +62,7 @@ class HuffmanControllerTest {
             codewordEsperado = new StringBuilder("");
             codificationDTORetornado = huffmanController.nextStep();
         }
+        Assertions.assertEquals(codificationDTORetornado.getNumberOfCharsTotal(), codificationDTORetornado.getNumberOfCharsReaded());
     }
 
 //    @Test

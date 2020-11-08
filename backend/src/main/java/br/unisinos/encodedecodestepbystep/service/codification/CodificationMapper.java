@@ -48,7 +48,7 @@ public class CodificationMapper {
         this.goulombService = goulombService;
         this.unarioService = unarioService;
 
-        namesCodificationMap.put("Delta", deltaService);
+        namesCodificationMap.put("delta", deltaService);
         namesCodificationMap.put("Elias Gamma", eliasGammaService);
         namesCodificationMap.put("Fibonacci", fibonacciService);
         namesCodificationMap.put("Goulomb", goulombService);

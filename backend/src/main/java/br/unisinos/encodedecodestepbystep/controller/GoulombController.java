@@ -28,6 +28,7 @@ public class GoulombController {
     @ResponseStatus(HttpStatus.OK)
     public void encode(@RequestBody EncodeRequest encodeRequest) {
         goulombService.setDivisor(encodeRequest.getDivisor());
+        Codification.setStepsFinished(false);
         Codification.setEncodeCodification(true);
         new Thread(() -> {
             try {
@@ -54,6 +55,7 @@ public class GoulombController {
     @PostMapping("/normal/decode")
     @ResponseStatus(HttpStatus.OK)
     public void decode(@RequestBody String path, @RequestBody int divisor) {
+        Codification.setStepsFinished(false);
         Codification.setEncodeCodification(false);
         goulombService.setDivisor(divisor);
         new Thread(() -> {
