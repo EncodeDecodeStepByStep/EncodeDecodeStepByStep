@@ -76,7 +76,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
       interval = setInterval(async () => {
         try {
           const percentage = await progress();
-          if (percentage < 100) {
+          if (percentage < 60) {
             setActualPercentage(percentage);
           } else {
             finishCodification();
@@ -117,7 +117,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
 
   async function next() {
     const codeword = await nextStep();
-    if(!codeword.codeword){
+    if(!codeword.codeword && !codeword.characterDecoded){
       return;
     }
     if (codeword.characterBeforeEncode) {
@@ -188,7 +188,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
       {!props.onError && onProcessing && (
         <OnProcessing>
           <Typografy.SUBTITLE
-            text={`Processando ${codificationMethod.name}`}
+            text={codificationMethod.name? `Processando ${codificationMethod.name}` : 'Decodificando'}
           ></Typografy.SUBTITLE>
 
           {actualPercentage > 0 && (

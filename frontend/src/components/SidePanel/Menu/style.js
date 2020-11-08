@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GRAY, PRIMARY, BLUE_GRAY, BLUEISH, WHITE, LIGHT_GRAY } from "../../../constants/colors";
+import { GRAY, PRIMARY, BLUE_GRAY, BLUEISH, WHITE, LIGHT_GRAY, DARKEST } from "../../../constants/colors";
 
 export const Container = styled.div`
   background-color: ${props => props.isDark ? BLUE_GRAY: WHITE};
@@ -117,3 +117,18 @@ export const Card = styled.div`
     margin: 10px 0 5px 0;
   }
 `;
+
+export const DevCodification = styled.div`
+    background-color: ${(props) =>props.isDark?DARKEST:LIGHT_GRAY};
+    color:${(props) =>props.isDark?'white':'black'};
+    border-radius:10px;
+    padding:10px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+
+    p{
+      margin-left:10px;
+      font-size:0.8rem;
+    }
+`

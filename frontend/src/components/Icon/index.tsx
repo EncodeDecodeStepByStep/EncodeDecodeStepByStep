@@ -4,7 +4,7 @@ import {FaUserAlt, FaArrowAltCircleRight} from 'react-icons/fa'
 import {MdArrowBack, MdArrowForward, MdClose} from 'react-icons/md'
 import {BsFillSkipEndFill, BsArrowDownShort} from 'react-icons/bs'
 import {CgShapeTriangle} from 'react-icons/cg'
-import { AiOutlineGoogle, AiFillLinkedin, AiFillGithub, AiFillMinusCircle, AiFillPlusCircle} from 'react-icons/ai'
+import { AiOutlineGoogle, AiFillLinkedin, AiFillGithub, AiFillMinusCircle, AiFillPlusCircle, AiFillAlert} from 'react-icons/ai'
 import {GiBowlSpiral, GiRadioactive} from 'react-icons/gi'
 import {RiStackshareLine, RiBubbleChartFill, RiExchangeFill} from 'react-icons/ri'
 import {GoFileBinary} from 'react-icons/go'
@@ -135,5 +135,11 @@ export class Icon{
         )
     }
     
+
+    static Alert = (props:IconProps)=>{
+        return (
+            <AiFillAlert className="custom-icon"  size={props.size} color={props.color}/>
+        )
+    }
     
 }
