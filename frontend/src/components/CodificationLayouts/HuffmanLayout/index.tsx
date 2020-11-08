@@ -18,14 +18,20 @@ export const HuffmanLayout = () => {
   const [orderedHuffmanCount, setOrderedHuffmanCount] = useState([]);
   const [theme] = useTheme();
 
-  function orderHuffman(huffmanCount) {
-    const copyArray = huffmanCount.slice(0);
-    copyArray.sort((a, b) => {
-      const firstCounter = a[1];
-      const secondCounter = b[1];
-      return firstCounter >= secondCounter ? -1 : 1;
-    });
-    return copyArray;
+  function orderHuffman(huffmanCount, tree) {
+   
+    const orderHuffman = new Array();
+    tree.map(node=>{
+      const characterAscii = node[0].charCodeAt(0);
+      huffmanCount.map(huffmanCountNode =>{
+        
+        if(huffmanCountNode[0]==characterAscii){
+          orderHuffman.push(huffmanCountNode)
+        }
+      })
+    })
+
+    return orderHuffman
   }
 
   useEffect(() => {
@@ -33,10 +39,7 @@ export const HuffmanLayout = () => {
       const huffman = await huffmanHashes();
     
       if (huffman.huffmanCount) {
-        const huffmanCountArray = Object.entries(huffman.huffmanCount);
-
-        setHuffmanCount(huffmanCountArray);
-        setOrderedHuffmanCount(orderHuffman(huffmanCountArray));
+        
 
         const tree = Object.entries(huffman.huffmanTree);
         tree.sort((a, b) => {
@@ -45,6 +48,13 @@ export const HuffmanLayout = () => {
           return codewordA.length > codewordB.length ? 1 : (codewordA < codewordB)?-1:1;
         });
         setHuffmanTree(tree);
+
+        const huffmanCountArray = Object.entries(huffman.huffmanCount);
+
+        setHuffmanCount(huffmanCountArray);
+
+        const orderedHuffmanCount = orderHuffman(huffmanCountArray, tree);
+        setOrderedHuffmanCount(orderedHuffmanCount);
       }
     }
     getHaches();
@@ -174,7 +184,7 @@ export const HuffmanLayout = () => {
           <Count isDark={theme}>
             <Typografy.EMPHASYS text="Codewords" />
             
-            {renderList(huffmanTree.slice(0).reverse(), false)}
+            {renderList(huffmanTree, false)}
           </Count>
         </div>
 

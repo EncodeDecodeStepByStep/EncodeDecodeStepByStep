@@ -2,6 +2,7 @@ package br.unisinos.encodedecodestepbystep.service.codification;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
+import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 import org.springframework.stereotype.Service;
 
@@ -165,15 +166,92 @@ public class HuffmanNodeService implements CodificationService{
         printCode(root, "", huffmanTree);
         Codification.setHuffmanTree(huffmanTree);
 
+        char doisPontos = ':';
+        String doisPontosFinal = StringUtils.integerToStringBinary((int) doisPontos, 8);
+        char virgula = ',';
+        String virgulaFinal = StringUtils.integerToStringBinary((int) virgula, 8);
+
+        // Write the tree on file
+        for (Map.Entry<Character, String> entry : huffmanTree.entrySet()) {
+            char key = entry.getKey();
+            String keyFinal = StringUtils.integerToStringBinary((int) key, 8);
+
+            String valueFinal = "";
+            for (char c : entry.getValue().toCharArray()) {
+                valueFinal += StringUtils.integerToStringBinary((int) c, 8);
+            }
+
+            //System.out.println("Tree = " + keyFinal + " = " + doisPontosFinal + " = " + valueFinal +" = " + virgulaFinal);
+            writer.writeWithoutRepository(keyFinal + doisPontosFinal + valueFinal + virgulaFinal);
+        }
+
+        char newLineVariable = '\n';
+        String newLineVariableFinal = StringUtils.integerToStringBinary((int) newLineVariable, 8);
+        writer.writeWithoutRepository(newLineVariableFinal + newLineVariableFinal + newLineVariableFinal);
+
         for (i = 0; i < values.length; i++) {
             int key = values[i];
             writer.write(huffmanTree.get((char)key));
         }
+
+        writer.close();
+        reader.close();
     }
 
     @Override
     public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        Codification.setCodificationName("Huffman Estático");
+        reader.readCabecalho();// apenas para passar os bits do cabeçalho
+        char character;
+        StringBuilder returnedBits = new StringBuilder("");
 
+        Map<String, Character> huffmanTree = new HashMap<String, Character>();
+        while ((character = (char) reader.readNextChar()) != 65535) {
+            returnedBits.append(character);
+            if (returnedBits.toString().endsWith("000010100000101000001010")) {
+                String tree = returnedBits.substring(0, returnedBits.length()-24);
+
+                char key = '0';
+                String value = "";
+                boolean isKey = true;
+                for (int i = 0; i < tree.length(); i+=8) {
+                    String returnedByte = tree.substring(i, i+8);
+                    int parseInt = Integer.parseInt(returnedByte, 2);
+                    char c = (char) parseInt;
+
+                    if (isKey) {
+                        if (c == ':') {
+                            isKey = false;
+                        } else {
+                            key = c;
+                        }
+                    } else {
+                        if (c == ',') {
+                            huffmanTree.put(value, key);
+                            isKey = true;
+                            value = "";
+                        } else {
+                            value += c;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        StringBuilder bitsReaded = new StringBuilder("");
+        while ((character = (char) reader.readNextChar()) != 65535) {
+            bitsReaded.append(character);
+
+            if (huffmanTree.containsKey(bitsReaded.toString())) {
+                char huffmanValue = huffmanTree.get(bitsReaded.toString());
+                writer.write(huffmanValue, bitsReaded.toString());
+                bitsReaded = new StringBuilder("");
+            }
+        }
+
+        writer.close();
+        reader.close();
     }
 
     @Override
