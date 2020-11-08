@@ -185,6 +185,10 @@ public class Reader implements ReaderInterface {
     public String readNextStep() throws IOException {
         if(Codification.isEncodeCodification()){
             int cabecalhoExtra = "Delta".equals(Codification.getCodificationName()) ? 6 : 0;
+            if("Huffman Estático".equals(Codification.getCodificationName())){
+                String arvoreLida;
+
+            }
             this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17 + cabecalhoExtra); // para ignorar o cabeçalho + a virgula
         } else {
             this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded());
