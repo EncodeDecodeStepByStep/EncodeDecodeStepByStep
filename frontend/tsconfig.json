@@ -4,7 +4,6 @@
     "noImplicitAny": false,
     "noImplicitReturns": false,
     "module": "esnext",
-    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -19,7 +18,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "strict": false,
+    
   },
   "include": [
     "src"

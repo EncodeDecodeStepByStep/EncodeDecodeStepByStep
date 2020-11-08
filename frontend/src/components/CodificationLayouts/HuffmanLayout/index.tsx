@@ -19,7 +19,7 @@ export const HuffmanLayout = () => {
   const [theme] = useTheme();
 
   function orderHuffman(huffmanCount, tree) {
-    const orderHuffman = [];
+    const orderHuffman = Array<any>();
     tree.forEach((node) => {
       const characterAscii = node[0].charCodeAt(0);
       huffmanCount.forEach((huffmanCountNode) => {
@@ -39,8 +39,8 @@ export const HuffmanLayout = () => {
       if (huffman.huffmanCount) {
         const tree = Object.entries(huffman.huffmanTree);
         tree.sort((a, b) => {
-          const codewordA = a[1];
-          const codewordB = b[1];
+          const codewordA = a[1] as string;
+          const codewordB = b[1] as string;
           return codewordA.length > codewordB.length
             ? 1
             : codewordA < codewordB

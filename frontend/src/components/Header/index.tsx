@@ -2,9 +2,10 @@ import React from "react";
 import { useModal } from "../../hooks";
 import { Icon, Modal } from "../index";
 import { Container, ModalContent } from "./style";
-import Programmer from "../../assets/programmer.mp4";
+
 import Logo from "../../assets/logo.png";
 import LogoDark from "../../assets/logoDark.png";
+import Programmer from "../../assets/programmer.mp4";
 import Toggle from "react-toggle";
 import { useTheme } from "../../context";
 
