@@ -23,7 +23,7 @@ cd EncodeDecodeStepByStep/frontend
 ```
 3. Instalar depencias
 ```
- yarn install
+yarn install
 ```
 4. Builde a aplicação
 ```
