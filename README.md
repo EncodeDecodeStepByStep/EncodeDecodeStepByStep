@@ -32,7 +32,7 @@ yarn build
 5. Instale a distribuição gerada em EncodeDecodeStepByStep/frontend/dist
 ![ConteudoExtra](instalador_encode_decode.png)
 
-6. Ah e não esqueça de deixar a estrelinha 🌟 que dae vai funcionar de primeira 😁
+6. Ah e não esqueça de deixar a estrelinha 🌟 no repositório que dae vai funcionar de primeira 😁
 
 # Método 2 Usando as releases disponiveis nesse Github
 1. Atualmente está disponível a realease para windows 64x
