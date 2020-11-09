@@ -35,12 +35,6 @@ public class Writer implements WriterInterface {
         this.os = new FileOutputStream(output);
         this.bitsStringControle = "";
 
-        File myObj = new File("C:\\teste\\debug.txt");
-//        FileWriter myWriter = new FileWriter(myObj);
-//        myWriter.write(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
-//        myWriter.close();
-//
-//        System.out.println(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
         this.fileWriterCodewordsSizeArray = new FileWriter(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
     }
 

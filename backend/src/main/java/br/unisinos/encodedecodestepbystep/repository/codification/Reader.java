@@ -39,12 +39,6 @@ public class Reader implements ReaderInterface {
         this.porcentageLida = 0;
         this.progressPercentage = progressPercentage;
 
-//        File myObj = new File("C:\\teste\\debug.txt");
-//        FileWriter myWriter = new FileWriter(myObj);
-//        myWriter.write(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
-//        myWriter.close();
-//
-//        System.out.println(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
         this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
     }
 
@@ -62,12 +56,6 @@ public class Reader implements ReaderInterface {
         this.porcentageLida = 0;
         this.progressPercentage = new MutableDouble(0);
 
-        File myObj = new File("C:\\teste\\debug.txt");
-//        FileWriter myWriter = new FileWriter(myObj);
-//        myWriter.write(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
-//        myWriter.close();
-//
-//        System.out.println(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
         this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
     }
 
@@ -114,7 +102,6 @@ public class Reader implements ReaderInterface {
     }
 
     private void updateNextByteOfBinary() throws IOException {
-//        byte[] bytesAmais = is.readAllBytes();
         int byteLido = is.read();
         this.bytesLidos++;
         if (this.bytesLidos == (this.localizacaoByteProtocoloRemocao - 1)) {
@@ -154,55 +141,10 @@ public class Reader implements ReaderInterface {
         return this.file;
     }
 
-//    @Override
-//    public String readNextStep() throws IOException {
-//        if(Codification.isEncodeCodification()){
-//            this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17); // para ignorar o cabeçalho + a virgula
-//        } else {
-//            this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded());
-//        }
-//        this.bufferedReader.skip(Codification.getNumberOfCharsReaded());
-//        StringBuilder codeword = new StringBuilder("");
-//        while (true) {
-//            int charLido = this.bufferedReaderCodewordsSizeArray.read();
-//            Codification.setNumberOfCodewordsReaded(Codification.getNumberOfCodewordsReaded() + 1);
-//            if (-1 == charLido) {
-//                Codification.setStepsFinished(true);
-//                System.out.println("terminou");
-//                break;
-//            }
-//            if('-' == ((char) charLido)){
-//                charLido = this.bufferedReaderCodewordsSizeArray.read();
-//                Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded() + 1);
-//                Codification.setMustSaveInCodeword(false);
-//            }
-//            if (',' == ((char) charLido)) {
-//                if(Codification.isEncodeCodification()){
-//                    Codification.setBitsReadedOrCharacterBeforeCodification(String.valueOf((char) this.bufferedReader.read()));
-//                } else if(Codification.isMustSaveInCodeword()) {
-//                    continue;
-//                }
-//                Codification.setNumberOfCharsReaded(Codification.getNumberOfCharsReaded() + 1);
-//                Codification.setMustSaveInCodeword(true);
-//                break;
-//            }
-//            if(Codification.isMustSaveInCodeword()){
-//                codeword.append((char) charLido);
-//            } else {
-//                Codification.setBitsReadedOrCharacterBeforeCodification(Codification.getBitsReadedOrCharacterBeforeCodification().concat(String.valueOf((char) charLido)));
-//            }
-//        }
-//        return codeword.toString();
-//    }
-
     @Override
     public String readNextStep() throws IOException {
         if(Codification.isEncodeCodification()){
             int cabecalhoExtra = "Delta".equals(Codification.getCodificationName()) ? 6 : 0;
-            if("Huffman Estático".equals(Codification.getCodificationName())){
-                String arvoreLida;
-
-            }
             this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17 + cabecalhoExtra); // para ignorar o cabeçalho + a virgula
         } else {
             this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded());
