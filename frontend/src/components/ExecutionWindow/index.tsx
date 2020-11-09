@@ -124,13 +124,9 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
     }else{
       const codeword = await nextStep();
 
-      console.log("Aqui")
-      console.log(codeword)
-
       if (!codeword.codeword && !codeword.characterDecoded) {
         return;
       }
-
 
       if (codeword.characterBeforeEncode) {
         setCodewords([

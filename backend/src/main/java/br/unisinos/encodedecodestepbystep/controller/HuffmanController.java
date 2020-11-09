@@ -54,7 +54,6 @@ public class HuffmanController {
     @ResponseStatus(HttpStatus.OK)
     public CodificationDTO hashes() throws IOException {
         Codification.setStepMade("Não faço ideia, pois não codei o algoritmo");
-        Codification.setEncodeCodification(true);
         return EncodedDTOMapper.getHuffmanEncodedDTO();
     }
 

@@ -8,8 +8,7 @@ export const HammingLayout = () => {
   const [codewords,] = useCodewords();
 
   function renderCodeword(codeword: Codeword, index:number) {
-   
-      console.log(codeword);
+  
       return (
         <UnaryCodewordRow key={index}>
           

@@ -12,13 +12,6 @@ export async function decode(path:string){
 
 export async function nextStep(){
     let response = await api.get(`/auto/nextStep`);  
-    //Back estava com um problema, que tinha que receber 2 requisições, em algumas situacoes para funcionar 
-    
-    console.log(response);
-    if(!response.data.codeword && !response.data.characterDecoded){
-        response = await api.get(`/auto/nextStep`);
-    }
-
     return response.data;
 }
 
