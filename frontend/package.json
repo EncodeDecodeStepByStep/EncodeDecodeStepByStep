@@ -7,7 +7,7 @@
   "build": {
     "appId": "encode-decode-step-by-step.com",
     "win": {
-      "icon": "build/favicon.jpg"
+      "icon": "build/favicon.png"
     },
     "extraFiles": [
       "./public/backend_jar/database/CodewordsSizesArray.repository",

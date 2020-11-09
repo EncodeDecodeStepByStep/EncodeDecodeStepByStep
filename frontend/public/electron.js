@@ -46,7 +46,7 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true
     },
-    icon: __dirname + '/favicon.jpg'
+    icon: __dirname + '/favicon.png'
   })
 
   win.on('close', (e) => { //TODO descomentar para build
