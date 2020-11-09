@@ -6,7 +6,7 @@ public class MathUtils {
     }
 
     public static double logBase2ToDouble(int logaritmando) {
-        return (Math.log10(logaritmando) / Math.log10(2));
+        return logaritmando == 1 ? 1 : (Math.log10(logaritmando) / Math.log10(2));
     }
 
 }
