@@ -22,7 +22,7 @@ public class Reader implements ReaderInterface {
     private BufferedReader bufferedReaderCodewordsSizeArray;
 
 
-    public Reader(File file, MutableDouble progressPercentage) throws FileNotFoundException {
+    public Reader(File file, MutableDouble progressPercentage) throws IOException {
         Codification.setNumberOfCharsTotal(file.length());
         Codification.setMustSaveInCodeword(true);
         if(Codification.isEncodeCodification()) {
@@ -38,10 +38,17 @@ public class Reader implements ReaderInterface {
         this.binary = "";
         this.porcentageLida = 0;
         this.progressPercentage = progressPercentage;
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\database\\CodewordsSizesArray.repository")));
+
+//        File myObj = new File("C:\\teste\\debug.txt");
+//        FileWriter myWriter = new FileWriter(myObj);
+//        myWriter.write(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
+//        myWriter.close();
+//
+//        System.out.println(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
     }
 
-    public Reader() throws FileNotFoundException {
+    public Reader() throws IOException {
         Codification.setCharacterCodification("");
 
         this.file = Codification.getFile();
@@ -54,7 +61,14 @@ public class Reader implements ReaderInterface {
         this.binary = "";
         this.porcentageLida = 0;
         this.progressPercentage = new MutableDouble(0);
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\database\\CodewordsSizesArray.repository")));
+
+        File myObj = new File("C:\\teste\\debug.txt");
+//        FileWriter myWriter = new FileWriter(myObj);
+//        myWriter.write(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
+//        myWriter.close();
+//
+//        System.out.println(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository");
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
     }
 
     public int read() throws IOException {

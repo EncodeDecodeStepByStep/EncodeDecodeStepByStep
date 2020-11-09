@@ -56,10 +56,10 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   const [actualPercentage, setActualPercentage] = useState(0);
 
   const [index, setIndex] = useIndex();
- 
+
   const [length, setLength] = useState(0);
   const [theme] = useTheme();
-  
+
   function finishCodification() {
     setOnFinishedCodification(true);
     setOnProcessing(false);
@@ -97,7 +97,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
 
     async function getFirstCodeword() {
       const codeword = await nextStep();
-      
+
       if (codeword) {
         setLength(codeword.numberOfCharsTotal);
         if (codeword.characterBeforeEncode) {
@@ -118,7 +118,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   }, [onFinishedCodification]);
 
   async function next() {
-  
+
     if(index<codewords.length){
       setIndex(index + 1);
     }else{
@@ -126,12 +126,12 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
 
       console.log("Aqui")
       console.log(codeword)
-      
+
       if (!codeword.codeword && !codeword.characterDecoded) {
         return;
       }
 
-      
+
       if (codeword.characterBeforeEncode) {
         setCodewords([
           ...codewords,
@@ -143,7 +143,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
           new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode),
         ]);
       }
-     
+
       setIndex(index + 1);
     }
   }
@@ -224,7 +224,7 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
         </OnProcessing>
       )}
 
-      
+
 
       {!props.onError && onFinishedCodification && codificationMethod && (
         <Steps>

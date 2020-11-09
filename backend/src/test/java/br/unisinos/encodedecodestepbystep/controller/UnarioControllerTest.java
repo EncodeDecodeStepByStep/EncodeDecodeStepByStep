@@ -33,7 +33,7 @@ class UnarioControllerTest {
     @BeforeEach
     void setUp() throws FileNotFoundException {
         this.isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/alice29.txt"));
-        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir")+ "\\database\\CodewordsSizesArray.repository"));
+        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
     }
 
     @AfterEach

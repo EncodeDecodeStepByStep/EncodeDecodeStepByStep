@@ -8,7 +8,11 @@
     "appId": "encode-decode-step-by-step.com",
     "win": {
       "icon": "build/favicon.jpg"
-    }
+    },
+    "extraFiles": [
+      "./public/backend_jar/database/CodewordsSizesArray.repository",
+      "./public/backend_jar/encodedecodestepbystep-0.0.1-SNAPSHOT.jar"
+    ]
   },
   "homepage": "./",
   "dependencies": {
