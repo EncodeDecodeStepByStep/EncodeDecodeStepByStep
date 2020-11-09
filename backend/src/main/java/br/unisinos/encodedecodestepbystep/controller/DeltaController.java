@@ -28,7 +28,7 @@ public class DeltaController {
     public void encode(@RequestBody String path) {
         Codification.setStepsFinished(false);
         Codification.setEncodeCodification(true);
-        new Thread(() -> {
+//        new Thread(() -> {
             try {
                 Codification.setProgressPercentage(new MutableDouble(0));
 
@@ -37,7 +37,7 @@ public class DeltaController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }).start();
+//        }).start();
     }
 
     @CrossOrigin("http://localhost:3000")
