@@ -162,7 +162,8 @@ export const DeltaLayout = () => {
               : renderDeltaChange(codeword, i);
         }
 
-        layoutArray.push(layout);
+        layoutArray.push(
+          layout);
       }
     }
     return layoutArray;

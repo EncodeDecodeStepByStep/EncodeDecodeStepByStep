@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  OnProcessing,
-  Steps,
-  Buttons,
-  StepsCanva,
-  ScroolingList,
-  OnError,
-} from "./style";
+import { Container } from "./style";
 
 import {
   useOnProcessing,
@@ -18,25 +10,15 @@ import {
   useTheme,
   useCodingDecoding,
 } from "../../context";
-import { Typografy, Button } from "../index";
 
 import { CodificationMethod } from "../../enums/CodificationMethod";
-import {
-  DeltaLayout,
-  EliasGammaLayout,
-  FibonacciLayout,
-  GoulombLayout,
-  UnaryLayout,
-  HuffmanLayout,
-  HammingLayout,
-} from "../CodificationLayouts";
-import { Icon } from "../Icon";
 import { progress, nextStep } from "../../hooks/useCodification";
-import { Line } from "rc-progress";
 import { Codeword } from "../../models/codeword";
-import ErrorGif from "../../assets/error.gif";
 import codifications from "../../constants/codifications";
 import { EncodingDecoding } from "../../enums/EncodingDecoding";
+import { OnError } from "./OnError";
+import { OnProcessing } from "./OnProcessing";
+import { Steps } from "./Steps";
 
 interface ExecutionWindowProps {
   onError: boolean;
@@ -49,45 +31,38 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
     onFinishedCodification,
     setOnFinishedCodification,
   ] = useFinishedCodification();
+
   const [codificationMethod, setCodificationMethod] = useCodificationMethod();
   const [codewords, setCodewords] = useCodewords();
-  const [codingDecoding] = useCodingDecoding();
-
-  const [actualPercentage, setActualPercentage] = useState(0);
-
+  const [, setCodingDecoding] = useCodingDecoding();
   const [index, setIndex] = useIndex();
-
-  const [length, setLength] = useState(0);
   const [theme] = useTheme();
 
-  function finishCodification() {
-    setOnFinishedCodification(true);
-    setOnProcessing(false);
-  }
+  const [actualPercentage, setActualPercentage] = useState(0);
+  const [length, setLength] = useState(0);
 
   useEffect(() => {
     let interval;
 
     if (onProcessing) {
-
       interval = setInterval(async () => {
         try {
           const percentage = await progress();
           if (percentage < 60) {
             setActualPercentage(percentage);
           } else {
-            finishCodification();
+            endCodification();
           }
         } catch (e) {
           props.setOnError(true);
-          finishCodification();
+          endCodification();
         }
       }, 1000);
     }
 
-    return ()=>{
+    return () => {
       clearInterval(interval);
-    }
+    };
   }, [onProcessing]);
 
   useEffect(() => {
@@ -98,49 +73,46 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
     async function getFirstCodeword() {
       const codeword = await nextStep();
 
-      if (codeword) {
-        setLength(codeword.numberOfCharsTotal);
-        if (codeword.characterBeforeEncode) {
-          setCodewords([
-            new Codeword(codeword.characterBeforeEncode, codeword.codeword),
-          ]);
-        } else {
-          const codificationFinded = codifications.filter((codification) =>
-            codification.name.includes(codeword.codificationName)
-          );
-          setCodificationMethod(codificationFinded[0]);
-          setCodewords([
-            new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode),
-          ]);
-        }
+      if (!codeword) {
+        return;
       }
+
+      setLength(codeword.numberOfCharsTotal);
+
+      if (!codeword.characterBeforeEncode) {
+        const codificationFinded = codifications.filter((codification) =>
+          codification.name.includes(codeword.codificationName)
+        );
+        setCodificationMethod(codificationFinded[0]);
+      }
+
+      addCodeword(codeword);
     }
   }, [onFinishedCodification]);
 
-  async function next() {
-
-    if(index<codewords.length){
-      setIndex(index + 1);
-    }else{
+  async function next() {   
+    if (index >= codewords.length) {
       const codeword = await nextStep();
 
       if (!codeword.codeword && !codeword.characterDecoded) {
         return;
       }
+      addCodeword(codeword);
+    }
+    setIndex(index + 1);
+  }
 
-      if (codeword.characterBeforeEncode) {
-        setCodewords([
-          ...codewords,
-          new Codeword(codeword.characterBeforeEncode, codeword.codeword),
-        ]);
-      } else {
-        setCodewords([
-          ...codewords,
-          new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode),
-        ]);
-      }
-
-      setIndex(index + 1);
+  function addCodeword(codeword) {
+    if (codeword.characterBeforeEncode) {
+      setCodewords([
+        ...codewords,
+        new Codeword(codeword.characterBeforeEncode, codeword.codeword),
+      ]);
+    } else {
+      setCodewords([
+        ...codewords,
+        new Codeword(codeword.characterDecoded, codeword.bitsBeforeDecode),
+      ]);
     }
   }
 
@@ -151,126 +123,33 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
   }
 
   function finish() {
-    setOnProcessing(false);
-    setOnFinishedCodification(false);
-    setCodificationMethod(-1);
-    setCodewords([]);
+    props.setOnError(false);
     setActualPercentage(0);
     setLength(0);
+
+    setOnProcessing(false);
+    setOnFinishedCodification(false);
+    setCodingDecoding(EncodingDecoding.NO_ONE);
+    setCodificationMethod(CodificationMethod.NO_ONE);
+    setCodewords([]);
     setIndex(1);
   }
 
-  function cancelProcessing() {
-    finishCodification();
-    finish();
-  }
-
-  function renderCodificationLayout() {
-    switch (codificationMethod.codificationType) {
-      case CodificationMethod.UNARIO:
-        return <UnaryLayout />;
-      case CodificationMethod.ELIAS_GAMMA:
-        return <EliasGammaLayout />;
-      case CodificationMethod.GOULOMB:
-        return <GoulombLayout />;
-      case CodificationMethod.FIBONACCI:
-        return <FibonacciLayout />;
-      case CodificationMethod.DELTA:
-        return <DeltaLayout />;
-      case CodificationMethod.HUFFMAN:
-        return <HuffmanLayout />;
-      case CodificationMethod.HAMMING:
-        return <HammingLayout />;
-    }
+  function endCodification() {
+    setOnFinishedCodification(true);
+    setOnProcessing(false);
   }
 
   return (
     <Container isDark={theme}>
-      {props.onError && (
-        <OnError>
-          <img alt="error" src={ErrorGif} />
-          <Typografy.SUBTITLE text="Ops, algo deu errado" />
-          <p>Não foi possível se conectar ao servidor</p>
-        </OnError>
-      )}
+      {props.onError && <OnError finish={finish} />}
+
       {!props.onError && onProcessing && (
-        <OnProcessing>
-          <Typografy.SUBTITLE
-            text={
-              codificationMethod.name
-                ? `Processando ${codificationMethod.name}`
-                : "Decodificando"
-            }
-          ></Typografy.SUBTITLE>
-
-          {actualPercentage > 0 && (
-            <>
-              <div className="percentage-value">
-                <span> {actualPercentage.toFixed(2)} %</span>
-                <Line
-                  percent={actualPercentage}
-                  strokeWidth={5}
-                  strokeColor="#49d280"
-                />
-              </div>
-              <p className="waiting-message">Colocando codificação em segundo plano</p>
-            </>
-          )}
-          <Button.PRIMARY onClick={cancelProcessing}>Cancelar</Button.PRIMARY>
-        </OnProcessing>
+        <OnProcessing finish={finish} actualPercentage={actualPercentage} />
       )}
-
-
 
       {!props.onError && onFinishedCodification && codificationMethod && (
-        <Steps>
-          <StepsCanva>
-            <header>
-              <Typografy.EMPHASYS
-                className="codification-title"
-                text={`Decodificando ${codificationMethod.name}`}
-              />
-              {codingDecoding === EncodingDecoding.ENCODING && (
-                <span className="counter">
-                  {index}/{length}
-                </span>
-              )}
-            </header>
-            <ScroolingList
-              scrool={
-                codificationMethod.codificationType !==
-                CodificationMethod.HUFFMAN
-              }
-            >
-              {renderCodificationLayout()}
-            </ScroolingList>
-          </StepsCanva>
-          <Buttons>
-            <Button.PRIMARY
-              isDark={theme}
-              disabled={index === 1}
-              icon={<Icon.Back size={18} color="#fff" />}
-              onClick={back}
-            >
-              Retroceder
-            </Button.PRIMARY>
-            <Button.PRIMARY
-              isDark={theme}
-              disabled={index >= length}
-              icon={<Icon.Next size={18} color="#fff" />}
-              onClick={next}
-            >
-              Avançar
-            </Button.PRIMARY>
-            <Button.PRIMARY
-              isDark={theme}
-              icon={<Icon.Close size={18} color="#fff" />}
-              onClick={finish}
-            >
-              Sair
-            </Button.PRIMARY>
-          </Buttons>
-        </Steps>
+        <Steps back={back} next={next} finish={finish} index={index} length={length}/>
       )}
     </Container>
   );

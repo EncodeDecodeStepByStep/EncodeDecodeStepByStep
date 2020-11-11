@@ -33,14 +33,14 @@ function createWindow () {
       }))
     }
   }
-
+/*
   killProcessIn10022();
   const jarPath = path.resolve(__dirname,'..','..','..','public', 'backend_jar', 'encodedecodestepbystep-0.0.1-SNAPSHOT.jar');
   console.log(jarPath);
 
   const child = childProcess.exec( 'java -jar '+jarPath);
-
-  const win = new BrowserWindow({
+  */  
+ const win = new BrowserWindow({
     width: 800,
     height: 800,
     webPreferences: {
@@ -49,13 +49,13 @@ function createWindow () {
     icon: __dirname + '/favicon.png'
   })
 
-  win.on('close', (e) => { //TODO descomentar para build
+  /*win.on('close', (e) => { //TODO descomentar para build
     const kill = require('tree-kill');
     kill(child.pid);
     child.kill();
     killProcessIn10022();
   })
-
+*/
   win.loadURL(
     isDev? 'http://localhost:3000': `file://${path.join(__dirname, "../build/index.html")}`
   )
