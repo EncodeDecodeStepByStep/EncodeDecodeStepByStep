@@ -39,30 +39,4 @@ public class UnarioController {
             }
         }).start();
     }
-
-    @CrossOrigin("http://localhost:3000")
-    @GetMapping("/nextStep")
-    @ResponseStatus(HttpStatus.OK)
-    public CodificationDTO nextStep() throws IOException {
-        Codification.setStepMade("Não faço ideia, pois não codei o algoritmo");
-        Codification.setCodeword(new Reader().readNextStep());
-        return Codification.isEncodeCodification() ? EncodedDTOMapper.getEncodedDTO() : DecodedDTOMapper.getDecodedDTO();
-    }
-
-    @CrossOrigin("http://localhost:3000")
-    @PostMapping("/normal/decode")
-    @ResponseStatus(HttpStatus.OK)
-    public void decode(@RequestBody String path) {
-        Codification.setStepsFinished(false);
-        Codification.setEncodeCodification(false);
-        new Thread(() -> {
-            try {
-                Codification.setProgressPercentage(new MutableDouble(0));
-                ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getDecodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
-                unarioService.decode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
 }

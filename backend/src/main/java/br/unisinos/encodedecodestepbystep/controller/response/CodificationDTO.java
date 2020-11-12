@@ -19,7 +19,6 @@ public class CodificationDTO {
     private String codificationName;
     private Long numberOfCharsTotal;
     private Long numberOfCharsReaded;
-    private String stepMade; // Descrição da ação(passo) q foi feita para mostra
     private Double progressPercentage;
     private Boolean stepsFinished;
 

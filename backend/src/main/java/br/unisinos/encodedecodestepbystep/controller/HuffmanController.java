@@ -40,37 +40,9 @@ public class HuffmanController {
     }
 
     @CrossOrigin("http://localhost:3000")
-    @GetMapping("/nextStep")
-    @ResponseStatus(HttpStatus.OK)
-    public CodificationDTO nextStep() throws IOException {
-        Codification.setStepMade("Não faço ideia, pois não codei o algoritmo");
-        Codification.setCodeword(new Reader().readNextStep());
-        Codification.setEncodeCodification(true);
-        return EncodedDTOMapper.getHuffmanEncodedDTO();
-    }
-
-    @CrossOrigin("http://localhost:3000")
     @GetMapping("/hashes")
     @ResponseStatus(HttpStatus.OK)
     public CodificationDTO hashes() throws IOException {
-        Codification.setStepMade("Não faço ideia, pois não codei o algoritmo");
         return EncodedDTOMapper.getHuffmanEncodedDTO();
-    }
-
-    @CrossOrigin("http://localhost:3000")
-    @PostMapping("/normal/decode")
-    @ResponseStatus(HttpStatus.OK)
-    public void decode(@RequestBody String path) {
-        Codification.setStepsFinished(false);
-        Codification.setEncodeCodification(false);
-        new Thread(() -> {
-            try {
-                Codification.setProgressPercentage(new MutableDouble(0));
-                ReaderWriterWrapper readerWriterWrapper = ReaderWriterWrapper.getDecodeReaderWriterWrapperNormal(path, Codification.getProgressPercentage());
-                huffmanService.decode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 }

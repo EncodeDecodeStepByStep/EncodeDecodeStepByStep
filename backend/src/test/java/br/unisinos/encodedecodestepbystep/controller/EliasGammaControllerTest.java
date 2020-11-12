@@ -24,6 +24,9 @@ class EliasGammaControllerTest {
     EliasGammaService eliasGammaService;
 
     @Autowired
+    AutomaticContoller automaticContoller;
+
+    @Autowired
     EliasGammaController eliasGammaController;
 
     private InputStream isEsperadoBeforeCodification;
@@ -49,7 +52,7 @@ class EliasGammaControllerTest {
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         this.isCodewordEsperado.skip(17); // para skippar cabeçalho + virgula
-        CodificationDTO codificationDTORetornado = eliasGammaController.nextStep();
+        CodificationDTO codificationDTORetornado = automaticContoller.nextStep();
         while (!codificationDTORetornado.getStepsFinished()) {
             while (codewordEsperado.length() != codificationDTORetornado.getCodeword().length()) {
                 codewordEsperado.append((char) this.isCodewordEsperado.read());
@@ -60,7 +63,7 @@ class EliasGammaControllerTest {
             Assertions.assertEquals(codewordEsperado.toString(), codificationDTORetornado.getCodeword());
 
             codewordEsperado = new StringBuilder("");
-            codificationDTORetornado = eliasGammaController.nextStep();
+            codificationDTORetornado = automaticContoller.nextStep();
         }
         Assertions.assertEquals(codificationDTORetornado.getNumberOfCharsTotal(), codificationDTORetornado.getNumberOfCharsReaded());
     }
@@ -71,10 +74,10 @@ class EliasGammaControllerTest {
         eliasGammaService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
 
         StringBuilder codewordEsperado = new StringBuilder("");
-        eliasGammaController.decode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod");
+        automaticContoller.decode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod");
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
-        CodificationDTO codificationDTORetornado = eliasGammaController.nextStep();
+        CodificationDTO codificationDTORetornado = automaticContoller.nextStep();
         while (!codificationDTORetornado.getStepsFinished()) {
             while (codewordEsperado.length()+1 != codificationDTORetornado.getBitsBeforeDecode().length() + codificationDTORetornado.getCharacterDecoded().length()) {
                 codewordEsperado.append((char) this.isCodewordEsperado.read());
@@ -85,7 +88,7 @@ class EliasGammaControllerTest {
             Assertions.assertEquals(codewordEsperado.toString(), codificationDTORetornado.getBitsBeforeDecode());
 
             codewordEsperado = new StringBuilder("");
-            codificationDTORetornado = eliasGammaController.nextStep();
+            codificationDTORetornado = automaticContoller.nextStep();
         }
     }
 }
