@@ -78,8 +78,8 @@ export const DeltaLayout = () => {
         <Icon.TransformTo size={15} color={theme ? PRIMARY : "black"} />
         <span>
           {signalBit === "1"
-            ? parseInt(difference, 2) - 1 + asciiAnterior
-            : parseInt(difference, 2) + 1 + asciiAnterior}
+            ? Math.abs(parseInt(difference, 2) + 1 - asciiAnterior)
+            : Math.abs(parseInt(difference, 2) + 1 + asciiAnterior)}
         </span>
         <Icon.TransformTo size={15} color={theme ? PRIMARY : "black"} />
         <span>{value}</span>
