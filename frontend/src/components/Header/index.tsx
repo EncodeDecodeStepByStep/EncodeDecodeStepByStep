@@ -117,10 +117,7 @@ export const Header = () => {
 
   return (
     <Container isDark={theme}>
-     
-        <img onClick={()=>clickOnLogo()} alt="logo" src={theme ? Logo : LogoDark} />
-     
-
+      <img onClick={()=>clickOnLogo()} alt="logo" src={theme ? Logo : LogoDark} />
       <div className="right-content">
         <div className="toggle-container">
           <Toggle

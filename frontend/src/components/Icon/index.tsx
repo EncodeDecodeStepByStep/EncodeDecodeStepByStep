@@ -11,6 +11,7 @@ import {
   AiFillMinusCircle,
   AiFillPlusCircle,
   AiFillAlert,
+  AiFillQuestionCircle
 } from "react-icons/ai";
 import { GiBowlSpiral, GiRadioactive } from "react-icons/gi";
 import {
@@ -27,6 +28,17 @@ type IconProps = {
 };
 
 export class Icon {
+
+  static Explanation = (props: IconProps) => {
+    return (
+      <AiFillQuestionCircle
+        className="custom-icon"
+        size={props.size}
+        color={props.color}
+      />
+    );
+  };
+
   static Loader = (props: IconProps) => {
     return (
       <RiLoader4Fill

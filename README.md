@@ -43,3 +43,9 @@ yarn build
 3. <a href="https://www.linkedin.com/in/stzgustavo/" target="_blank">Gustavo Steinmetz</a>
 
 ![ConteudoExtra](image.png)
+![ConteudoExtra](frontend/src/assets/codificationsExplanations/Unario.png)
+![ConteudoExtra](frontend/src/assets/codificationsExplanations/Delta.png)
+![ConteudoExtra](frontend/src/assets/codificationsExplanations/EliasGamma.png)
+![ConteudoExtra](frontend/src/assets/codificationsExplanations/Goulomb.png)
+![ConteudoExtra](frontend/src/assets/codificationsExplanations/Huffman.png)
+![ConteudoExtra](frontend/src/assets/codificationsExplanations/Fibonacci.png)

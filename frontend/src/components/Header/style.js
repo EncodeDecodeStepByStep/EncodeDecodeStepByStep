@@ -13,6 +13,7 @@ export const Container = styled.header`
   max-height: 80px;
 
   img{
+    cursor:pointer;
     height:65px;
   }
 
