@@ -85,11 +85,31 @@ export const CodificationCards = styled.section`
   margin-top: 10px;
 `;
 
+export const ModalContainer = styled.div`
+    width: 800px;
+    overflow-y: auto;
+    max-height: 70vh;
+    img{
+      max-width: 100%;
+    }
+`
+
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+
+  &:hover .explanation-icon{
+    visibility:visible;
+    transform:1s;
+  }
+
+  .explanation-icon{
+    visibility:hidden;
+    position: absolute;
+    transform: translate(28px, -11px);
+  }
 
   .card-image {
     border-radius: 10px;

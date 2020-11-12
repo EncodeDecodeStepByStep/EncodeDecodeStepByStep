@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Button, Icon, Typografy } from "../../index";
+import { Button, Icon, Typografy, Modal } from "../../index";
 import {
   ButtonsRow,
   Card,
@@ -8,7 +8,8 @@ import {
   FormRowHeader,
   InputRow,
   Container,
-  DevCodification
+  DevCodification,
+  ModalContainer
 } from "./style";
 import codifications from "../../../constants/codifications";
 import { EncodingDecoding } from "../../../enums/EncodingDecoding";
@@ -18,6 +19,8 @@ import { encode, decode } from '../../../hooks/useCodification'
 import { CodificationMethod } from "../../../enums/CodificationMethod";
 import { Codification } from '../../../models/codification'
 import {useTheme} from '../../../context'
+import { PRIMARY } from "../../../constants/colors";
+import { useModal } from "../../../hooks";
 
 interface FileType {
   name?: string,
@@ -29,12 +32,29 @@ export const Menu = () => {
   const [codificationMethod, setCodificationMethod] = useCodificationMethod<Codification>();
   const [file, setFile] = useState<FileType>({});
   const [goulombDivisor, setGoulombDivisor] = useGoulombDivisor();
+  const [explanation, setExplanation] = useState(null);
 
   const inputRef = useRef(null);
   const [theme,] = useTheme();
+  const { isShown, toggle } = useModal();
 
   const [, setOnProcessing] = useOnProcessing();
   const [, setOnFinishedCodification] = useFinishedCodification();
+
+  function openModal() {
+    toggle();
+  }
+
+  function renderModal() {
+    console.log(explanation)
+    return (
+      <ModalContainer>
+        {explanation &&
+          <img src={explanation}/>
+        }
+      </ModalContainer>
+    );
+  }
 
   function handleCodificationMode(codificationMode: number) {
     if (codificationMode === EncodingDecoding.DECODING) {
@@ -77,7 +97,6 @@ export const Menu = () => {
       if (codingDecoding === EncodingDecoding.ENCODING) {
         await encode(codificationMethod.urlName, file.path, goulombDivisor);
       } else {
-        console.log("Decodando"+file.path)
         await decode(file.path);
       }
     }
@@ -124,6 +143,11 @@ export const Menu = () => {
     )
   }
 
+  function clickOnExplanation(codificationImage){
+    setExplanation(codificationImage);
+    openModal()
+  }
+
   function renderCodificationMethod() {
     if (codingDecoding === EncodingDecoding.ENCODING) {
       return (
@@ -143,6 +167,12 @@ export const Menu = () => {
                 >
                   <div className="card-image">{codification.icon}</div>
                   <span className="card-name">{codification.name}</span>
+                  { codification.explanationImage &&
+                     <span className="explanation-icon" onClick={()=>{clickOnExplanation(codification.explanationImage)}}>
+                     <Icon.Explanation size={24} color={theme?PRIMARY: 'black'}/>
+                   </span>
+                  }
+               
                 </Card>
               );
             })}
@@ -226,6 +256,13 @@ export const Menu = () => {
       :
       renderInitButton()
       }
+
+      <Modal
+        title="Participaram deste projeto"
+        isShown={isShown}
+        hide={toggle}
+        content={renderModal()}
+      />
      
     </Container>
   );

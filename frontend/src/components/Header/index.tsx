@@ -7,11 +7,28 @@ import Logo from "../../assets/logo.png";
 import LogoDark from "../../assets/logoDark.png";
 import Programmer from "../../assets/programmer.mp4";
 import Toggle from "react-toggle";
-import { useTheme } from "../../context";
+import {
+  useCodewords,
+  useCodificationMethod,
+  useCodingDecoding,
+  useFinishedCodification,
+  useIndex,
+  useOnProcessing,
+  useTheme,
+} from "../../context";
+import { EncodingDecoding } from "../../enums/EncodingDecoding";
+import { CodificationMethod } from "../../enums/CodificationMethod";
 
 export const Header = () => {
   const { isShown, toggle } = useModal();
   const [theme, setTheme] = useTheme();
+
+  const [, setOnProcessing] = useOnProcessing();
+  const [, setOnFinishedCodification] = useFinishedCodification();
+  const [, setCodificationMethod] = useCodificationMethod();
+  const [, setCodewords] = useCodewords();
+  const [, setCodingDecoding] = useCodingDecoding();
+  const [, setIndex] = useIndex();
 
   function openModal() {
     toggle();
@@ -89,16 +106,18 @@ export const Header = () => {
     );
   }
 
+  function clickOnLogo() {
+    setOnProcessing(false);
+    setOnFinishedCodification(false);
+    setCodingDecoding(EncodingDecoding.NO_ONE);
+    setCodificationMethod(CodificationMethod.NO_ONE);
+    setCodewords([]);
+    setIndex(1);
+  }
+
   return (
     <Container isDark={theme}>
-      <a
-        rel="noopener noreferrer"
-        href="https://toggl.com/blog/wp-content/uploads/2018/08/toggl-if-the-world-was-created-by-a-programmer.jpg"
-        target="_blanck"
-      >
-        <img alt="logo" src={theme ? Logo : LogoDark} />
-      </a>
-
+      <img onClick={()=>clickOnLogo()} alt="logo" src={theme ? Logo : LogoDark} />
       <div className="right-content">
         <div className="toggle-container">
           <Toggle

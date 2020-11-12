@@ -1,4 +1,4 @@
-import api from './baseApi'
+import {api} from '../index'
 
 export async function encode(method:string, path:string, divisor:number){
     const data = (method==='goulomb') ? {path:path, divisor:divisor} : path;

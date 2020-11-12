@@ -99,7 +99,7 @@ export const HuffmanLayout = () => {
     }
 
     return list.length ? (
-      <div>
+      <div className="counter-list">
         {list.map((line, index) => {
           return (
             <div
@@ -182,6 +182,20 @@ export const HuffmanLayout = () => {
     return data;
   }
 
+  function getHeightOfTree(){
+    if(huffmanTree.length>17){
+      return 900;
+    }else if(huffmanTree.length>13){
+      return 600;
+    }else if(huffmanTree.length>10){
+      return 450;
+    }else if(huffmanTree.length>5){
+      return 400;
+    }else{
+      return 300;
+    }
+  }
+
   return (
     <Container isDark={theme}>
       <div className="first-column">
@@ -204,14 +218,17 @@ export const HuffmanLayout = () => {
         </div>
 
         <TreeContainer isDark={theme}>
-          <Typografy.EMPHASYS text="Arvore" />
-          <Tree
-            data={extractData(huffmanTree)}
-            nodeRadius={15}
-            margins={{ top: 25, bottom: 25, left: 40, right: 40 }}
-            height={300}
-            width={600}
-          />
+          {
+            huffmanTree.length&&
+            <Tree
+              data={extractData(huffmanTree)}
+              nodeRadius={15}
+              margins={{ top: 25, bottom: 25, left: 40, right: 40 }}
+              height={getHeightOfTree()}
+              width={600}
+            />
+          }
+         
         </TreeContainer>
       </div>
 
