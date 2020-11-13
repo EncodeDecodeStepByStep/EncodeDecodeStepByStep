@@ -46,7 +46,6 @@ export const Menu = () => {
   }
 
   function renderModal() {
-    console.log(explanation)
     return (
       <ModalContainer>
         {explanation &&

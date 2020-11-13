@@ -17,27 +17,14 @@ export const GoulombLayout = () => {
   const [codewords] = useCodewords();
   const [goulombDivisor] = useGoulombDivisor();
   const [codingDecoding] = useCodingDecoding();
-
-  const [stopBitPosition, setStopBitPosition] = useState(-1);
   const [theme] = useTheme();
 
-  useEffect(() => {
-    if (stopBitPosition === -1 && codewords.length) {
-      const firstCodeword = codewords[0].codeword.toString();
-      for (let i = 0; i < firstCodeword.length; i++) {
-        if (firstCodeword.charAt(i) === "1") {
-          setStopBitPosition(i);
-          break;
-        }
-      }
-    }
-  }, [codewords, stopBitPosition]);
-
   function renderExplanation(codeword: Codeword) {
-    const quantityOfZeros = codeword.codeword.substring(0, stopBitPosition)
-      .length;
+    const codewordString = codeword.codeword;
+    const stopBitPosition = getStopBitPosition(codewordString);
+    const quantityOfZeros = codewordString.substring(0, stopBitPosition).length;
 
-    const rest = codeword.codeword.substring(stopBitPosition + 1);
+    const rest = codewordString.substring(stopBitPosition + 1);
     const binaryRest = parseInt(rest, 2);
 
     const integerPart = goulombDivisor * quantityOfZeros;
@@ -145,7 +132,21 @@ export const GoulombLayout = () => {
     );
   }
 
+  function getStopBitPosition(codeword:string){
+    let position = 0;
+    for(let i =0 ;i< codeword.length;i++){
+      const character = codeword.charAt(i);
+      if(character==='0'){
+        position++;
+      }else{
+        break;
+      }
+    }
+    return position;
+  }
+
   function renderCodewordSplitted(codeword: string) {
+    const stopBitPosition = getStopBitPosition(codeword);
     return (
       <div className="codeword">
         <span className="unaryPart">

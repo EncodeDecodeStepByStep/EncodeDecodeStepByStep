@@ -10,6 +10,8 @@ espere alguns minutos e terá o resultado dela.
 ## Dependência
 1. [Java 8+](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 2. [yarn](https://classic.yarnpkg.com/en/docs/install)
+3. [node](https://nodejs.org/en/)
+
 
 ## Instalação
 # Método 1 Clonando esse repositório
