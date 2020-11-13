@@ -14,7 +14,6 @@ public class EncodedDTOMapper {
                 .numberOfCharsReaded(Codification.getNumberOfCharsReaded())
                 .characterBeforeEncode(Codification.getCharacterCodification())
                 .progressPercentage(Codification.getProgressPercentage().getValue())
-                .stepMade(Codification.getStepMade())
                 .stepsFinished(Codification.isStepsFinished())
                 .build();
     }

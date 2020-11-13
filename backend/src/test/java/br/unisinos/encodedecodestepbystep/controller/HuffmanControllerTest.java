@@ -24,6 +24,9 @@ class HuffmanControllerTest {
     HuffmanService huffmanService;
 
     @Autowired
+    AutomaticContoller automaticContoller;
+
+    @Autowired
     HuffmanController huffmanController;
 
     private InputStream isEsperadoBeforeCodification;
@@ -49,7 +52,7 @@ class HuffmanControllerTest {
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         this.isCodewordEsperado.skip(17); // para skippar cabeçalho + virgula
-        CodificationDTO codificationDTORetornado = huffmanController.nextStep();
+        CodificationDTO codificationDTORetornado = automaticContoller.nextStep();
         while (!codificationDTORetornado.getStepsFinished()) {
             while (codewordEsperado.length() != codificationDTORetornado.getCodeword().length()) {
                 codewordEsperado.append((char) this.isCodewordEsperado.read());
@@ -60,7 +63,7 @@ class HuffmanControllerTest {
             Assertions.assertEquals(codewordEsperado.toString(), codificationDTORetornado.getCodeword());
 
             codewordEsperado = new StringBuilder("");
-            codificationDTORetornado = huffmanController.nextStep();
+            codificationDTORetornado = automaticContoller.nextStep();
         }
         Assertions.assertEquals(codificationDTORetornado.getNumberOfCharsTotal(), codificationDTORetornado.getNumberOfCharsReaded());
     }

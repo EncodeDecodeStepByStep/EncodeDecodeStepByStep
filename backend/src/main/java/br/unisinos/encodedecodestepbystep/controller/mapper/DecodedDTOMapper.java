@@ -14,7 +14,6 @@ public class DecodedDTOMapper {
                 .numberOfCharsReaded(Codification.getNumberOfCharsReaded())
                 .bitsBeforeDecode(Codification.getCodeword())
                 .progressPercentage(Codification.getProgressPercentage().getValue())
-                .stepMade(Codification.getStepMade())
                 .stepsFinished(Codification.isStepsFinished())
                 .build();
     }

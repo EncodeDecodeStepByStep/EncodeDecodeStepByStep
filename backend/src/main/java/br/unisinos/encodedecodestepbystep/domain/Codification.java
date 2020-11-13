@@ -13,7 +13,6 @@ public class Codification {
     private static Long numberOfCharsReaded;
     private static String codeword;
     private static String characterCodification;
-    private static String stepMade; // Descrição da ação(passo) q foi feita para mostrar
     private static MutableDouble progressPercentage;
     private static boolean stepsFinished;
 
@@ -54,14 +53,6 @@ public class Codification {
 
     public static void setCodeword(String codeword) {
         Codification.codeword = codeword;
-    }
-
-    public static String getStepMade() {
-        return stepMade;
-    }
-
-    public static void setStepMade(String stepMade) {
-        Codification.stepMade = stepMade;
     }
 
     public static MutableDouble getProgressPercentage() {

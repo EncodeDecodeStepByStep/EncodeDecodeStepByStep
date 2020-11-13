@@ -46,7 +46,6 @@ public class AutomaticContoller {
     @GetMapping("/nextStep")
     @ResponseStatus(HttpStatus.OK)
     public CodificationDTO nextStep() throws IOException {
-        Codification.setStepMade("Não faço ideia, pois não codei o algoritmo");
         Codification.setCodeword(new Reader().readNextStep());
         return Codification.isEncodeCodification() ? EncodedDTOMapper.getEncodedDTO() : DecodedDTOMapper.getDecodedDTO();
     }
