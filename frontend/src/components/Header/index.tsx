@@ -1,11 +1,10 @@
 import React from "react";
 import { useModal } from "../../hooks";
 import { Icon, Modal } from "../index";
-import { Container, ModalContent } from "./style";
+import { Container } from "./style";
 
 import Logo from "../../assets/logo.png";
 import LogoDark from "../../assets/logoDark.png";
-import Programmer from "../../assets/programmer.mp4";
 import Toggle from "react-toggle";
 import {
   useCodewords,
@@ -18,6 +17,7 @@ import {
 } from "../../context";
 import { EncodingDecoding } from "../../enums/EncodingDecoding";
 import { CodificationMethod } from "../../enums/CodificationMethod";
+import { ModalUsers } from "../ModalUsers";
 
 export const Header = () => {
   const { isShown, toggle } = useModal();
@@ -35,75 +35,7 @@ export const Header = () => {
   }
 
   function renderModal() {
-    return (
-      <ModalContent>
-        <video src={Programmer} autoPlay loop />
-        <nav>
-          <ul>
-            <li>
-              <div className="devname">Bruno Camboim</div>
-              <div className="social-media">
-                <a
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href="https://www.linkedin.com/in/bruno-camboim3b6/"
-                >
-                  <Icon.Linkedin size={24} color="black" />
-                </a>
-
-                <a
-                  target="_blank"
-                  href="https://github.com/brunocamboim"
-                  rel="noopener noreferrer"
-                >
-                  <Icon.Github size={24} color="black" />
-                </a>
-              </div>
-            </li>
-            <li>
-              <div className="devname">Bruno Pagliarini Pozzebon</div>
-              <div className="social-media">
-                <a
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href="https://www.linkedin.com/in/bruno-pozzebon44/"
-                >
-                  <Icon.Linkedin size={24} color="black" />
-                </a>
-
-                <a
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href="https://github.com/brunopozzebon"
-                >
-                  <Icon.Github size={24} color="black" />
-                </a>
-              </div>
-            </li>
-            <li>
-              <div className="devname">Gustavo Steinmetz</div>
-              <div className="social-media">
-                <a
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href="https://www.linkedin.com/in/stzgustavo/"
-                >
-                  <Icon.Linkedin size={24} color="black" />
-                </a>
-
-                <a
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href="https://github.com/GustavoSTZ"
-                >
-                  <Icon.Github size={24} color="black" />
-                </a>
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </ModalContent>
-    );
+    return <ModalUsers/>;
   }
 
   function clickOnLogo() {
@@ -138,7 +70,7 @@ export const Header = () => {
       </div>
 
       <Modal
-        title="Participaram deste projeto"
+        title="Sobre o projeto"
         isShown={isShown}
         hide={toggle}
         content={renderModal()}

@@ -59,12 +59,10 @@ export const Menu = () => {
     if (codificationMode === EncodingDecoding.DECODING) {
       setCodificationMethod(-1)
     }
-
     setCodingDecoding(codificationMode);
   }
 
   function handleCodificationMethod(codificMethod: Codification) {
-    
     setCodificationMethod(codificMethod);
   }
 
@@ -76,14 +74,12 @@ export const Menu = () => {
 
   function handleInput(e: any) {
     const files = e.target.files;
-  
     if (files && files.length) {
       setFile(files[0]);
     }
   }
 
   async function inicialize() {
-
     if (codingDecoding === EncodingDecoding.NO_ONE) {
       toast.warn("Selecione o modo");
     } else if (codingDecoding!==EncodingDecoding.DECODING && !codificationMethod.codificationType) {
@@ -171,7 +167,6 @@ export const Menu = () => {
                      <Icon.Explanation size={24} color={theme?PRIMARY: 'black'}/>
                    </span>
                   }
-               
                 </Card>
               );
             })}
@@ -261,8 +256,7 @@ export const Menu = () => {
         isShown={isShown}
         hide={toggle}
         content={renderModal()}
-      />
-     
+      />     
     </Container>
   );
 };
