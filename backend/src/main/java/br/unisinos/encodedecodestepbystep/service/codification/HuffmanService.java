@@ -56,7 +56,7 @@ public class HuffmanService implements CodificationService {
                 huffmanTree.put((char) key, "0");
                 newLine = true;
             } else {
-                if ((lengthEncode+1) == sortedMap.size()) {
+                if ((lengthEncode + 1) == sortedMap.size()) {
                     huffmanTree.put((char) key, StringUtils.createStreamWithOnes(lengthEncode));
                 } else {
                     huffmanTree.put((char) key, StringUtils.createStreamWithOnes(lengthEncode) + "0");
@@ -90,15 +90,14 @@ public class HuffmanService implements CodificationService {
 
         for (i = 0; i < values.length; i++) {
             int key = values[i];
-            writer.write(huffmanTree.get((char)key));
+            writer.write(huffmanTree.get((char) key));
         }
 
         writer.close();
         reader.close();
     }
 
-    private Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap, final boolean order)
-    {
+    private Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap, final boolean order) {
         List<Entry<Integer, Integer>> list = new LinkedList<>(unsortMap.entrySet());
 
         // Sorting the list based on values

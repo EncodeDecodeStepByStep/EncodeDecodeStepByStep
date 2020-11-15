@@ -25,7 +25,7 @@ public class Reader implements ReaderInterface {
     public Reader(File file, MutableDouble progressPercentage) throws IOException {
         Codification.setNumberOfCharsTotal(file.length());
         Codification.setMustSaveInCodeword(true);
-        if(Codification.isEncodeCodification()) {
+        if (Codification.isEncodeCodification()) {
             Codification.setFile(file);
         }
 
@@ -39,7 +39,7 @@ public class Reader implements ReaderInterface {
         this.porcentageLida = 0;
         this.progressPercentage = progressPercentage;
 
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
     }
 
     public Reader() throws IOException {
@@ -56,7 +56,7 @@ public class Reader implements ReaderInterface {
         this.porcentageLida = 0;
         this.progressPercentage = new MutableDouble(0);
 
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
     }
 
     public int read() throws IOException {
@@ -144,7 +144,7 @@ public class Reader implements ReaderInterface {
 
     @Override
     public String readNextStep() throws IOException {
-        if(Codification.isEncodeCodification()){
+        if (Codification.isEncodeCodification()) {
             int cabecalhoExtra = "Delta".equals(Codification.getCodificationName()) ? 6 : 0;
             this.bufferedReaderCodewordsSizeArray.skip(Codification.getNumberOfCodewordsReaded() + 17 + cabecalhoExtra); // para ignorar o cabeçalho + a virgula
         } else {

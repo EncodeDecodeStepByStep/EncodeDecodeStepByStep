@@ -7,5 +7,5 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public class EncodedDTO extends CodificationDTO{
+public class EncodedDTO extends CodificationDTO {
 }

@@ -1,4 +1,5 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
+
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
@@ -25,21 +26,19 @@ class HuffmanNode {
 // Here we will be compared
 // on the basis of data values of the nodes.
 class MyComparator implements Comparator<HuffmanNode> {
-    public int compare(HuffmanNode x, HuffmanNode y)
-    {
+    public int compare(HuffmanNode x, HuffmanNode y) {
 
         return x.data - y.data;
     }
 }
 
 @Service
-public class HuffmanNodeService implements CodificationService{
+public class HuffmanNodeService implements CodificationService {
 
     // recursive function to print the
     // huffman-code through the tree traversal.
     // Here s is the huffman - code generated.
-    public static void printCode(HuffmanNode root, String s, Map<Character, String> huffmanTree)
-    {
+    public static void printCode(HuffmanNode root, String s, Map<Character, String> huffmanTree) {
 
         // base case; if the left and right are null
         // then its a leaf node and we print
@@ -89,7 +88,7 @@ public class HuffmanNodeService implements CodificationService{
         Codification.setHuffmanSorted(sortedMap);
 
         int n = map.size();
-        char[] charArray =  new char[n];
+        char[] charArray = new char[n];
         int[] charfreq = new int[n];
 
         int length = 0;
@@ -191,8 +190,8 @@ public class HuffmanNodeService implements CodificationService{
 
         for (i = 0; i < values.length; i++) {
             int key = values[i];
-            System.out.print(huffmanTree.get((char)key));
-            writer.write(huffmanTree.get((char)key));
+            System.out.print(huffmanTree.get((char) key));
+            writer.write(huffmanTree.get((char) key));
         }
 
         writer.close();
@@ -211,15 +210,15 @@ public class HuffmanNodeService implements CodificationService{
         while ((character = (char) reader.readNextChar()) != 65535) {
             returnedBits.append(character);
             if (returnedBits.toString().endsWith("000010100000101000001010")) {
-                String tree = returnedBits.substring(0, returnedBits.length()-24);
+                String tree = returnedBits.substring(0, returnedBits.length() - 24);
                 char key = '0';
                 String value = "";
                 boolean isKey = true;
-                for (int i = 0; i < tree.length(); i+=8) {
-                    String returnedByte = tree.substring(i, i+8);
+                for (int i = 0; i < tree.length(); i += 8) {
+                    String returnedByte = tree.substring(i, i + 8);
                     int parseInt = Integer.parseInt(returnedByte, 2);
                     char c = (char) parseInt;
-                    System.out.print((char)parseInt);
+                    System.out.print((char) parseInt);
 
                     if (isKey) {
                         if (c == ':') {
@@ -266,8 +265,7 @@ public class HuffmanNodeService implements CodificationService{
         return firstByte + secondByte;
     }
 
-    private Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap, final boolean order)
-    {
+    private Map<Integer, Integer> sortByValue(Map<Integer, Integer> unsortMap, final boolean order) {
         List<Map.Entry<Integer, Integer>> list = new LinkedList<>(unsortMap.entrySet());
 
         // Sorting the list based on values

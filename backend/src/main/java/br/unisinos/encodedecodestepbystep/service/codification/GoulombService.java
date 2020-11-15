@@ -66,7 +66,7 @@ public class GoulombService implements CodificationService {
                 restInBinary += character;
                 for (int i = 1; i < digitsOnRest; i++) {
                     int nextChar = reader.readNextChar();
-                    bitsReaded.append((char)nextChar);
+                    bitsReaded.append((char) nextChar);
                     restInBinary += nextChar - '0';
                 }
                 int rest = Integer.parseInt(restInBinary, 2);

@@ -17,8 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static br.unisinos.encodedecodestepbystep.service.codification.AssertionsEncodeDecode.makeAssertions;
-import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.*;
-import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpDecodeSum;
+import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpDecodeAmazingDevs;
+import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpEncodeAmazingDevs;
 
 //Because we work with static attributes we need to test if the others algorithms is not interfering in each other.
 @SpringBootTest
@@ -58,7 +58,7 @@ public class SequencialServiceTest {
     @Test
     void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEDecodeDeUmTxtSequencialmente() throws IOException, WrongFormatExpection {
 
-        List<CodificationService> condificationServiceList =  new ArrayList<>(Arrays.asList(deltaService, eliasGammaService, fibonacciService, goulombService, unarioService));
+        List<CodificationService> condificationServiceList = new ArrayList<>(Arrays.asList(deltaService, eliasGammaService, fibonacciService, goulombService, unarioService));
         Collections.shuffle(condificationServiceList);
 
         for (CodificationService condificationService : condificationServiceList) {

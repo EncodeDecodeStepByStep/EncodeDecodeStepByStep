@@ -107,10 +107,6 @@ public class Codification {
         return encodeCodification;
     }
 
-    public static void setEncodeCodification(boolean encodeCodification) {
-        Codification.encodeCodification = encodeCodification;
-    }
-
     public static String getCodificationName() {
         return codificationName;
     }
@@ -121,6 +117,10 @@ public class Codification {
 
     public static Boolean getEncodeCodification() {
         return encodeCodification;
+    }
+
+    public static void setEncodeCodification(boolean encodeCodification) {
+        Codification.encodeCodification = encodeCodification;
     }
 
     public static void setEncodeCodification(Boolean encodeCodification) {
@@ -137,19 +137,19 @@ public class Codification {
 
     public static String staticToString() {
         return "Codification{"
-        + "encodeCodification: " + encodeCodification
-        + ", codificationName: " + codificationName
-        + ", numberOfCharsTotal: " + numberOfCharsTotal
-        + ", numberOfCharsReaded: " + numberOfCharsReaded
-        + ", codeword: " + codeword
-        + ", characterCodification: " + characterCodification
-        + ", progressPercentage: " + progressPercentage
-        + ", stepsFinished: " + stepsFinished
-        + ", file: " + file
-        + ", numberOfCodewordsReaded: " + numberOfCodewordsReaded
-        + ", mustSaveInCodeword: " + mustSaveInCodeword
-        + ", huffmanSorted: " + huffmanSorted
-        + ", huffmanTree: " + huffmanTree
-        + "}";
+                + "encodeCodification: " + encodeCodification
+                + ", codificationName: " + codificationName
+                + ", numberOfCharsTotal: " + numberOfCharsTotal
+                + ", numberOfCharsReaded: " + numberOfCharsReaded
+                + ", codeword: " + codeword
+                + ", characterCodification: " + characterCodification
+                + ", progressPercentage: " + progressPercentage
+                + ", stepsFinished: " + stepsFinished
+                + ", file: " + file
+                + ", numberOfCodewordsReaded: " + numberOfCodewordsReaded
+                + ", mustSaveInCodeword: " + mustSaveInCodeword
+                + ", huffmanSorted: " + huffmanSorted
+                + ", huffmanTree: " + huffmanTree
+                + "}";
     }
 }

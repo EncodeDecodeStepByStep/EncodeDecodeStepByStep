@@ -1,6 +1,6 @@
 package br.unisinos.encodedecodestepbystep.configuration;
 
-import br.unisinos.encodedecodestepbystep.service.codification.*;
+import br.unisinos.encodedecodestepbystep.service.codification.GoulombService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

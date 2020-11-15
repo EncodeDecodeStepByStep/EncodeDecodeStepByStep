@@ -14,7 +14,8 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static br.unisinos.encodedecodestepbystep.service.codification.AssertionsEncodeDecode.makeAssertions;
-import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.*;
+import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpDecodeAlice29;
+import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpEncodeAlice29;
 
 class UnarioServiceTest {
 

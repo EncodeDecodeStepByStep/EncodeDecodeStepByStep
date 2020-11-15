@@ -114,7 +114,7 @@ public class HammingService implements CodificationService {
     }
 
     @Override
-    public void encode(WriterInterface writer, ReaderInterface reader)throws IOException, WrongFormatExpection  {
+    public void encode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
         Codification.setCodificationName("Hamming");
         writer.writeSemHamming(getBitsIdentificacaoAlgoritmo(writer));
 
@@ -122,12 +122,12 @@ public class HammingService implements CodificationService {
 
         String word = "";
         while (character != -1) {
-            if(word.length()<IN_LENGTH){
+            if (word.length() < IN_LENGTH) {
                 character = reader.read();
-                String newWord =  StringUtils.integerToStringBinary(character,8);
-                word+=newWord;
+                String newWord = StringUtils.integerToStringBinary(character, 8);
+                word += newWord;
             }
-            String wordFourBits = word.substring(0,IN_LENGTH);
+            String wordFourBits = word.substring(0, IN_LENGTH);
             word = word.substring(IN_LENGTH);
             String codeword = introduceRedunduncy(wordFourBits);
             System.out.println(codeword);

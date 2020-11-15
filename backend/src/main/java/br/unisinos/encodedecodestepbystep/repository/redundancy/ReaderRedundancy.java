@@ -1,8 +1,8 @@
 package br.unisinos.encodedecodestepbystep.repository.redundancy;
 
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
-import br.unisinos.encodedecodestepbystep.service.redundancy.CRCService;
 import br.unisinos.encodedecodestepbystep.service.codification.HammingService;
+import br.unisinos.encodedecodestepbystep.service.redundancy.CRCService;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 import org.apache.commons.lang3.mutable.MutableDouble;

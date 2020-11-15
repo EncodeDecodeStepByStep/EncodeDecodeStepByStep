@@ -76,7 +76,7 @@ public class CodificationMapper {
 //    }
 
     public CodificationService getCodificationByStringBits(String bits) {
-        if (bits.startsWith("00001111")){
+        if (bits.startsWith("00001111")) {
             this.goulombService.setDivisor(Integer.parseInt(bits.substring(8, 16), 2));
             return this.goulombService;
         }

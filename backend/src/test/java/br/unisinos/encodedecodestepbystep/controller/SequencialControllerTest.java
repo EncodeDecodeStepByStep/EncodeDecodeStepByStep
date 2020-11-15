@@ -3,15 +3,16 @@ package br.unisinos.encodedecodestepbystep.controller;
 import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 //Because we work with static attributes we need to test if the others algorithms is not interfering in each other.
@@ -45,7 +46,7 @@ public class SequencialControllerTest {
 
     void setUp() throws FileNotFoundException {
         this.isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/AmazingDevs.txt"));
-        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
+        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
     }
 
     void tearDown() throws IOException {
@@ -55,7 +56,7 @@ public class SequencialControllerTest {
 
     @Test
     void deveSerOsMesmosCodewordsGravadosNoEncodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeEncodeSequencial() throws InterruptedException, IOException {
-        List<CodificationController> codificationControllerList =  new ArrayList<>(Arrays.asList(deltaController, eliasGammaController, fibonacciController, huffmanController, goulombController, unarioController));
+        List<CodificationController> codificationControllerList = new ArrayList<>(Arrays.asList(deltaController, eliasGammaController, fibonacciController, huffmanController, goulombController, unarioController));
         Collections.shuffle(codificationControllerList);
         for (CodificationController codificationController : codificationControllerList) {
             System.out.println(codificationController.getClass());
@@ -90,7 +91,7 @@ public class SequencialControllerTest {
 
     @Test
     void deveSerOsMesmosCodewordsGravadosNoDecodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeEncodeEDecodeSequencialmente() throws IOException, InterruptedException, WrongFormatExpection {
-        List<CodificationController> codificationControllerList =  new ArrayList<>(Arrays.asList(deltaController, eliasGammaController, fibonacciController, goulombController, huffmanController, unarioController));
+        List<CodificationController> codificationControllerList = new ArrayList<>(Arrays.asList(deltaController, eliasGammaController, fibonacciController, goulombController, huffmanController, unarioController));
         Collections.shuffle(codificationControllerList);
 
         for (CodificationController codificationController : codificationControllerList) {
@@ -109,7 +110,7 @@ public class SequencialControllerTest {
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         CodificationDTO codificationDTORetornado = automaticContoller.nextStep();
         while (!codificationDTORetornado.getStepsFinished()) {
-            while (codewordEsperado.length()+1 != codificationDTORetornado.getBitsBeforeDecode().length() + codificationDTORetornado.getCharacterDecoded().length()) {
+            while (codewordEsperado.length() + 1 != codificationDTORetornado.getBitsBeforeDecode().length() + codificationDTORetornado.getCharacterDecoded().length()) {
                 codewordEsperado.append((char) this.isCodewordEsperado.read());
             }
             this.isCodewordEsperado.read(); // para jogar o caracter da virgula fora.

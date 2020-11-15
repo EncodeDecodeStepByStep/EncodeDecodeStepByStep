@@ -136,7 +136,7 @@ public class DeltaService implements CodificationService {
 
     private String getCodeword(int quantity, ReaderInterface reader, StringBuilder bitsReaded) throws IOException, WrongFormatExpection {
         String codeword = "";
-        for (int i = 0; i < quantity; i++){
+        for (int i = 0; i < quantity; i++) {
             int nextChar = reader.readNextChar();
             bitsReaded.append((char) nextChar);
             codeword += nextChar - '0';

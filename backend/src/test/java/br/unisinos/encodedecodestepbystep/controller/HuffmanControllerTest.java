@@ -1,10 +1,7 @@
 package br.unisinos.encodedecodestepbystep.controller;
 
 import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
-import br.unisinos.encodedecodestepbystep.domain.Codification;
-import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.service.codification.HuffmanService;
-import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
 import java.util.concurrent.TimeUnit;
-
-import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpEncodeSum;
 
 @SpringBootTest
 class HuffmanControllerTest {
@@ -36,7 +31,7 @@ class HuffmanControllerTest {
     @BeforeEach
     void setUp() throws FileNotFoundException {
         this.isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/alice29.txt"));
-        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
+        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
     }
 
     @AfterEach

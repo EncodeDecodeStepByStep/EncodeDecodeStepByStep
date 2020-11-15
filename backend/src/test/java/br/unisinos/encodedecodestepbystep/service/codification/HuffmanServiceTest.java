@@ -1,20 +1,14 @@
 package br.unisinos.encodedecodestepbystep.service.codification;
 
-import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.repository.codification.Writer;
-import br.unisinos.encodedecodestepbystep.repository.redundancy.WriterRedundancy;
-import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-
-import static br.unisinos.encodedecodestepbystep.service.codification.AssertionsEncodeDecode.makeAssertions;
-import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.*;
 
 class HuffmanServiceTest {
 

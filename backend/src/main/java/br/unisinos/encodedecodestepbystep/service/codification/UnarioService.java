@@ -47,7 +47,7 @@ public class UnarioService implements CodificationService {
         StringBuilder bitsReaded = new StringBuilder("");
 
         int bitRead = reader.readNextChar();
-        bitsReaded.append((char)bitRead);
+        bitsReaded.append((char) bitRead);
         int last = bitRead;
         int counter = 1;
 
@@ -60,8 +60,8 @@ public class UnarioService implements CodificationService {
                 bitsReaded = new StringBuilder("");
                 last = bitRead;
                 counter = 1;
-            }else{
-                bitsReaded.append((char)bitRead);
+            } else {
+                bitsReaded.append((char) bitRead);
                 counter++;
             }
         }

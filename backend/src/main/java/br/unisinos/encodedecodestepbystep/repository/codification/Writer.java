@@ -1,6 +1,5 @@
 package br.unisinos.encodedecodestepbystep.repository.codification;
 
-import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
@@ -24,7 +23,7 @@ public class Writer implements WriterInterface {
         Codification.setNumberOfCodewordsReaded(0L);
         Codification.setNumberOfCharsReaded(0L);
         Codification.setMustSaveInCodeword(true);
-        if(!Codification.isEncodeCodification())
+        if (!Codification.isEncodeCodification())
             Codification.setFile(output);
 
         if (output.exists()) {
@@ -35,7 +34,7 @@ public class Writer implements WriterInterface {
         this.os = new FileOutputStream(output);
         this.bitsStringControle = "";
 
-        this.fileWriterCodewordsSizeArray = new FileWriter(new File(System.getProperty("user.dir")+ "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
+        this.fileWriterCodewordsSizeArray = new FileWriter(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
     }
 
     public static byte[] toByteArray(String input) {
@@ -94,8 +93,7 @@ public class Writer implements WriterInterface {
         if (this.bitsStringControle.length() > 0) {
             write8bitsOrConcatZerosToComplete(bitsStringControle);
             this.bitsStringControle = "";
-        }
-        else if("Huffman Estático".equals(Codification.getCodificationName())) { //Aquela solução mágica que funciona
+        } else if ("Huffman Estático".equals(Codification.getCodificationName())) { //Aquela solução mágica que funciona
             write8bitsOrConcatZerosToComplete("00000000"); // para o protocolo dizer que irá remover 0 bits
         }
         bufferedWriter.close();
