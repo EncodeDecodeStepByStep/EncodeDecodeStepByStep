@@ -4,6 +4,7 @@ package br.unisinos.encodedecodestepbystep.service.redundancy;
 import br.unisinos.encodedecodestepbystep.utils.ErrorWriter;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class HammingService implements Redunduncy {
@@ -89,6 +90,7 @@ public class HammingService implements Redunduncy {
             int binaryWithProblemIndex = binaryWithProblem - 1;
 
             ErrorWriter errorWriter = ErrorWriter.getInstance();
+            ErrorWriter.setFile(Paths.get("").toAbsolutePath().toString()+"\\src\\main\\resources", "hamming.txt");
 
             if (binaryWithProblemIndex < 4) {
                 errorWriter.write("Encontrado um erro no " + (binaryWithProblemIndex + 1) + "º bit do codeword hamming");

@@ -29,7 +29,7 @@ public class ErrorWriter {
 
     public void write(String log) {
         try {
-            File file = new File(path);
+            File file = new File(instance.path);
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter writer = new BufferedWriter(fileWriter);
 
