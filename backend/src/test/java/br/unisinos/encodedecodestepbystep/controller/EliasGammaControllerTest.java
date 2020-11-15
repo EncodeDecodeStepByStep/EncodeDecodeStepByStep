@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.*;
 import java.util.concurrent.TimeUnit;
 
+import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpEncodeAlice29;
 import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpEncodeSum;
 
 @SpringBootTest
@@ -70,7 +71,9 @@ class EliasGammaControllerTest {
 
     @Test
     void deveSerOsMesmosCodewordsGravadosNoDecodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeDecode() throws IOException, WrongFormatExpection, InterruptedException {
-        ReaderWriterWrapper readerWriterWrapper = setUpEncodeSum();
+        Codification.setStepsFinished(false);
+        Codification.setEncodeCodification(true);
+        ReaderWriterWrapper readerWriterWrapper = setUpEncodeAlice29();
         eliasGammaService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
 
         StringBuilder codewordEsperado = new StringBuilder("");

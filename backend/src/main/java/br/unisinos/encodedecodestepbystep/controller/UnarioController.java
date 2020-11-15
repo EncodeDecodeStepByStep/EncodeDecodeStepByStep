@@ -1,11 +1,7 @@
 package br.unisinos.encodedecodestepbystep.controller;
 
-import br.unisinos.encodedecodestepbystep.controller.mapper.DecodedDTOMapper;
-import br.unisinos.encodedecodestepbystep.controller.mapper.EncodedDTOMapper;
-import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
-import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
 import br.unisinos.encodedecodestepbystep.service.codification.UnarioService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.mutable.MutableDouble;
@@ -13,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-
 @RestController()
 @RequestMapping("/unary")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class UnarioController {
+public class UnarioController implements CodificationController {
 
     private final UnarioService unarioService;
 

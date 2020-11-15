@@ -134,4 +134,22 @@ public class Codification {
     public static void setMustSaveInCodeword(boolean mustSaveInCodeword) {
         Codification.mustSaveInCodeword = mustSaveInCodeword;
     }
+
+    public static String staticToString() {
+        return "Codification{"
+        + "encodeCodification: " + encodeCodification
+        + ", codificationName: " + codificationName
+        + ", numberOfCharsTotal: " + numberOfCharsTotal
+        + ", numberOfCharsReaded: " + numberOfCharsReaded
+        + ", codeword: " + codeword
+        + ", characterCodification: " + characterCodification
+        + ", progressPercentage: " + progressPercentage
+        + ", stepsFinished: " + stepsFinished
+        + ", file: " + file
+        + ", numberOfCodewordsReaded: " + numberOfCodewordsReaded
+        + ", mustSaveInCodeword: " + mustSaveInCodeword
+        + ", huffmanSorted: " + huffmanSorted
+        + ", huffmanTree: " + huffmanTree
+        + "}";
+    }
 }

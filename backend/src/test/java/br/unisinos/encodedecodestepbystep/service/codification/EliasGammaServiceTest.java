@@ -42,21 +42,21 @@ class EliasGammaServiceTest {
         setUp(setUpDecodeAlice29());
         eliasGammaService.decode(this.writer, this.reader);
 
-        makeAssertions();
+        makeAssertions("alice29.txt");
     }
 
-    @Test
-    void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
-        Codification.setEncodeCodification(true);
-        setUp(setUpEncodeSum());
-        eliasGammaService.encode(this.writer, this.reader);
-
-        Codification.setEncodeCodification(false);
-        setUp(setUpDecodeSum());
-        eliasGammaService.decode(this.writer, this.reader);
-
-        makeAssertions();
-    }
+//    @Test
+//    void deveFicarIgualOArquivoOriginalQuandoExecutadoEncodeEAposDecodeDeUmExecutavel() throws IOException, WrongFormatExpection {
+//        Codification.setEncodeCodification(true);
+//        setUp(setUpEncodeSum());
+//        eliasGammaService.encode(this.writer, this.reader);
+//
+//        Codification.setEncodeCodification(false);
+//        setUp(setUpDecodeSum());
+//        eliasGammaService.decode(this.writer, this.reader);
+//
+//        makeAssertions("sum");
+//    }
 
 //    @Test
 //    void deveFicarIgualOArquivoOriginalQuandoExecutadoComTratamentoDeRuidoEncodeEAposDecodeDeUmTxt() throws IOException, WrongFormatExpection {

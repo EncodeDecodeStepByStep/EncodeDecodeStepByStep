@@ -4,7 +4,6 @@ import br.unisinos.encodedecodestepbystep.controller.mapper.EncodedDTOMapper;
 import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.domain.ReaderWriterWrapper;
-import br.unisinos.encodedecodestepbystep.repository.codification.Reader;
 import br.unisinos.encodedecodestepbystep.service.codification.HuffmanNodeService;
 //import br.unisinos.encodedecodestepbystep.service.codification.HuffmanService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ import java.io.IOException;
 @RestController()
 @RequestMapping("/huffman")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class HuffmanController {
+public class HuffmanController implements CodificationController {
 
     private final HuffmanNodeService huffmanService;
 

@@ -51,7 +51,7 @@ public class HuffmanNodeService implements CodificationService{
 
             // c is the character in the node
             huffmanTree.put(root.c, s);
-            System.out.println(root.c + ":" + s);
+//            System.out.println(root.c + ":" + s);
 
             return;
         }
@@ -191,6 +191,7 @@ public class HuffmanNodeService implements CodificationService{
 
         for (i = 0; i < values.length; i++) {
             int key = values[i];
+            System.out.print(huffmanTree.get((char)key));
             writer.write(huffmanTree.get((char)key));
         }
 
@@ -200,6 +201,7 @@ public class HuffmanNodeService implements CodificationService{
 
     @Override
     public void decode(WriterInterface writer, ReaderInterface reader) throws IOException, WrongFormatExpection {
+        System.out.println();
         Codification.setCodificationName("Huffman Estático");
         reader.readCabecalho();// apenas para passar os bits do cabeçalho
         char character;
@@ -210,7 +212,6 @@ public class HuffmanNodeService implements CodificationService{
             returnedBits.append(character);
             if (returnedBits.toString().endsWith("000010100000101000001010")) {
                 String tree = returnedBits.substring(0, returnedBits.length()-24);
-
                 char key = '0';
                 String value = "";
                 boolean isKey = true;
@@ -218,6 +219,7 @@ public class HuffmanNodeService implements CodificationService{
                     String returnedByte = tree.substring(i, i+8);
                     int parseInt = Integer.parseInt(returnedByte, 2);
                     char c = (char) parseInt;
+                    System.out.print((char)parseInt);
 
                     if (isKey) {
                         if (c == ':') {
@@ -239,8 +241,11 @@ public class HuffmanNodeService implements CodificationService{
             }
         }
 
+        //0111,1010,110,1110,010,100,000,1111,110,
+
         StringBuilder bitsReaded = new StringBuilder("");
         while ((character = (char) reader.readNextChar()) != 65535) {
+            System.out.print(character);
             bitsReaded.append(character);
 
             if (huffmanTree.containsKey(bitsReaded.toString())) {

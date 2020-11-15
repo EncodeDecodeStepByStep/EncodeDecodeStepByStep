@@ -115,7 +115,8 @@ public class Reader implements ReaderInterface {
     }
 
     private String protoloDeRemocaoDeBits(String binaryfinal) {
-        String protolo = binaryfinal.substring(binaryfinal.length() - 1 - LENGTH_PROTOCOLO_REMOCAO_BITS);
+//        String protolo = binaryfinal.substring(binaryfinal.length() - 1 - LENGTH_PROTOCOLO_REMOCAO_BITS);
+        String protolo = binaryfinal.substring(binaryfinal.length() - LENGTH_PROTOCOLO_REMOCAO_BITS); // TODO testar
         int bitsARemover = Integer.parseInt(protolo, 2);
         return binaryfinal.substring(0, binaryfinal.length() - (bitsARemover + LENGTH_PROTOCOLO_REMOCAO_BITS));
     }
@@ -155,8 +156,8 @@ public class Reader implements ReaderInterface {
             int charLido = this.bufferedReaderCodewordsSizeArray.read();
             Codification.setNumberOfCodewordsReaded(Codification.getNumberOfCodewordsReaded() + 1);
             if (-1 == charLido) {
+
                 Codification.setStepsFinished(true);
-                System.out.println("terminou");
                 break;
             }
             if (',' == ((char) charLido)) {
@@ -166,7 +167,6 @@ public class Reader implements ReaderInterface {
             }
             codeword.append((char) charLido);
         }
-//        System.out.println(codeword.toString());
         return codeword.toString();
     }
 }

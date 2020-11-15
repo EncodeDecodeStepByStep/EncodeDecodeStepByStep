@@ -95,6 +95,9 @@ public class Writer implements WriterInterface {
             write8bitsOrConcatZerosToComplete(bitsStringControle);
             this.bitsStringControle = "";
         }
+        else if("Huffman Estático".equals(Codification.getCodificationName())) { //Aquela solução mágica que funciona
+            write8bitsOrConcatZerosToComplete("00000000"); // para o protocolo dizer que irá remover 0 bits
+        }
         bufferedWriter.close();
         fileWriter.close();
         os.close();

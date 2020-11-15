@@ -49,18 +49,20 @@ public class UnarioService implements CodificationService {
         int bitRead = reader.readNextChar();
         bitsReaded.append((char)bitRead);
         int last = bitRead;
-        int counter = 0;
+        int counter = 1;
 
         while (bitRead != -1) {
+
             bitRead = reader.readNextChar();
-            bitsReaded.append((char)bitRead);
-            counter++;
             if (bitRead != last) {
                 char character = (char) counter;
                 writer.write(character, bitsReaded.toString());
                 bitsReaded = new StringBuilder("");
                 last = bitRead;
-                counter = 0;
+                counter = 1;
+            }else{
+                bitsReaded.append((char)bitRead);
+                counter++;
             }
         }
 

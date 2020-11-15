@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.*;
 import java.util.concurrent.TimeUnit;
 
+import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpEncodeAlice29;
 import static br.unisinos.encodedecodestepbystep.service.codification.SetUpWriterReader.setUpEncodeSum;
 
 @SpringBootTest
@@ -71,7 +72,9 @@ class GoulombControllerTest {
 
     @Test
     void deveSerOsMesmosCodewordsGravadosNoDecodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeDecode() throws IOException, InterruptedException, WrongFormatExpection {
-        ReaderWriterWrapper readerWriterWrapper = setUpEncodeSum();
+        Codification.setStepsFinished(false);
+        Codification.setEncodeCodification(true);
+        ReaderWriterWrapper readerWriterWrapper = setUpEncodeAlice29();
         goulombService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
 
         StringBuilder codewordEsperado = new StringBuilder("");

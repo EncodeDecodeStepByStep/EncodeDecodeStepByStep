@@ -47,6 +47,14 @@ public class SetUpWriterReader {
         return setUpDecode("alice29.txt");
     }
 
+    public static ReaderWriterWrapper setUpEncodeAmazingDevs() throws IOException {
+        return setUpEncode("AmazingDevs.txt");
+    }
+
+    public static ReaderWriterWrapper setUpDecodeAmazingDevs() throws IOException {
+        return setUpDecode("AmazingDevs.txt");
+    }
+
     public static ReaderWriterWrapper setUpEncodeSum() throws IOException {
         return setUpEncode("sum");
     }
