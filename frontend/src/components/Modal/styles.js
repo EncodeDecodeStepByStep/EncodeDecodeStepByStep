@@ -48,5 +48,5 @@ export const CloseButton = styled.button`
 `;
 export const Content = styled.div`
   padding: 10px;
-  max-height: 30rem;
+  height: 30rem;
 `;

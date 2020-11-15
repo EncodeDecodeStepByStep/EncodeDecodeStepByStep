@@ -88,7 +88,7 @@ export const CodificationCards = styled.section`
 export const ModalContainer = styled.div`
     width: 800px;
     overflow-y: auto;
-    max-height: 70vh;
+    max-height: 100%;
     img{
       max-width: 100%;
     }

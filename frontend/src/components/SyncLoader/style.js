@@ -11,6 +11,8 @@ export const Container = styled.main`
     
 
     .center-view{
+        position: relative;
+        top: -60px;
         padding:15px 30px;
         border-radius:12px;
         background-color:${props=>props.isDark? BLUE_GRAY: 'white'};

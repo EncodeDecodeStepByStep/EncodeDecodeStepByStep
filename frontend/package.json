@@ -22,6 +22,7 @@
     "axios": "^0.19.0",
     "cross-env": "^7.0.2",
     "electron-is-dev": "^1.2.0",
+    "kill-port-process": "^2.3.0",
     "rc-progress": "^3.1.0",
     "react": "^16.13.1",
     "react-create-global-state": "^1.0.0",
@@ -41,9 +42,9 @@
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
-    "build-file":"node src/scripts/electronBuilder.js",
-    "start-file":"node src/scripts/electronBuilder.js isDev",
-    "build": "yarn react-build && yarn electron-build",
+    "build-file": "node src/scripts/electronBuilder.js",
+    "start-file": "node src/scripts/electronBuilder.js isDev",
+    "build": "yarn build-file && yarn react-build && yarn electron-build",
     "start": "yarn start-file && concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
