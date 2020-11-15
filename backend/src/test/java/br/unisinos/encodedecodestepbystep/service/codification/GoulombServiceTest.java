@@ -85,21 +85,21 @@ class GoulombServiceTest {
     void deveRetornarIdentificaoEmBitsDoAlgoritmoComSegundoByteCorrepondendoAoTamanhoDoDivisor() throws IOException {
         goulombService = new GoulombService(21);
         String bitsIdentificacaoAlgoritmoEsperado = "0000111100010101";
-        String bitsIdentificacaoAlgoritmoRetornado = goulombService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
+        String bitsIdentificacaoAlgoritmoRetornado = goulombService.getBitsIdentificacaoAlgoritmo(new Writer("src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() throws IOException {
         String bitsIdentificacaoAlgoritmoEsperado = "0000111100000010";
-        String bitsIdentificacaoAlgoritmoRetornado = goulombService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
+        String bitsIdentificacaoAlgoritmoRetornado = goulombService.getBitsIdentificacaoAlgoritmo(new Writer("src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoComByteCRC8QuandoUtilizadoTratamentoDeRuido() throws IOException {
         String bitsIdentificacaoAlgoritmoEsperado = "000011110000001011001101";
-        String bitsIdentificacaoAlgoritmoRetornado = goulombService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
+        String bitsIdentificacaoAlgoritmoRetornado = goulombService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 }

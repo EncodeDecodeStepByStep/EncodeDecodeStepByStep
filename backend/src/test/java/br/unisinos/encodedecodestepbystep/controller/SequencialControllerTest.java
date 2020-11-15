@@ -46,7 +46,7 @@ public class SequencialControllerTest {
 
     void setUp() throws FileNotFoundException {
         this.isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/AmazingDevs.txt"));
-        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
+        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository"));
     }
 
     void tearDown() throws IOException {
@@ -67,7 +67,7 @@ public class SequencialControllerTest {
     void encode(CodificationController codificationController) throws InterruptedException, IOException {
         setUp();
         StringBuilder codewordEsperado = new StringBuilder("");
-        codificationController.encode("src\\test\\resources\\filesToEncodeDecodeTest\\AmazingDevs.txt");
+        codificationController.encode("src/test/resources/filesToEncodeDecodeTest/AmazingDevs.txt");
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         this.isCodewordEsperado.skip(17 + ("Delta".equals(Codification.getCodificationName()) ? 6 : 0)); // para skippar cabeçalho + virgula
@@ -105,7 +105,7 @@ public class SequencialControllerTest {
         setUp();
 
         StringBuilder codewordEsperado = new StringBuilder("");
-        automaticContoller.decode("src\\test\\resources\\filesToEncodeDecodeTest\\AmazingDevs.txt.cod");
+        automaticContoller.decode("src/test/resources/filesToEncodeDecodeTest/AmazingDevs.txt.cod");
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         CodificationDTO codificationDTORetornado = automaticContoller.nextStep();

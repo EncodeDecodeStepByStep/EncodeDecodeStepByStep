@@ -28,7 +28,7 @@ public class ReaderWriterWrapper {
 
     public static ReaderWriterWrapper getDecodeReaderWriterWrapperRedundancy(String path, MutableDouble progressPercentage) throws IOException {
         return new ReaderWriterWrapper(new ReaderRedundancy(new File(path), progressPercentage),
-                new WriterRedundancy(path.substring(0, path.lastIndexOf("\\") + 1) + "decoded_" + path.substring(path.lastIndexOf("\\") + 1).replaceFirst("(?s)(.*)" + "[.][^.]+$", "$1" + "")));
+                new WriterRedundancy(path.substring(0, path.lastIndexOf("/") + 1) + "decoded_" + path.substring(path.lastIndexOf("/") + 1).replaceFirst("(?s)(.*)" + "[.][^.]+$", "$1" + "")));
     }
 
     public static ReaderWriterWrapper getEncodeReaderWriterWrapperNormal(String path, MutableDouble progressPercentage) throws IOException {
@@ -37,7 +37,7 @@ public class ReaderWriterWrapper {
 
     public static ReaderWriterWrapper getDecodeReaderWriterWrapperNormal(String path, MutableDouble progressPercentage) throws IOException {
         return new ReaderWriterWrapper(new Reader(new File(path), progressPercentage),
-                new Writer(path.substring(0, path.lastIndexOf("\\") + 1) + "decoded_" + path.substring(path.lastIndexOf("\\") + 1).replaceFirst("(?s)(.*)" + "[.][^.]+$", "$1" + "")));
+                new Writer(path.substring(0, path.lastIndexOf("/") + 1) + "decoded_" + path.substring(path.lastIndexOf("/") + 1).replaceFirst("(?s)(.*)" + "[.][^.]+$", "$1" + "")));
     }
 
 }

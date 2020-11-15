@@ -84,14 +84,14 @@ class FibonacciServiceTest {
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() throws IOException {
         String bitsIdentificacaoAlgoritmoEsperado = "0000011100000000";
-        String bitsIdentificacaoAlgoritmoRetornado = fibonacciService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
+        String bitsIdentificacaoAlgoritmoRetornado = fibonacciService.getBitsIdentificacaoAlgoritmo(new Writer("src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoComByteCRC8QuandoUtilizadoTratamentoDeRuido() throws IOException {
         String bitsIdentificacaoAlgoritmoEsperado = "000001110000000001101011";
-        String bitsIdentificacaoAlgoritmoRetornado = fibonacciService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
+        String bitsIdentificacaoAlgoritmoRetornado = fibonacciService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 }

@@ -90,7 +90,7 @@ public class HammingService implements Redunduncy {
             int binaryWithProblemIndex = binaryWithProblem - 1;
 
             ErrorWriter errorWriter = ErrorWriter.getInstance();
-            ErrorWriter.setFile(Paths.get("").toAbsolutePath().toString() + "\\src\\main\\resources", "hamming.txt");
+            ErrorWriter.setFile(Paths.get("").toAbsolutePath().toString() + "/src/main/resources", "hamming.txt");
 
             if (binaryWithProblemIndex < 4) {
                 errorWriter.write("Encontrado um erro no " + (binaryWithProblemIndex + 1) + "º bit do codeword hamming");

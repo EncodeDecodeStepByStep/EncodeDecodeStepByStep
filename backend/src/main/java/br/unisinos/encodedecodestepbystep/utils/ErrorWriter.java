@@ -19,7 +19,7 @@ public class ErrorWriter {
     }
 
     public static void setFile(String path, String fileName) {
-        String finalPath = path + "\\" + "error-" + fileName;
+        String finalPath = path + "/" + "error-" + fileName;
         instance = new ErrorWriter(finalPath);
     }
 

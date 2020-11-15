@@ -31,7 +31,7 @@ class HuffmanControllerTest {
     @BeforeEach
     void setUp() throws FileNotFoundException {
         this.isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/alice29.txt"));
-        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
+        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository"));
     }
 
     @AfterEach
@@ -43,7 +43,7 @@ class HuffmanControllerTest {
     @Test
     void deveSerOsMesmosCodewordsGravadosNoEncodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeEncode() throws InterruptedException, IOException {
         StringBuilder codewordEsperado = new StringBuilder("");
-        huffmanController.encode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt");
+        huffmanController.encode("src/test/resources/filesToEncodeDecodeTest/alice29.txt");
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         this.isCodewordEsperado.skip(17); // para skippar cabeçalho + virgula
@@ -69,7 +69,7 @@ class HuffmanControllerTest {
 //        huffmanService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
 //
 //        StringBuilder codewordEsperado = new StringBuilder("");
-//        huffmanController.decode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod");
+//        huffmanController.decode("src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod");
 //
 //        TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
 //        CodificationDTO codificationDTORetornado = huffmanController.nextStep();

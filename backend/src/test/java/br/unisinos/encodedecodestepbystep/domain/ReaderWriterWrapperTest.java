@@ -15,8 +15,8 @@ class ReaderWriterWrapperTest {
 
     @Test
     void deveRetornarReaderWriterWrapperComRedundancyEPathsCorretosParaEncode() throws IOException {
-        String pathEsperadoReader = "src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt";
-        String pathEsperadoWriter = "src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod";
+        String pathEsperadoReader = "src/test/resources/filesToEncodeDecodeTest/alice29.txt";
+        String pathEsperadoWriter = "src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod";
 
         ReaderWriterWrapper readerWriterWrapperRetornado = ReaderWriterWrapper.getEncodeReaderWriterWrapperRedundancy(pathEsperadoReader, new MutableDouble());
 
@@ -28,8 +28,8 @@ class ReaderWriterWrapperTest {
 
     @Test
     void deveRetornarReaderWriterWrapperComRedundancyEPathsCorretosParaDecode() throws IOException {
-        String pathEsperadoReader = "src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod";
-        String pathEsperadoWriter = "src\\test\\resources\\filesToEncodeDecodeTest\\decoded_alice29.txt";
+        String pathEsperadoReader = "src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod";
+        String pathEsperadoWriter = "src/test/resources/filesToEncodeDecodeTest/decoded_alice29.txt";
 
         ReaderWriterWrapper readerWriterWrapperRetornado = ReaderWriterWrapper.getDecodeReaderWriterWrapperRedundancy(pathEsperadoReader, new MutableDouble());
 
@@ -41,8 +41,8 @@ class ReaderWriterWrapperTest {
 
     @Test
     void deveRetornarReaderWriterWrapperSemRedundancyEPathsCorretosParaEncode() throws IOException {
-        String pathEsperadoReader = "src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt";
-        String pathEsperadoWriter = "src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod";
+        String pathEsperadoReader = "src/test/resources/filesToEncodeDecodeTest/alice29.txt";
+        String pathEsperadoWriter = "src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod";
 
         ReaderWriterWrapper readerWriterWrapperRetornado = ReaderWriterWrapper.getEncodeReaderWriterWrapperNormal(pathEsperadoReader, new MutableDouble());
 
@@ -54,8 +54,8 @@ class ReaderWriterWrapperTest {
 
     @Test
     void deveRetornarReaderWriterWrapperSemRedundancyEPathsCorretosParaDecode() throws IOException {
-        String pathEsperadoReader = "src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod";
-        String pathEsperadoWriter = "src\\test\\resources\\filesToEncodeDecodeTest\\decoded_alice29.txt";
+        String pathEsperadoReader = "src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod";
+        String pathEsperadoWriter = "src/test/resources/filesToEncodeDecodeTest/decoded_alice29.txt";
 
         ReaderWriterWrapper readerWriterWrapperRetornado = ReaderWriterWrapper.getDecodeReaderWriterWrapperNormal(pathEsperadoReader, new MutableDouble());
 

@@ -39,7 +39,7 @@ public class Reader implements ReaderInterface {
         this.porcentageLida = 0;
         this.progressPercentage = progressPercentage;
 
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository")));
     }
 
     public Reader() throws IOException {
@@ -56,7 +56,7 @@ public class Reader implements ReaderInterface {
         this.porcentageLida = 0;
         this.progressPercentage = new MutableDouble(0);
 
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository")));
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository")));
     }
 
     public int read() throws IOException {

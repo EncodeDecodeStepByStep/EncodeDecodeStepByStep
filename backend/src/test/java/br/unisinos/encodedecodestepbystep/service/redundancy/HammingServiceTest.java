@@ -18,7 +18,7 @@ class HammingServiceTest {
     @AfterAll
     public static void deleteErrorFile() {
         String absolutePath = Paths.get("").toAbsolutePath().toString();
-        File myObj = new File(absolutePath + "\\src\\main\\resources\\error-hamming.txt");
+        File myObj = new File(absolutePath + "/src/main/resources/error-hamming.txt");
         myObj.delete();
     }
 

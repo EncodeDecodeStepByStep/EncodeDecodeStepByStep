@@ -34,12 +34,12 @@ public class Writer implements WriterInterface {
         this.os = new FileOutputStream(output);
         this.bitsStringControle = "";
 
-        this.fileWriterCodewordsSizeArray = new FileWriter(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
+        this.fileWriterCodewordsSizeArray = new FileWriter(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository"));
     }
 
     public static byte[] toByteArray(String input) {
 
-        List<String> codewardsSplit = Arrays.asList(input.split("(?<=\\G.{8})"));
+        List<String> codewardsSplit = Arrays.asList(input.split("(?<=/G.{8})"));
         byte[] bitMontados = new byte[codewardsSplit.size()];
         for (int i = 0; i < codewardsSplit.size(); i++) {
             bitMontados[i] = convertBitsToByte(codewardsSplit.get(i));

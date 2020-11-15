@@ -55,14 +55,14 @@ class HuffmanServiceTest {
     @Test
     void deveRetornarIdentificaoEmBitsDoAlgoritmoSemByteCRC8QuandoNaoUtilizadoTratamentoDeRuido() throws IOException {
         String bitsIdentificacaoAlgoritmoEsperado = "0011111100000000";
-        String bitsIdentificacaoAlgoritmoRetornado = huffmanService.getBitsIdentificacaoAlgoritmo(new Writer("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
+        String bitsIdentificacaoAlgoritmoRetornado = huffmanService.getBitsIdentificacaoAlgoritmo(new Writer("src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod"));
         Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
     }
 
 //    @Test
 //    void deveRetornarIdentificaoEmBitsDoAlgoritmoComByteCRC8QuandoUtilizadoTratamentoDeRuido() throws IOException {
 //        String bitsIdentificacaoAlgoritmoEsperado = "000000110000000000111111";
-//        String bitsIdentificacaoAlgoritmoRetornado = huffmanService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod"));
+//        String bitsIdentificacaoAlgoritmoRetornado = huffmanService.getBitsIdentificacaoAlgoritmo(new WriterRedundancy("src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod"));
 //        Assertions.assertEquals(bitsIdentificacaoAlgoritmoEsperado, bitsIdentificacaoAlgoritmoRetornado);
 //    }
 }

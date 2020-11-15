@@ -37,7 +37,7 @@ class GoulombControllerTest {
     @BeforeEach
     void setUp() throws FileNotFoundException {
         this.isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/alice29.txt"));
-        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir") + "\\public\\backend_jar\\database\\CodewordsSizesArray.repository"));
+        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository"));
     }
 
     @AfterEach
@@ -49,7 +49,7 @@ class GoulombControllerTest {
     @Test
     void deveSerOsMesmosCodewordsGravadosNoEncodeNoNextStepConcatenadoExcetoPeloCabecalhoQuandoEstiverNoProcessoDeEncode() throws InterruptedException, IOException {
         StringBuilder codewordEsperado = new StringBuilder("");
-        goulombController.encode(new EncodeRequest("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt", 2));
+        goulombController.encode(new EncodeRequest("src/test/resources/filesToEncodeDecodeTest/alice29.txt", 2));
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         this.isCodewordEsperado.skip(17); // para skippar cabeçalho + virgula
@@ -77,7 +77,7 @@ class GoulombControllerTest {
         goulombService.encode(readerWriterWrapper.getWriterInterface(), readerWriterWrapper.getReaderInterface());
 
         StringBuilder codewordEsperado = new StringBuilder("");
-        automaticContoller.decode("src\\test\\resources\\filesToEncodeDecodeTest\\alice29.txt.cod");
+        automaticContoller.decode("src/test/resources/filesToEncodeDecodeTest/alice29.txt.cod");
 
         TimeUnit.SECONDS.sleep(10); // para dar tempo para iniciar thread do encode
         CodificationDTO codificationDTORetornado = automaticContoller.nextStep();
