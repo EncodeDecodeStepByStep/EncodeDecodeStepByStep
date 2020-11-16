@@ -18,10 +18,8 @@ Além disso, criamos uma interface gráfica para facilitar a vizualização.
 #### Linux
 1. Baixa o arquivo .zip para linux
 2. Descompacte o conteúdo, e entre na pasta extraída
-3. Execute o seguinte comando
-```
-./encode-decode-step-by-step
-```
+3. Execute o arquivo EncodeDecode.AppImage ou, por terminal execute o comando ./encode-decode-step-by-step
+
 > Obs: No mundo linux, poderá acontecer certos inconvenientes durante o processo de exibição do passo-a-passo. Evite codificar ou decodificar um certo arquivo, na qual o seu path, esteja em uma pasta com espaços ou acentos. Em certas distribuições, isso gera erros, que ainda estão sendo resolvidos.
 
 ### Método 2 Clonando esse repositório
