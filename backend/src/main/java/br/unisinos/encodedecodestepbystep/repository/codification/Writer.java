@@ -3,6 +3,7 @@ package br.unisinos.encodedecodestepbystep.repository.codification;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.WriterInterface;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
+import br.unisinos.encodedecodestepbystep.utils.SystemUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 
 import java.io.*;
@@ -34,7 +35,7 @@ public class Writer implements WriterInterface {
         this.os = new FileOutputStream(output);
         this.bitsStringControle = "";
 
-        this.fileWriterCodewordsSizeArray = new FileWriter(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository"));
+        this.fileWriterCodewordsSizeArray = new FileWriter(new File(SystemUtils.getCodewordsRepositoryPath()));
     }
 
     public static byte[] toByteArray(String input) {

@@ -2,6 +2,7 @@ package br.unisinos.encodedecodestepbystep.controller;
 
 import br.unisinos.encodedecodestepbystep.controller.response.CodificationDTO;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
+import br.unisinos.encodedecodestepbystep.utils.SystemUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,7 @@ public class SequencialControllerTest {
 
     void setUp() throws FileNotFoundException {
         this.isEsperadoBeforeCodification = new FileInputStream(new File("src/test/resources/filesToEncodeDecodeTest/AmazingDevs.txt"));
-        this.isCodewordEsperado = new FileInputStream(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository"));
+        this.isCodewordEsperado = new FileInputStream(new File(SystemUtils.getCodewordsRepositoryPath()));
     }
 
     void tearDown() throws IOException {

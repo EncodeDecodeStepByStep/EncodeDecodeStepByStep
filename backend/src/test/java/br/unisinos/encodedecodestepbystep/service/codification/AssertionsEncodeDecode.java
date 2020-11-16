@@ -20,6 +20,19 @@ public class AssertionsEncodeDecode {
         InputStream isParaEsperado = new FileInputStream(arquivoEsperado);
         InputStream isParaResultado = new FileInputStream(arquivoRetornado);
 
+        if(System.getProperty("os.name").toLowerCase().contains("win") || System.getProperty("os.name").toLowerCase().contains("mac") ) {
+
+
+
+        } else
+
+        if(System.getProperty("os.name").toLowerCase().contains("nix") || System.getProperty("os.name").toLowerCase().contains("nux") ||
+        System.getProperty("os.name").toLowerCase().contains("aix")) {
+
+
+
+        }
+
         int byteEsperado = 0;
         int byteRetornado = 0;
         while (byteEsperado != -1 && byteRetornado != -1) {

@@ -3,6 +3,7 @@ package br.unisinos.encodedecodestepbystep.repository.codification;
 import br.unisinos.encodedecodestepbystep.domain.Codification;
 import br.unisinos.encodedecodestepbystep.repository.ReaderInterface;
 import br.unisinos.encodedecodestepbystep.utils.StringUtils;
+import br.unisinos.encodedecodestepbystep.utils.SystemUtils;
 import br.unisinos.encodedecodestepbystep.utils.exceptions.WrongFormatExpection;
 import org.apache.commons.lang3.mutable.MutableDouble;
 
@@ -39,7 +40,7 @@ public class Reader implements ReaderInterface {
         this.porcentageLida = 0;
         this.progressPercentage = progressPercentage;
 
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository")));
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(SystemUtils.getCodewordsRepositoryPath())));
     }
 
     public Reader() throws IOException {
@@ -56,7 +57,7 @@ public class Reader implements ReaderInterface {
         this.porcentageLida = 0;
         this.progressPercentage = new MutableDouble(0);
 
-        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(System.getProperty("user.dir") + "/public/backend_jar/database/CodewordsSizesArray.repository")));
+        this.bufferedReaderCodewordsSizeArray = new BufferedReader(new FileReader(new File(SystemUtils.getCodewordsRepositoryPath())));
     }
 
     public int read() throws IOException {
