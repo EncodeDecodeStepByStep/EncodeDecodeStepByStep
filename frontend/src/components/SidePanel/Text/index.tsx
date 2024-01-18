@@ -10,7 +10,7 @@ export const Text = () => {
 
   return (
     <Container isDark={theme}>
-      <Typografy.SUBTITLE className="text-title" text="Texto" />
+      <Typografy.SUBTITLE className="text-title" text="Text" />
       <p>
         {codewords.map((codeword, i) => {
           const simbol = codeword.value;

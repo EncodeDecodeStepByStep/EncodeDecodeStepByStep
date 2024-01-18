@@ -70,7 +70,7 @@ export const Header = () => {
       </div>
 
       <Modal
-        title="Sobre o projeto"
+        title="About the project"
         isShown={isShown}
         hide={toggle}
         content={renderModal()}

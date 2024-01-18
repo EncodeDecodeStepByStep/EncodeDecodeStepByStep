@@ -50,7 +50,7 @@ export const Steps = ({ index, length, back, next, finish }) => {
         <header>
           <Typografy.EMPHASYS
             className="codification-title"
-            text={`Decodificando ${codificationMethod.name}`}
+            text={`Decoding ${codificationMethod.name}`}
           />
           {codingDecoding === EncodingDecoding.ENCODING && (
             <span className="counter">
@@ -74,7 +74,7 @@ export const Steps = ({ index, length, back, next, finish }) => {
           icon={<Icon.Back size={18} color="#fff" />}
           onClick={back}
         >
-          Retroceder
+          Go Back
         </Button.PRIMARY>
         <Button.PRIMARY
           isDark={theme}
@@ -82,14 +82,14 @@ export const Steps = ({ index, length, back, next, finish }) => {
           icon={<Icon.Next size={18} color="#fff" />}
           onClick={next}
         >
-          Avançar
+          Next
         </Button.PRIMARY>
         <Button.PRIMARY
           isDark={theme}
           icon={<Icon.Close size={18} color="#fff" />}
           onClick={finish}
         >
-          Sair
+          Exit
         </Button.PRIMARY>
       </Buttons>
     </Container>

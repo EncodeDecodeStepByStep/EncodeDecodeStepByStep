@@ -13,8 +13,8 @@ export const OnProcessing = ({ actualPercentage, finish }) => {
       <Typografy.SUBTITLE
         text={
           codificationMethod.name
-            ? `Processando ${codificationMethod.name}`
-            : "Decodificando"
+            ? `Processing ${codificationMethod.name}`
+            : "Decoding"
         }
       ></Typografy.SUBTITLE>
 
@@ -33,7 +33,7 @@ export const OnProcessing = ({ actualPercentage, finish }) => {
           </p>
         </>
       )}
-      <Button.PRIMARY onClick={finish}>Cancelar</Button.PRIMARY>
+      <Button.PRIMARY onClick={finish}>Cancel</Button.PRIMARY>
     </Container>
   );
 };

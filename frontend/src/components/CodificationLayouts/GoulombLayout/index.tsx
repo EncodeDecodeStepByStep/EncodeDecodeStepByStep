@@ -126,7 +126,7 @@ export const GoulombLayout = () => {
         &amp;
         <span className="sufix">
           {rest}
-          &nbsp; [<strong>{binaryRest}</strong> em binário]
+          &nbsp; [<strong>{binaryRest}</strong> in binary]
         </span>
       </>
     );

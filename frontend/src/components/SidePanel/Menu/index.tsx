@@ -81,11 +81,11 @@ export const Menu = () => {
 
   async function inicialize() {
     if (codingDecoding === EncodingDecoding.NO_ONE) {
-      toast.warn("Selecione o modo");
+      toast.warn("Select the mode");
     } else if (codingDecoding!==EncodingDecoding.DECODING && !codificationMethod.codificationType) {
-      toast.warn("Selecione um algoritmo");
+      toast.warn("Select an algorithm");
     } else if (!file.path) {
-      toast.warn("Selecione um arquivo");
+      toast.warn("Select a file");
     } else {
       setOnProcessing(true);
       setOnFinishedCodification(false);
@@ -114,7 +114,7 @@ export const Menu = () => {
       <FormRow>
         <FormRowHeader isDark={theme}>
           <span className="form-index">1</span>
-          <Typografy.EMPHASYS text="Modo" />
+          <Typografy.EMPHASYS text="Mode" />
         </FormRowHeader>
         <ButtonsRow>
           <Button.PRIMARY
@@ -123,7 +123,7 @@ export const Menu = () => {
             onClick={() => {
               handleCodificationMode(EncodingDecoding.ENCODING);
             }}>
-            Codificar
+            Encode
           </Button.PRIMARY>
           <Button.PRIMARY
           isDark={theme}
@@ -131,7 +131,7 @@ export const Menu = () => {
             onClick={() => {
               handleCodificationMode(EncodingDecoding.DECODING);
             }}>
-            Decodificar
+            Decode
               </Button.PRIMARY>
         </ButtonsRow>
       </FormRow>
@@ -149,7 +149,7 @@ export const Menu = () => {
         <FormRow>
           <FormRowHeader isDark={theme}>
             <span className="form-index">2</span>
-            <Typografy.EMPHASYS text="Selecione a codificação" />
+            <Typografy.EMPHASYS text="Select the encoding" />
           </FormRowHeader>
           <CodificationCards>
             {codifications.map((codification, index) => {
@@ -182,7 +182,7 @@ export const Menu = () => {
         <FormRow>
           <FormRowHeader isDark={theme}>
             <span className="form-index">3</span>
-            <Typografy.EMPHASYS text="Selecione o divisor Goulomb" />
+            <Typografy.EMPHASYS text="Select the Goulomb divisor" />
           </FormRowHeader>
           <InputRow isDark={theme}>
             <input type="number" value={goulombDivisor} onChange={(e) => {
@@ -199,7 +199,7 @@ export const Menu = () => {
       <FormRow>
         <FormRowHeader isDark={theme}>
           <span className="form-index">{getIndexOfFileRow()}</span>
-          <Typografy.EMPHASYS text="Selecione o arquivo" />
+          <Typografy.EMPHASYS text="Select the file" />
         </FormRowHeader>
         <InputRow isDark={theme} onClick={clickOnLabel}>
           <input
@@ -207,7 +207,7 @@ export const Menu = () => {
             type="file"
             onChange={handleInput}
           />
-          <label>{file.name ? file.name : "Nenhum arquivo selecionado"}</label>
+          <label>{file.name ? file.name : "No files selected"}</label>
           <Icon.Search color="#fff" size={20} />
         </InputRow>
       </FormRow>
@@ -219,11 +219,11 @@ export const Menu = () => {
       <FormRow>
         <FormRowHeader isDark={theme}>
           <span className="form-index">{getIndexOfFileRow() + 1}</span>
-          <Typografy.EMPHASYS text="Faça a codificação" />
+          <Typografy.EMPHASYS text="Do the encoding" />
         </FormRowHeader>
         <ButtonsRow>
           <Button.CLICK onClick={inicialize}>
-            Iniciar
+            Start
           </Button.CLICK>
         </ButtonsRow>
       </FormRow>
@@ -234,7 +234,7 @@ export const Menu = () => {
     return (
       <DevCodification isDark={theme}>
         <Icon.Alert color={theme?'white':'black'} size={24}/>
-        <p>Essa codificaçao está atualmente em desenvolvimento</p>
+        <p>This coding is currently under development</p>
       </DevCodification>
     )
   }
@@ -252,7 +252,7 @@ export const Menu = () => {
       }
 
       <Modal
-        title="Participaram deste projeto"
+        title="Founders of this project"
         isShown={isShown}
         hide={toggle}
         content={renderModal()}

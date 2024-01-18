@@ -8,12 +8,12 @@ export const ModalUsers = () => {
   return (
     <Container>
       <p>
-        Esse projeto foi desenvolvido durante a cadeira de Teoria da Informação,
-        do curso de ciência da computação da Unisinos (2020), sob a orientação
-        do professor Ernesto Lindstaedt.
+        Encode Decode Step By Step is a tool developed at Unisinos (2020) for bitwise file encoding.
+        It features six algorithms: Delta, Unary, Elias-Gamma, Fibonacci, Goulomb, and Static Huffman,
+        coupled with an intuitive graphical interface.
       </p>
 
-      <Typografy.EMPHASYS text="Integrantes" />
+      <Typografy.EMPHASYS text="Developers" />
       <div className="teamwork-container">
         <ul>
           <li>

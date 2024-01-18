@@ -15,18 +15,18 @@ export const SyncLoader = ({isSync, setIsSync}) =>{
             <div className="center-view">
                 {isSync == SyncState.UNSYNC ?
                     <>
-                        <Typografy.SUBTITLE className="text" text="Inicializando os serviços"/>
-                        <p>Aguarde enquanto estamos inicializando os serviços da aplicação</p>
+                        <Typografy.SUBTITLE className="text" text="Initializing the services"/>
+                        <p>Wait while we initialize the application services</p>
                         <span className="icon-container">
                             <Icon.Loader size={40} color={theme?'white':'black'}/>
                         </span>                        
                     </>
                :
                     <>
-                        <Typografy.SUBTITLE className="text" text="Falha ao se conectar aos serviços"/>
+                        <Typografy.SUBTITLE className="text" text="Failed to connect to the services"/>
                         <Button.PRIMARY isDark={theme} onClick={()=>{
                             setIsSync(SyncState.UNSYNC)
-                        }}>Tentar novamente</Button.PRIMARY>
+                        }}>Try again</Button.PRIMARY>
                     </>
                 }
             </div>

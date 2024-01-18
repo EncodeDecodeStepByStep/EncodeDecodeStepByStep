@@ -201,12 +201,12 @@ export const HuffmanLayout = () => {
       <div className="first-column">
         <div className="counters">
           <Count isDark={theme}>
-            <Typografy.EMPHASYS text="Contagem" />
+            <Typografy.EMPHASYS text="Counting" />
             {renderList(huffmanCount, true)}
           </Count>
 
           <Count isDark={theme}>
-            <Typografy.EMPHASYS text="Contagem Ordenada" />
+            <Typografy.EMPHASYS text="Ordered Counting" />
             {renderList(orderedHuffmanCount, true)}
           </Count>
 
@@ -233,7 +233,7 @@ export const HuffmanLayout = () => {
       </div>
 
       <div className="second-column">
-        <Typografy.EMPHASYS text="Codificacão" />
+        <Typografy.EMPHASYS text="Encoding" />
         {renderCodewords()}
       </div>
     </Container>
