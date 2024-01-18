@@ -8,6 +8,8 @@ yarn.lock
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm,visualstudiocode,node,react,yarn
 # Edit at https://www.toptal.com/developers/gitignore?templates=webstorm,visualstudiocode,node,react,yarn
 
+.idea/*
+
 ### Node ###
 # Logs
 logs
