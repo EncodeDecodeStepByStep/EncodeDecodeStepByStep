@@ -50,11 +50,11 @@ npm run build
 ![How to use explanation](ReadMeImgs/como_usar.gif "How to use explanation")
 
 
-# <span style='color: #49d180;'> About the Project and its explanations 📖 </span>
+# $${\color{lightgreen} About\ the\ Project\ and\ Its\ Explanations}$$
 This application aims to facilitate the understanding of fundamental encoders, covered in the Information Theory course. Among them, 6 encoders have been implemented: Elias-Gamma, Goulomb, Unary, Delta, Huffman, and Fibonacci. Each of them has a unique way to visualize the data, just install the program and send a file with ASCII text to perform the encoding.
 
 
-## <span style='color: #49d180;'> How to Use </span>
+## $${\color{lightgreen} How\ to\ Use}$$
 After starting the application, you can use the left menu to select the encoding process you wish to use, then select a file (It must be composed of ASCII characters).
 
 ![homepage.png](/ReadMeImgs/homepage.png)
@@ -68,11 +68,11 @@ To perform the decoding, you must select the file that was generated from the en
 ![Fibonacci Encoder](/ReadMeImgs/Fibonacci-Encoder.png)
 
 
-## <span style='color: #49d180;'>Explanations of the Encoders </span>
+## $${\color{lightgreen} Explanations\ of\ the\ Encoders}$$
 
 ⚠️ ***<ins style='color: orange'> Some images still being translated </ins>*** ⚠️
 
-### <span style='color: #49d180;'>Unary Encoding</span>
+### $${\color{lightgreen} Unary\ Encoding}$$
 
 Unary coding is extremely simple, we just need to extract the ASCII of the first symbol, with this value, we create a stream with that amount of 0's. Then, we do the same for the second symbol, but this time creating a stream of 1's, this process is repeated by alternating sequences of 0's or 1's.
 
@@ -83,61 +83,60 @@ D | 68 | 1111111111111111111111111111111111111111111111111111111111111111111
 E | 69 | 000000000000000000000000000000000000000000000000000000000000000000000
 
 
-### <span style='color: #49d180;'> Delta Encoding </span>
+### $${\color{lightgreen} Delta\ Encoding}$$
 
-#### <span style='color: #49d180;'>1° Writing the value of the first symbol</span>
+#### $${\color{lightgreen} 1\degree\ Writing\ the\ value\ of\ the\ first\ symbol}$$
 
 Delta encoding works through increments and decrements in the encoding queue, taking into consideration the previously encoded symbol. In this case, let's assume we have the following queue to be encoded:
 
-Queue | B | C | C | B | G
-Ascii | 66 | 67 | 67 | 66 | 71
-
-<span style='color: red;'>Will work on Github this table?
+| Queue | B  | C  | C  | B  | G  |
+|-------|----|----|----|----|----|
+| Ascii | 66 | 67 | 67 | 66 | 71 |
 
 In this case, the value of the first codeword will be **01000010**, which is 66 in binary.
 
-#### <span style='color: #49d180;'> 2° Obtaining the largest possible Delta</span>
+#### $${\color{lightgreen} 2\degree\ Obtaining\ the\ largest\ possible\ Delta}$$
 
 Next, we need to find out what the largest increment or decrement in this sequence of symbols is, in this case, there is only 1 difference between 66 and 67, none between 67 and 67, but there is an increase of 5 between 66 and 71. Therefore, 5 is the largest delta of this encoding.
 
-#### <span style='color: #49d180;'> 3° Assembling the codewords</span>
+#### $${\color{lightgreen} 3\degree\ Assembling\ the\ codewords}$$
 
 Starting from the initial symbol and the largest delta, we already have the capacity to start assembling the codewords. From here, the encoding follows the following algorithm:
 
 ![Delta Codeworks Step By Step](/ReadMeImgs/Delta-Codeworks.png)
 
-### <span style='color: #49d180;'> Elias-Gamma Encoding </span>
+### $${\color{lightgreen} Elias-Gamma\ Encoding}$$
 
-#### <span style='color: #49d180;'> 1° Calculating the integer part and the remainder </span>
+#### $${\color{lightgreen} 1\degree\ Calculating\ the\ integer\ part\ and\ the\ remainder}$$
 
 Elias-Gamma follows the same principle as the Golomb encoding, there is a prefix represented by a number N of 0's, a suffix represented by a remainder in binary of the same size N, and a stopbit 1 separating the two parts. The value N is calculated from the highest power of 2 within the number to be encoded. That is, if we want to encode the number 9, N will be equal to 3, because 2 raised to the power of 3 is 8, which is the highest power within 9. Knowing this, the remainder of this encoding will be just 1, because it is the distance that is lacking up to 9. Below is a more visual example:
 
 ![Elias Gamma Step by Step](/ReadMeImgs/Elias-Gamma-Step-by-Step.png)
 
-#### <span style='color: #49d180;'> 2° Incrementing 1 to ASCII </span>
+#### $${\color{lightgreen} 2\degree\ Incrementing\ 1\ to\ ASCII}$$
 
 This encoding causes a problem when we encode the first character of the ASCII table (code 0). This is because there is no exponent that will result in 0, even 2 raised to the power of 0 is 1. Therefore, we must add 1 at the beginning of the symbol's encoding and subtract 1 at the end of decoding.
 
-### <span style='color: #49d180;'> Golomb Coding </span>
+### $${\color{lightgreen} Golomb\ Coding}$$
 
-#### <span style='color: #49d180;'> 1° Defining the value of K </span>
+#### $${\color{lightgreen} 1\degree\ Defining\ the\ value\ of\ K}$$
 
 Initially, we need to define a divisor, which will be the key for encoding and decoding. Usually, a power of 2 is used because it generates better results. Therefore, in the next example, we will use k=4.
 
-#### <span style='color: #49d180;'> 2° Calculating the integer part and the remainder </span>
+#### $${\color{lightgreen} 2\degree\ Calculating\ the\ integer\ part\ and\ the\ remainder}$$
 
 For each symbol, we obtain its ASCII code and divide by K, the value of the whole quotient will represent the number of 0's that will appear in the prefix of the codeword, and the remainder will be placed in binary in the suffix of the codeword, in the middle of these two parts we will place a digit 1. This will be the stopbit, and it will serve as a control to identify the position of the codewords in the decoding.
 
 ![Golomb Step By Step](/ReadMeImgs/Golomb-Step-By-Step.png)
 
 
-### <span style='color: #49d180;'> Huffman Encoding </span>
+### $${\color{lightgreen} Huffman\ Encoding}$$
 
-#### <span style='color: #49d180;'> 1° Symbol Counting </span>
+#### $${\color{lightgreen} 1\degree\ Symbol\ Counting}$$
 
 Consider the following sequence: 
 
-#### <span style='color: #49d180; background-color: #F5F5F5'> a b c c d b b b </span>
+#### $$\textcolor{lightgreen}{\fbox{a b c c d b b b}}$$
 
 Now, let's count each of the elements:
 
@@ -146,16 +145,16 @@ b -> 4 <br>
 c -> 2 <br>
 d -> 1 <br>
 
-#### <span style='color: #49d180;'> 2° Table Sorting </span>
+#### $${\color{lightgreen} 2\degree\ Table\ Sorting}$$
 
-In this phase, we only need to organize the table, sorting according to the frequency of each symbol.
+In this phase, we only need to organize the table, sorting it according to the frequency of each symbol.
 
 b -> 4 <br>
 c -> 2 <br>
 a -> 1 <br>
 d -> 1 <br>
 
-#### <span style='color: #49d180;'> 3° Building the Huffman Tree </span>
+#### $${\color{lightgreen} 3\degree\ Building\ the\ Huffman\ Tree}$$
 
 From now on, we must build the tree starting from the symbols with the lowest frequency.
 Each leaf receives a weight, which is the counting of each of the symbols, and as we join these nodes, we create intermediate nodes, whose weights will be the sum of the weights of their children.
@@ -166,38 +165,38 @@ The objective here is to join the nodes with the smallest weights.
 
 **<span style='color: #49d180;'> Note: </span>** In this example, the generated tree was a nested structure [0,10,110,111], but this does not mean that all trees will have this format. The **'ad'** node generated a weight of 2, we joined it to **'c'**, because the sum of their weights (4) would be less than **'bc'** (6). However, in larger trees, it is common for this structure to gain a more balanced appearance.
 
-#### <span style='color: #49d180;'> 4° Creating the Codewords </span>
+#### $${\color{lightgreen} 4\degree\ Creating\ the\ Codewords}$$
 
 From the associations assigned to each arc, we can create the codewords for each of the symbols.
 
-<pre style="display:inline; background-color: #49d180;"> b = 0 </pre> <pre style="display:inline; background-color: #49d180;"> c = 10 </pre> <pre style="display:inline; background-color: #49d180;"> a = 110 </pre> <pre style="display:inline; background-color: #49d180;"> d = 111 </pre>
+$$\textcolor{lightgreen}{\texttt{b = 0}} \quad \textcolor{lightgreen}{\texttt{c = 10}} \quad \textcolor{lightgreen}{\texttt{a = 110}} \quad \textcolor{lightgreen}{\texttt{d = 111}}$$
 
 Now it is enough to map the input, replacing the symbol with the corresponding codeword.
 
 
-### <span style='color: #49d180;'> Fibonacci Encoding </span>
+### $${\color{lightgreen} Fibonacci\ Encoding}$$
 
-#### <span style='color: #49d180;'> 1° Obtaining the Fibonacci sum </span>
+#### $${\color{lightgreen} 1\degree\ Obtaining\ the\ Fibonacci\ sum}$$
 
 Fibonacci encoding is obviously carried out through the Fibonacci sequence, however, excluding the zero and the first one. Initially, we obtain the ASCII value of the symbol, with it, we traverse the Fibonacci sequence from right to left, starting from the largest number in the sequence that is less than the obtained ASCII, from there, we must discover which sequence of numbers, and its sum, is equal to the found ASCII. With the examples below, this dynamic becomes easier.
 
 ![Fibonacci Step By Step](/ReadMeImgs/Fibonacci-Step-By-Step.png)
 
-#### <span style='color: #49d180;'> 2° Queuing the Codewords </span>
+#### $${\color{lightgreen} 2\degree\ Queuing\ the\ Codewords}$$
 
 Next, we queue the codewords, and we separate each of them with the stop bit 1, so when decoding, when we find a sequence of two consecutive 1's, we will know that it is the limit of a codeword.
 
 ![Fibonacci Step By Step 2](/ReadMeImgs/Fibonacci-Step-By-Step-2.png)
 
-#### <span style='color: #49d180;'> 3° Incrementing 1 to the ASCII </span>
+#### $${\color{lightgreen} 3\degree\ Incrementing\ 1\ to\ the\ ASCII}$$
 
 This encoding has an impediment when we encode the first character of the ASCII table (code 0), because its value is zero, there will be no sum extracted from the Fibonacci sequence, thus, in the encoding, we add 1 to the actual ASCII code of the symbol, and at the end of the decoding, we subtract that 1, in this way, we manage to encompass all the symbols of the table.
 
-# <span style='color: #49d180;'> Contributors 🤝 </span>
+# $${\color{lightgreen} Contributors\ 🤝}$$
 
 This project is open to contributions, if you want to contribute, just fork the repository, make your changes, and send a pull request. We will be happy to analyze your contribution and add it to the project 😁.
 
-# <span style='color: #49d180;'> Founders 👨‍💻 </span>
+# $${\color{lightgreen} Founders}$$
 1. <a href="https://www.linkedin.com/in/bruno-camboim3b6/" target="_blank">Bruno Camboim</a>
 2. <a href="https://www.linkedin.com/in/bruno-pozzebon44/" target="_blank">Bruno Pozzebon</a>
 3. <a href="https://www.linkedin.com/in/stzgustavo/" target="_blank">Gustavo Steinmetz</a>
