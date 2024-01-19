@@ -3,7 +3,7 @@
 [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](/README.pt-br.md)
 
 This project was developed with the purpose of performing bitwise file encodings.
-Covering six encoding algorithms: delta, unary, elias-gamma, fibonacci, goulomb, and static huffman.
+Covering six encoding algorithms: delta, unary, Elias-Gamma, Fibonacci, Golomb, and static Huffman.
 In addition, we created a graphical interface to facilitate visualization.
 
 ## Requirements ⚠
@@ -51,7 +51,7 @@ npm run build
 
 
 # $${\color{lightgreen} About\ the\ Project\ and\ Its\ Explanations}$$
-This application aims to facilitate the understanding of fundamental encoders, covered in the Information Theory course. Among them, 6 encoders have been implemented: Elias-Gamma, Goulomb, Unary, Delta, Huffman, and Fibonacci. Each of them has a unique way to visualize the data, just install the program and send a file with ASCII text to perform the encoding.
+This application aims to facilitate the understanding of fundamental encoders, covered in the Information Theory course. Among them, 6 encoders have been implemented: Elias-Gamma, Golomb, Unary, Delta, Huffman, and Fibonacci. Each of them has a unique way to visualize the data, just install the program and send a file with ASCII text to perform the encoding.
 
 
 ## $${\color{lightgreen} How\ to\ Use}$$
