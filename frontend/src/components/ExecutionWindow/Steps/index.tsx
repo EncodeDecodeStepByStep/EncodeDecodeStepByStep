@@ -50,7 +50,7 @@ export const Steps = ({ index, length, back, next, finish }) => {
         <header>
           <Typografy.EMPHASYS
             className="codification-title"
-            text={`Decoding ${codificationMethod.name}`}
+            text={`Transcoding ${codificationMethod.name}`}
           />
           {codingDecoding === EncodingDecoding.ENCODING && (
             <span className="counter">

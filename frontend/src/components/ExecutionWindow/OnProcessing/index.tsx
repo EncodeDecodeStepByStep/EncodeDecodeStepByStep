@@ -29,7 +29,7 @@ export const OnProcessing = ({ actualPercentage, finish }) => {
             />
           </div>
           <p className="waiting-message">
-            Colocando codificação em segundo plano
+              Putting coding in the background
           </p>
         </>
       )}

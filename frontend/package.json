@@ -1,6 +1,6 @@
 {
   "name": "encode-decode-step-by-step",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "public/electron.js",
   "author": "Bruno Pozzebon,Bruno Camboim,Gustavo Steinmetz",
   "description": "A codificator that show step by step process of Encode and Decode. Algorithms supported: Delta, Elias Gamma, Fibonacci, Goulomb, Unary. Possibility of Error detection with Hamming in body and CRC-8 in header.",
@@ -45,7 +45,7 @@
     "build-file": "node src/scripts/electronBuilder.js",
     "start-file": "node src/scripts/electronBuilder.js isDev",
     "build": "npm run build-file && npm run react-build && npm run electron-build",
-    "start": "npm run start-file && concurrently \"cross-env BROWSER=none npm react-start\" \"wait-on http://localhost:3000 && electron .\""
+    "start": "npm run start-file && concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": "react-app"

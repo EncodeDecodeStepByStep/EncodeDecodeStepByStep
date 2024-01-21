@@ -145,7 +145,7 @@ export const FibonacciLayout = () => {
         })}
         {sum} &nbsp;
         <span className="one-difference">
-          (Diferença de 1, por causa do incremento)
+          (Difference of 1, because of the increment)
         </span>
         &nbsp;
       </div>

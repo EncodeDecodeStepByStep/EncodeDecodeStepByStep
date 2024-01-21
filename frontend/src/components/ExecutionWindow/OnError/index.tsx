@@ -12,9 +12,9 @@ export const OnError = ({finish})=>{
     return (
         <Container isDark={theme}>
           <img alt="error" src={ErrorGif} />
-          <Typografy.SUBTITLE text="Ops, algo deu errado" />
-          <p>Não foi possível se conectar ao servidor</p>
-          <Button.PRIMARY onClick={()=>finish()} isDark={theme}>Voltar</Button.PRIMARY>
+          <Typografy.SUBTITLE text="Oops, something went wrong" />
+          <p>Unable to connect to the server</p>
+          <Button.PRIMARY onClick={()=>finish()} isDark={theme}>Back</Button.PRIMARY>
         </Container>
     )
 }

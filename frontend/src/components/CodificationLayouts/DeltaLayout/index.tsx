@@ -29,7 +29,7 @@ export const DeltaLayout = () => {
       <DeltaCodewordRow key={index} isDark={theme}>
         <Typografy.EMPHASYS
           className="delta-codeword-title"
-          text="Mesmo simbolo que o anterior"
+          text="Same symbol as before"
         />
         <SameCodeword>
           <span className="codeword">{codeword.codeword}</span>
@@ -68,7 +68,7 @@ export const DeltaLayout = () => {
   function renderCodewordCount(asciiAnterior, signalBit, difference, value) {
     return (
       <CodewordCount>
-        <span>{asciiAnterior}[Ascii Anterior]</span>
+        <span>{asciiAnterior}[Previous Ascii]</span>
         {signalBit === "1" ? (
           <Icon.Minus color={theme ? PRIMARY : "black"} size={18} />
         ) : (
@@ -97,7 +97,7 @@ export const DeltaLayout = () => {
       <DeltaCodewordRow key={actualIndex} isDark={theme}>
         <Typografy.EMPHASYS
           className="delta-codeword-title"
-          text="Trocou o simbolo"
+          text="Changed the symbol"
         />
         {codingDecoding === EncodingDecoding.DECODING ? (
           <>
@@ -121,7 +121,7 @@ export const DeltaLayout = () => {
         <div>
           <Typografy.EMPHASYS
             className="delta-codeword-title"
-            text="Primeiro simbolo"
+            text="First symbol"
           />
         </div>
         <div className="first-codeword">
