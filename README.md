@@ -6,6 +6,9 @@ This project was developed with the purpose of performing bitwise file encodings
 Covering six encoding algorithms: delta, unary, Elias-Gamma, Fibonacci, Golomb, and static Huffman.
 In addition, we created a graphical interface to facilitate visualization.
 
+## How to use the application? 🤔
+![How to use explanation](ReadMeImgs/como_usar.gif "How to use explanation")
+
 ## Requirements ⚠
 1. [Java 8+](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 2. [Node.js 12.18+](https://nodejs.org/en/)
@@ -45,9 +48,6 @@ npm run build
    ![ExtraContent](ReadMeImgs/instalador_encode_decode.png)
 
 6. Oh, and don't forget to star 🌟 the repository, then it will work on the first try 😁
-
-## How to use the application? 🤔
-![How to use explanation](ReadMeImgs/como_usar.gif "How to use explanation")
 
 
 # $${\color{lightgreen} About\ the\ Project\ and\ Its\ Explanations}$$
