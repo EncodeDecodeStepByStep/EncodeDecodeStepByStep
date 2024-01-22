@@ -161,9 +161,7 @@ export const Menu = () => {
                   isSelected={codificationMethod.codificationType === codification.codificationType}
                 >
                   <div className="card-image">{codification.icon}</div>
-                  <span className="card-name">{
-                    codification.name.includes("Huffman") ? "Static Huffman" : (codification.name.includes("Unario") ? "Unary" : codification.name)
-                  }</span>
+                  <span className="card-name">{codification.name}</span>
                   { codification.explanationImage &&
                      <span className="explanation-icon" onClick={()=>{clickOnExplanation(codification.explanationImage)}}>
                      <Icon.Explanation size={24} color={theme?PRIMARY: 'black'}/>

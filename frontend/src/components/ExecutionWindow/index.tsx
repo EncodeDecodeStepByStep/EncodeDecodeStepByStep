@@ -80,6 +80,10 @@ export const ExecutionWindow = (props: ExecutionWindowProps) => {
       setLength(codeword.numberOfCharsTotal);
 
       if (!codeword.characterBeforeEncode) {
+        if(codeword.codificationName.includes("Huffman Estático"))
+          codeword.codificationName = "Static Huffman"; // TODO In the future translate inside the backend and remove these lines
+        if(codeword.codificationName.includes("Unário"))
+            codeword.codificationName = "Unary";
         const codificationFinded = codifications.filter((codification) =>
           codification.name.includes(codeword.codificationName)
         );

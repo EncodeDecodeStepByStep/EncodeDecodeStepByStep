@@ -38,7 +38,7 @@ export default [
         <Icon.Fibonatti size={40} color="#333" />,
         FibonacciExplanation
     ), new Codification(
-        "Unario", //DO NOT TRANSLATE THIS NAME WITHOUT CHANGING THE CODE AND TESTING (backend codefication name)
+        "Unary",
         "unary",
         CodificationMethod.UNARIO,
         <Icon.Unario size={40} color="#333" />,
@@ -50,7 +50,7 @@ export default [
         <Icon.Hamming size={40} color="#333" />,
          null
     ), new Codification(
-        "Huffman Estático", //DO NOT TRANSLATE THIS NAME WITHOUT CHANGING THE CODE AND TESTING (backend codefication name)
+        "Static Huffman",
         "huffman",
         CodificationMethod.HUFFMAN,
         <Icon.Huffman size={40} color="#333"/>,
